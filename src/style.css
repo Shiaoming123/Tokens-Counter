@@ -896,3 +896,243 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Light sci-fi readability pass */
+:root {
+  color: #101828;
+  background: #eef5fb;
+  --surface-0: #eef5fb;
+  --surface-1: rgba(255, 255, 255, 0.88);
+  --surface-2: rgba(244, 250, 255, 0.92);
+  --line: rgba(21, 101, 146, 0.16);
+  --line-strong: rgba(20, 184, 166, 0.42);
+  --text: #101828;
+  --muted-text: #5b6b7f;
+  --accent: #0891b2;
+  --accent-2: #2563eb;
+  --warm: #b45309;
+}
+
+body {
+  color: var(--text);
+  background:
+    linear-gradient(rgba(8, 145, 178, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 12% 0%, rgba(103, 232, 249, 0.26), transparent 30%),
+    radial-gradient(circle at 88% 2%, rgba(167, 139, 250, 0.18), transparent 28%),
+    #eef5fb;
+  background-size: 42px 42px, 42px 42px, auto, auto, auto;
+}
+
+.app-header {
+  height: 60px;
+  border-bottom: 1px solid rgba(21, 101, 146, 0.14);
+  background: rgba(248, 252, 255, 0.88);
+  box-shadow: 0 10px 34px rgba(15, 23, 42, 0.08);
+}
+
+.brand,
+.top-strip h1,
+.license-hero h1,
+.overview strong,
+.section-head h2,
+.model-name,
+.provider-head strong,
+.history-item strong,
+.license-item h2 {
+  color: var(--text);
+  text-shadow: none;
+}
+
+.brand svg,
+.primary-action svg {
+  color: var(--accent);
+}
+
+.app-header nav button {
+  color: var(--muted-text);
+}
+
+.app-header nav button.active,
+.app-header nav button:hover {
+  color: var(--accent);
+  border-color: rgba(8, 145, 178, 0.2);
+  background: rgba(8, 145, 178, 0.08);
+}
+
+.top-strip {
+  min-height: 150px;
+  border-color: rgba(8, 145, 178, 0.18);
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.94), rgba(235, 247, 255, 0.82)),
+    repeating-linear-gradient(90deg, rgba(8, 145, 178, 0.08) 0 1px, transparent 1px 94px);
+  box-shadow: 0 18px 54px rgba(15, 23, 42, 0.09);
+}
+
+.top-strip::after {
+  background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.62), transparent);
+}
+
+.top-meta,
+.top-meta span,
+.overview span,
+.muted,
+.model-meta,
+.micro-stats,
+.empty-zone,
+.image-row span,
+.disclaimer,
+.license-hero p,
+.license-item p,
+.history-item,
+.debug-block,
+.cost-grid span,
+.control-line span {
+  color: var(--muted-text);
+}
+
+.top-meta span {
+  border-color: rgba(8, 145, 178, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.eyebrow {
+  color: var(--accent);
+}
+
+.overview {
+  border-color: rgba(8, 145, 178, 0.16);
+  background: rgba(8, 145, 178, 0.14);
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
+}
+
+.overview div,
+.panel,
+.license-item {
+  border-color: rgba(8, 145, 178, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.panel {
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+}
+
+.panel:hover,
+.model-option:hover {
+  border-color: rgba(8, 145, 178, 0.32);
+}
+
+.icon-button,
+.ghost-button,
+.tiny-icon-button {
+  color: #164e63;
+  border-color: rgba(8, 145, 178, 0.16);
+  background: rgba(8, 145, 178, 0.08);
+}
+
+.icon-button:hover,
+.ghost-button:hover,
+.tiny-icon-button:hover {
+  background: rgba(8, 145, 178, 0.13);
+}
+
+.empty-zone {
+  border-color: rgba(8, 145, 178, 0.22);
+  background: rgba(241, 249, 255, 0.72);
+}
+
+.image-row,
+.control-line,
+.cost-grid {
+  border-top-color: rgba(8, 145, 178, 0.12);
+}
+
+.provider-group {
+  border-color: rgba(8, 145, 178, 0.13);
+  background: rgba(244, 250, 255, 0.72);
+}
+
+.provider-mark {
+  border-color: color-mix(in srgb, var(--provider-accent), white 34%);
+  color: color-mix(in srgb, var(--provider-accent), #0f172a 18%);
+  background: color-mix(in srgb, var(--provider-accent), white 86%);
+}
+
+.model-option {
+  border-color: rgba(8, 145, 178, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.model-option:hover {
+  background: color-mix(in srgb, var(--provider-accent), white 90%);
+}
+
+.primary-action {
+  color: #ffffff;
+  border-color: rgba(8, 145, 178, 0.48);
+  background: linear-gradient(135deg, #0891b2, #2563eb);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.2);
+}
+
+.primary-action:hover {
+  background: linear-gradient(135deg, #0e7490, #1d4ed8);
+}
+
+.history-item:hover {
+  background: rgba(8, 145, 178, 0.08);
+}
+
+.license-meta a {
+  color: var(--accent);
+}
+
+.license-item .risk {
+  color: var(--warm);
+}
+
+.el-textarea__inner,
+.el-input__wrapper,
+.el-input-number .el-input__wrapper {
+  color: var(--text);
+  border: 1px solid rgba(8, 145, 178, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: none;
+}
+
+.el-textarea__inner::placeholder {
+  color: #94a3b8;
+}
+
+.el-table {
+  --el-table-bg-color: rgba(255, 255, 255, 0.9);
+  --el-table-tr-bg-color: rgba(255, 255, 255, 0.9);
+  --el-table-header-bg-color: #f2f8fc;
+  --el-table-row-hover-bg-color: rgba(8, 145, 178, 0.08);
+  --el-table-border-color: rgba(8, 145, 178, 0.12);
+  --el-table-text-color: #1f2937;
+  --el-table-header-text-color: #64748b;
+  color: #1f2937;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.el-table__inner-wrapper::before {
+  background: rgba(8, 145, 178, 0.12);
+}
+
+.el-checkbox {
+  --el-checkbox-text-color: var(--text);
+  --el-checkbox-checked-text-color: var(--text);
+  --el-checkbox-checked-input-border-color: var(--provider-accent, var(--accent));
+  --el-checkbox-checked-bg-color: var(--provider-accent, var(--accent));
+}
+
+.el-segmented {
+  --el-segmented-bg-color: rgba(226, 240, 249, 0.86);
+  --el-segmented-item-selected-bg-color: #ffffff;
+  --el-segmented-item-selected-color: var(--accent);
+  --el-segmented-item-hover-color: var(--accent);
+}
+
+.el-switch {
+  --el-switch-on-color: #0891b2;
+}
