@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { calculateCost } from '../src/core/cost/costCalculator'
 import { countGeminiImageTokensEstimate } from '../src/core/vision/geminiImageTokens'
 import { countOpenAITileImageTokens } from '../src/core/vision/openaiImageTokens'
+import { countQwenVlImageTokensEstimate } from '../src/core/vision/qwenImageTokens'
 
 describe('vision token estimates', () => {
   it('counts OpenAI 512x512 high-detail tile image', () => {
@@ -26,6 +27,12 @@ describe('vision token estimates', () => {
   it('counts large Gemini images by 768 tiles', () => {
     const result = countGeminiImageTokensEstimate(1000, 1000)
     expect(result.tokens).toBe(4 * 258)
+  })
+
+  it('counts Qwen-VL images by 32px visual token patches', () => {
+    const result = countQwenVlImageTokensEstimate(1024, 1024)
+    expect(result.tokens).toBe(1024)
+    expect(result.debug.patches).toBe(1024)
   })
 })
 

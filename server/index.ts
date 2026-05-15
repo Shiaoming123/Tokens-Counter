@@ -99,6 +99,57 @@ app.post('/api/count/gemini', async (context) => {
   })
 })
 
+app.post('/api/count/zai', async (context) => {
+  const apiKey = process.env.ZAI_API_KEY ?? process.env.ZHIPU_API_KEY
+  if (!apiKey) {
+    return context.json({ error: '缺少 ZAI_API_KEY 或 ZHIPU_API_KEY，GLM 官方 tokenizer 不可用。' }, 401)
+  }
+
+  const body = await context.req.json<OfficialRequest>()
+  const content = body.input.images.length
+    ? [
+        ...body.input.images.map((image) => ({
+          type: 'image_url',
+          image_url: {
+            url: `data:${image.mimeType};base64,${image.base64 ?? ''}`,
+          },
+        })),
+        {
+          type: 'text',
+          text: body.input.text || 'Describe this image.',
+        },
+      ]
+    : body.input.text
+
+  const response = await fetch('https://api.z.ai/api/paas/v4/tokenizer', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: body.modelId,
+      messages: [{ role: 'user', content }],
+    }),
+  })
+
+  if (!response.ok) {
+    const text = await response.text()
+    return context.json({ error: `Z.AI tokenizer 请求失败：${text || response.status}` }, response.status as never)
+  }
+
+  const result = (await response.json()) as {
+    usage?: { prompt_tokens?: number; image_tokens?: number; total_tokens?: number }
+  }
+
+  return context.json({
+    inputTokens: Number(result.usage?.total_tokens ?? result.usage?.prompt_tokens ?? 0),
+    accuracy: 'official_estimate',
+    method: 'official_count_api',
+    warnings: ['GLM 计数来自 Z.AI 官方 /api/paas/v4/tokenizer。多模态 token 以 usage.total_tokens 为准。'],
+  })
+})
+
 const distPath = join(process.cwd(), 'dist')
 if (existsSync(distPath)) {
   app.use('/*', serveStatic({ root: distPath }))

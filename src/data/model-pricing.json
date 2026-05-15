@@ -20,6 +20,88 @@
     "lastUpdated": "2026-05-15",
     "source": "manual"
   },
+  "deepseek-v4-flash": {
+    "inputPer1M": 0.14,
+    "outputPer1M": 0.28,
+    "cachedInputPer1M": 0.0028,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "DeepSeek official pricing, cache-miss input"
+  },
+  "deepseek-v4-pro": {
+    "inputPer1M": 0.435,
+    "outputPer1M": 0.87,
+    "cachedInputPer1M": 0.003625,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "DeepSeek official 75% discount pricing, cache-miss input"
+  },
+  "qwen-plus": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 2,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-15",
+    "source": "Alibaba Cloud Model Studio mainland pricing, first tier"
+  },
+  "qwen3.6-plus": {
+    "inputPer1M": 2,
+    "outputPer1M": 12,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-15",
+    "source": "Alibaba Cloud Model Studio mainland pricing, first tier"
+  },
+  "qwen-vl-plus": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 2,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-15",
+    "source": "Alibaba Cloud Model Studio mainland pricing"
+  },
+  "glm-4.5": {
+    "inputPer1M": 0.6,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.11,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "Z.AI official pricing"
+  },
+  "glm-4.5-air": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 1.1,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "Z.AI official pricing"
+  },
+  "glm-4.5v": {
+    "inputPer1M": 0.6,
+    "outputPer1M": 1.8,
+    "cachedInputPer1M": 0.11,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "Z.AI official pricing"
+  },
+  "mimo-v2.5-pro": {
+    "inputPer1M": 2,
+    "outputPer1M": 2,
+    "currency": "CREDITS",
+    "lastUpdated": "2026-05-15",
+    "source": "Xiaomi MiMo token plan, credits per token estimate"
+  },
+  "mimo-v2.5": {
+    "inputPer1M": 1,
+    "outputPer1M": 1,
+    "currency": "CREDITS",
+    "lastUpdated": "2026-05-15",
+    "source": "Xiaomi MiMo token plan, credits per token estimate"
+  },
+  "mimo-7b-rl": {
+    "inputPer1M": 0,
+    "outputPer1M": 0,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "Open weights; local/self-hosted cost depends on infrastructure"
+  },
   "claude-opus-4.5": {
     "inputPer1M": 5,
     "outputPer1M": 25,

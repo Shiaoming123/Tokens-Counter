@@ -1,5 +1,50 @@
 [
   {
+    "id": "deepseek-tokenizer",
+    "name": "DeepSeek tokenizer",
+    "license": "Vendor tokenizer/model terms",
+    "usage": "DeepSeek token estimation and future offline tokenizer integration",
+    "noticeRequired": true,
+    "risk": "DeepSeek offers an official tokenizer zip for offline token usage calculation. This MVP has not bundled that zip yet, so local counts are estimates.",
+    "url": "https://api-docs.deepseek.com/quick_start/token_usage"
+  },
+  {
+    "id": "qwen-tokenizer",
+    "name": "Qwen tokenizer",
+    "license": "Apache-2.0 for code; model-specific terms for weights/API",
+    "usage": "Qwen byte-level BPE token estimation and future tokenizer.json/qwen.tiktoken integration",
+    "noticeRequired": true,
+    "risk": "Qwen uses byte-level BPE with model-specific control tokens. Use official Hugging Face/ModelScope tokenizer files for exact counts.",
+    "url": "https://qwen.readthedocs.io/en/stable/getting_started/concepts.html"
+  },
+  {
+    "id": "zai-tokenizer-api",
+    "name": "Z.AI tokenizer API",
+    "license": "Vendor API terms",
+    "usage": "GLM token counting through the official /tokenizer API",
+    "noticeRequired": false,
+    "risk": "Exact GLM counting should call the official tokenizer endpoint with a server-side API key.",
+    "url": "https://docs.z.ai/api-reference/tools/tokenizer"
+  },
+  {
+    "id": "xiaomi-mimo",
+    "name": "Xiaomi MiMo model/tokenizer resources",
+    "license": "MIT for listed open MiMo checkpoints; API/token-plan terms for hosted models",
+    "usage": "MiMo local tokenizer/model resource discovery through Hugging Face and ModelScope",
+    "noticeRequired": true,
+    "risk": "MiMo hosted API uses a credit/token plan; open checkpoints require loading their Hugging Face tokenizer files for exact local counts.",
+    "url": "https://huggingface.co/XiaomiMiMo"
+  },
+  {
+    "id": "huggingface-modelscope",
+    "name": "Hugging Face Hub / ModelScope Hub",
+    "license": "Per-model license",
+    "usage": "Source tokenizer.json, tokenizer_config.json, special_tokens_map.json, qwen.tiktoken and model cards",
+    "noticeRequired": true,
+    "risk": "The platform license is not the model license. Always inspect each model card before redistribution or commercial use.",
+    "url": "https://huggingface.co/docs/huggingface_hub/en/guides/download"
+  },
+  {
     "id": "tiktoken",
     "name": "tiktoken / js-tiktoken",
     "license": "MIT",

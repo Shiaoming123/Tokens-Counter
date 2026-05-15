@@ -13,6 +13,10 @@ export async function countGeminiOfficial(request: OfficialCountRequest) {
   return postOfficial('/api/count/gemini', request)
 }
 
+export async function countZaiOfficial(request: OfficialCountRequest) {
+  return postOfficial('/api/count/zai', request)
+}
+
 async function postOfficial(url: string, request: OfficialCountRequest) {
   const response = await fetch(url, {
     method: 'POST',

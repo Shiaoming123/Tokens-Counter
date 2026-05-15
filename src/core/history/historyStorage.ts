@@ -40,7 +40,7 @@ export function resultsToMarkdown(results: TokenCountResult[]) {
     '| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |',
     ...results.map(
       (item) =>
-        `| ${item.displayName} | ${item.textTokens} | ${item.imageTokens} | ${item.inputTokens} | ${item.estimatedOutputTokens} | $${item.totalCost.toFixed(6)} | ${item.accuracy} | ${item.method} |`,
+        `| ${item.displayName} | ${item.textTokens} | ${item.imageTokens} | ${item.inputTokens} | ${item.estimatedOutputTokens} | ${item.totalCost.toFixed(6)} ${item.currency} | ${item.accuracy} | ${item.method} |`,
     ),
   ]
 
@@ -58,6 +58,7 @@ export function resultsToCsv(results: TokenCountResult[]) {
     'inputCost',
     'outputCost',
     'totalCost',
+    'currency',
     'accuracy',
     'method',
   ]
@@ -73,6 +74,7 @@ export function resultsToCsv(results: TokenCountResult[]) {
       item.inputCost,
       item.outputCost,
       item.totalCost,
+      item.currency,
       item.accuracy,
       item.method,
     ]

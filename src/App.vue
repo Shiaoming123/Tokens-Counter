@@ -7,13 +7,13 @@ import ImageUploadPanel from './components/ImageUploadPanel.vue'
 import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
 import LicenseNotice from './components/LicenseNotice.vue'
-import { countAnthropicOfficial, countGeminiOfficial } from './core/api/countApi'
+import { countAnthropicOfficial, countGeminiOfficial, countZaiOfficial } from './core/api/countApi'
 import {
   buildLocalResult,
   buildOfficialResult,
   buildUnsupportedOfficialResult,
 } from './core/count/resultBuilder'
-import { formatUsd } from './core/cost/costCalculator'
+import { formatCost } from './core/cost/costCalculator'
 import {
   createHistoryEntry,
   loadHistory,
@@ -28,7 +28,16 @@ import type { CountInput, CountOptions, ImageMetadata, ModelConfig, TokenCountRe
 
 const text = ref('你好，世界。\n\nHello world from AI Token 点钞机。')
 const images = ref<ImageMetadata[]>([])
-const selectedModelIds = ref(['gpt-4o', 'gpt-4.1', 'gpt-5', 'claude-sonnet-4.5', 'gemini-2.5-flash'])
+const selectedModelIds = ref([
+  'gpt-4o',
+  'gpt-5',
+  'deepseek-v4-flash',
+  'qwen-plus',
+  'glm-4.5-air',
+  'mimo-v2.5',
+  'claude-sonnet-4.5',
+  'gemini-2.5-flash',
+])
 const options = ref<CountOptions>({
   openaiDetail: 'high',
   estimatedOutputTokens: 1000,
@@ -122,6 +131,23 @@ async function calculateForModel(
     }
   }
 
+  if (model.provider === 'zhipu' && options.value.useOfficialApi) {
+    try {
+      const official = await countZaiOfficial({ modelId: model.id, input })
+      return buildOfficialResult(model, input, options.value, official, textTokensByModel)
+    } catch (error) {
+      const fallback = buildLocalResult(model, input, options.value, textTokensByModel)
+      return {
+        ...fallback,
+        warnings: [
+          error instanceof Error ? error.message : 'Z.AI 官方 tokenizer 失败',
+          '已回退到本地近似。配置 ZAI_API_KEY 后可走官方 /tokenizer。',
+          ...fallback.warnings,
+        ],
+      }
+    }
+  }
+
   return buildLocalResult(model, input, options.value, textTokensByModel)
 }
 
@@ -192,7 +218,7 @@ function restoreHistory(entry: HistoryEntry) {
         </div>
         <div>
           <span>最低预估费用</span>
-          <strong>{{ cheapest ? formatUsd(cheapest.totalCost) : '$0.000000' }}</strong>
+          <strong>{{ cheapest ? formatCost(cheapest.totalCost, cheapest.currency) : '$0.000000' }}</strong>
         </div>
         <div>
           <span>最高输入模型</span>

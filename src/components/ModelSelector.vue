@@ -1,11 +1,38 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { CheckSquare, Square } from 'lucide-vue-next'
+import { providerLabels, providerOrder } from '../core/models/providerLabels'
 import type { ModelConfig } from '../types/domain'
 
-defineProps<{
+const props = defineProps<{
   models: ModelConfig[]
 }>()
 
 const selected = defineModel<string[]>({ required: true })
+
+const groupedModels = computed(() =>
+  providerOrder
+    .map((provider) => ({
+      provider,
+      label: providerLabels[provider],
+      models: props.models.filter((model) => model.provider === provider),
+    }))
+    .filter((group) => group.models.length > 0),
+)
+
+function selectProvider(modelIds: string[]) {
+  selected.value = Array.from(new Set([...selected.value, ...modelIds]))
+}
+
+function clearProvider(modelIds: string[]) {
+  const ids = new Set(modelIds)
+  selected.value = selected.value.filter((id) => !ids.has(id))
+}
+
+function providerSelectedCount(modelIds: string[]) {
+  const selectedIds = new Set(selected.value)
+  return modelIds.filter((id) => selectedIds.has(id)).length
+}
 </script>
 
 <template>
@@ -17,13 +44,44 @@ const selected = defineModel<string[]>({ required: true })
       </div>
       <span class="muted">{{ selected.length }} selected</span>
     </div>
-    <el-checkbox-group v-model="selected" class="model-grid">
-      <label v-for="model in models" :key="model.id" class="model-option">
-        <el-checkbox :value="model.id">
-          <span class="model-name">{{ model.displayName }}</span>
-          <span class="model-meta">{{ model.provider }} · {{ model.contextWindow?.toLocaleString() ?? '未知' }}</span>
-        </el-checkbox>
-      </label>
+    <el-checkbox-group v-model="selected" class="provider-stack">
+      <section v-for="group in groupedModels" :key="group.provider" class="provider-group">
+        <div class="provider-head">
+          <div>
+            <strong>{{ group.label }}</strong>
+            <span>{{ providerSelectedCount(group.models.map((model) => model.id)) }}/{{ group.models.length }}</span>
+          </div>
+          <div class="provider-actions">
+            <button
+              type="button"
+              class="tiny-icon-button"
+              title="选择该厂商全部模型"
+              @click="selectProvider(group.models.map((model) => model.id))"
+            >
+              <CheckSquare :size="14" />
+            </button>
+            <button
+              type="button"
+              class="tiny-icon-button"
+              title="清空该厂商模型"
+              @click="clearProvider(group.models.map((model) => model.id))"
+            >
+              <Square :size="14" />
+            </button>
+          </div>
+        </div>
+        <div class="model-grid">
+          <label v-for="model in group.models" :key="model.id" class="model-option">
+            <el-checkbox :value="model.id">
+              <span class="model-name">{{ model.displayName }}</span>
+              <span class="model-meta">
+                {{ model.family }} · {{ model.contextWindow?.toLocaleString() ?? '未知' }}
+                <span v-if="model.supportsImage"> · Vision</span>
+              </span>
+            </el-checkbox>
+          </label>
+        </div>
+      </section>
     </el-checkbox-group>
   </section>
 </template>

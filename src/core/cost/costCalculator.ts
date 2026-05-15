@@ -21,13 +21,19 @@ export function calculateCost({
   }
 }
 
-export function formatUsd(value: number) {
-  if (value === 0) return '$0.000000'
+export function formatCost(value: number, currency: 'USD' | 'CNY' | 'CREDITS' = 'USD') {
+  if (currency === 'CREDITS') {
+    return `${value.toFixed(value < 0.01 ? 6 : 4)} credits`
+  }
+
+  if (value === 0) return currency === 'CNY' ? '¥0.000000' : '$0.000000'
 
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency,
     minimumFractionDigits: value < 0.01 ? 6 : 4,
     maximumFractionDigits: value < 0.01 ? 6 : 4,
   }).format(value)
 }
+
+export const formatUsd = formatCost

@@ -1,4 +1,14 @@
-export type Provider = 'openai' | 'anthropic' | 'google' | 'mistral' | 'meta' | 'huggingface'
+export type Provider =
+  | 'openai'
+  | 'anthropic'
+  | 'google'
+  | 'deepseek'
+  | 'alibaba'
+  | 'zhipu'
+  | 'xiaomi'
+  | 'mistral'
+  | 'meta'
+  | 'huggingface'
 
 export type TokenCountMethod =
   | 'local_tokenizer'
@@ -20,7 +30,7 @@ export interface ModelPricing {
   inputPer1M: number
   outputPer1M: number
   cachedInputPer1M?: number
-  currency: 'USD'
+  currency: 'USD' | 'CNY' | 'CREDITS'
   lastUpdated?: string
   source?: string
 }
@@ -38,12 +48,12 @@ export interface ModelConfig {
   textCountMethod: TokenCountMethod
   imageCountMethod?: TokenCountMethod
   tokenizer?: {
-    type: 'tiktoken' | 'sentencepiece' | 'mistral' | 'llama' | 'huggingface'
+    type: 'tiktoken' | 'sentencepiece' | 'mistral' | 'llama' | 'huggingface' | 'deepseek' | 'qwen' | 'glm' | 'mimo'
     encoding?: 'o200k_base' | 'cl100k_base' | 'p50k_base'
     localModelFile?: string
   }
   vision?: {
-    type: 'openai_tile' | 'openai_patch' | 'gemini_tile' | 'official_only'
+    type: 'openai_tile' | 'openai_patch' | 'gemini_tile' | 'qwen_vl_tile' | 'official_only'
     detailLevels?: ImageDetail[]
     baseTokens?: number
     tileTokens?: number
@@ -91,6 +101,7 @@ export interface TokenCountResult {
   inputCost: number
   outputCost: number
   totalCost: number
+  currency: ModelPricing['currency']
   contextWindow?: number
   contextUsage?: number
   accuracy: AccuracyLevel

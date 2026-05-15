@@ -1,6 +1,7 @@
 import { calculateCost } from '../cost/costCalculator'
 import { countApproxTokens } from '../tokenizers/approxTokenizer'
 import { countGeminiImageTokensEstimate } from '../vision/geminiImageTokens'
+import { countQwenVlImageTokensEstimate } from '../vision/qwenImageTokens'
 import { countOpenAIPatchImageTokens, countOpenAITileImageTokens } from '../vision/openaiImageTokens'
 import type {
   AccuracyLevel,
@@ -42,6 +43,22 @@ export function buildLocalResult(
 
   if (model.provider === 'mistral') {
     warnings.push('Mistral v1 使用本地 fallback tokenizer，接入官方 tokenizer 前请视为近似。')
+  }
+
+  if (model.provider === 'deepseek') {
+    warnings.push('DeepSeek 官方提供离线 tokenizer 包；当前浏览器端先使用本地近似，后续可接入 deepseek_tokenizer.zip 或 Hugging Face tokenizer 文件。')
+  }
+
+  if (model.provider === 'alibaba') {
+    warnings.push('Qwen 开源模型使用 byte-level BPE/tiktoken 路线；当前浏览器端未加载模型专属 tokenizer 文件，计数标为近似。')
+  }
+
+  if (model.provider === 'zhipu') {
+    warnings.push('GLM 官方提供 /tokenizer 接口；当前前端未配置 Z.AI API Key，先显示本地近似。')
+  }
+
+  if (model.provider === 'xiaomi') {
+    warnings.push('MiMo 可从官方平台、Hugging Face/ModelScope 获取模型与 tokenizer 资源；当前浏览器端未加载模型专属 tokenizer，计数标为近似。')
   }
 
   if (model.provider === 'meta') {
@@ -138,6 +155,14 @@ function countImagesForModel(model: ModelConfig, input: CountInput, options: Cou
       tokens += result.tokens
       debug = result.debug
       warnings.push('Gemini 图片 tokens 当前为本地规则估算；配置 GEMINI_API_KEY 可走官方 countTokens。')
+    } else if (model.vision?.type === 'qwen_vl_tile') {
+      const result = countQwenVlImageTokensEstimate(image.width, image.height, {
+        minPixels: model.vision.baseTokens,
+        maxPixels: model.vision.patchBudget,
+      })
+      tokens += result.tokens
+      debug = result.debug
+      warnings.push('Qwen-VL 图片 tokens 基于百炼/OpenAI 兼容接口的像素预算规则估算；实际以 API usage 为准。')
     } else if (model.vision?.type === 'official_only') {
       warnings.push('该模型图片计数需要官方 API；无 API Key 时不做本地图片公式。')
     }
@@ -185,6 +210,7 @@ function finalizeResult({
     estimatedOutputTokens,
     totalTokens: inputTokens + estimatedOutputTokens,
     ...cost,
+    currency: model.pricing.currency,
     contextWindow: model.contextWindow,
     contextUsage: model.contextWindow ? inputTokens / model.contextWindow : undefined,
     accuracy,

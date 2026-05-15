@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatUsd } from '../core/cost/costCalculator'
+import { formatCost } from '../core/cost/costCalculator'
 import type { TokenCountResult } from '../types/domain'
 import AccuracyBadge from './AccuracyBadge.vue'
 
@@ -38,7 +38,7 @@ function percent(value?: number) {
       </el-table-column>
       <el-table-column label="费用" width="130" align="right">
         <template #default="{ row }">
-          {{ formatUsd(row.totalCost) }}
+          {{ formatCost(row.totalCost, row.currency) }}
         </template>
       </el-table-column>
       <el-table-column label="准确度" width="120">
@@ -52,7 +52,7 @@ function percent(value?: number) {
           <div class="debug-block">
             <div>
               <strong>费用拆分</strong>
-              <p>Input {{ formatUsd(row.inputCost) }} · Output {{ formatUsd(row.outputCost) }}</p>
+              <p>Input {{ formatCost(row.inputCost, row.currency) }} · Output {{ formatCost(row.outputCost, row.currency) }}</p>
             </div>
             <div v-if="row.debug">
               <strong>图片 debug</strong>
