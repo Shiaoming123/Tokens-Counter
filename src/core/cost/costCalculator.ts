@@ -1,0 +1,33 @@
+export interface CostInput {
+  inputTokens: number
+  estimatedOutputTokens: number
+  inputPer1M: number
+  outputPer1M: number
+}
+
+export function calculateCost({
+  inputTokens,
+  estimatedOutputTokens,
+  inputPer1M,
+  outputPer1M,
+}: CostInput) {
+  const inputCost = (inputTokens / 1_000_000) * inputPer1M
+  const outputCost = (estimatedOutputTokens / 1_000_000) * outputPer1M
+
+  return {
+    inputCost,
+    outputCost,
+    totalCost: inputCost + outputCost,
+  }
+}
+
+export function formatUsd(value: number) {
+  if (value === 0) return '$0.000000'
+
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: value < 0.01 ? 6 : 4,
+    maximumFractionDigits: value < 0.01 ? 6 : 4,
+  }).format(value)
+}

@@ -1,0 +1,65 @@
+{
+  "gpt-4o": {
+    "inputPer1M": 5,
+    "outputPer1M": 15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "gpt-4.1": {
+    "inputPer1M": 2,
+    "outputPer1M": 8,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "gpt-5": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "claude-opus-4.5": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "claude-sonnet-4.5": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "gemini-3-pro-preview": {
+    "inputPer1M": 2,
+    "outputPer1M": 12,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "gemini-2.5-flash": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 2.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "mistral-large-latest": {
+    "inputPer1M": 2,
+    "outputPer1M": 6,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  },
+  "llama-3.1-70b": {
+    "inputPer1M": 0.7,
+    "outputPer1M": 0.9,
+    "currency": "USD",
+    "lastUpdated": "2026-05-15",
+    "source": "manual"
+  }
+}

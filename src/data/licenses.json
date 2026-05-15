@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tiktoken",
+    "name": "tiktoken / js-tiktoken",
+    "license": "MIT",
+    "usage": "OpenAI text token counting",
+    "noticeRequired": true,
+    "url": "https://github.com/openai/tiktoken/blob/main/LICENSE"
+  },
+  {
+    "id": "anthropic-api",
+    "name": "Anthropic count_tokens API",
+    "license": "Vendor API terms",
+    "usage": "Claude text and image token counting through the official API",
+    "noticeRequired": false,
+    "risk": "Requires a server-side ANTHROPIC_API_KEY. Counts are estimates per Anthropic API behavior."
+  },
+  {
+    "id": "google-genai-api",
+    "name": "Google GenAI countTokens API",
+    "license": "Vendor API terms",
+    "usage": "Gemini text and multimodal token counting through the official API",
+    "noticeRequired": false,
+    "risk": "Requires a server-side GEMINI_API_KEY for official mode; local image estimates are rule-based."
+  },
+  {
+    "id": "mistral-tokenizer",
+    "name": "Mistral tokenizer",
+    "license": "Vendor tokenizer/model terms",
+    "usage": "Mistral local token approximation",
+    "noticeRequired": true,
+    "risk": "This MVP uses cl100k_base as a local fallback until an official Mistral tokenizer file is wired in."
+  },
+  {
+    "id": "llama-tokenizer",
+    "name": "Llama tokenizer files",
+    "license": "Meta Llama Community License",
+    "usage": "Llama model token estimation",
+    "noticeRequired": true,
+    "risk": "Check model-specific license before commercial redistribution. This MVP uses a local approximation."
+  }
+]
