@@ -13,6 +13,32 @@ export const providerLabels: Record<Provider, string> = {
   huggingface: 'Hugging Face',
 }
 
+export const providerMarks: Record<Provider, string> = {
+  openai: 'O',
+  anthropic: 'C',
+  google: 'G',
+  deepseek: 'D',
+  alibaba: 'Q',
+  zhipu: 'Z',
+  xiaomi: 'M',
+  mistral: 'Mi',
+  meta: 'L',
+  huggingface: 'HF',
+}
+
+export const providerAccents: Record<Provider, string> = {
+  openai: '#8bf9d4',
+  anthropic: '#ffcf99',
+  google: '#8eb7ff',
+  deepseek: '#67e8f9',
+  alibaba: '#ff8a3d',
+  zhipu: '#a78bfa',
+  xiaomi: '#ffb86b',
+  mistral: '#ffdb6e',
+  meta: '#8ab4ff',
+  huggingface: '#ffd166',
+}
+
 export const providerOrder: Provider[] = [
   'openai',
   'deepseek',

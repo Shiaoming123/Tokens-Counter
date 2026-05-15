@@ -3,6 +3,11 @@ export interface CostInput {
   estimatedOutputTokens: number
   inputPer1M: number
   outputPer1M: number
+  cachedInputPer1M?: number
+  cacheCreationInputPer1M?: number
+  cachedInputTokens?: number
+  cacheCreationTokens?: number
+  costMultiplier?: number
 }
 
 export function calculateCost({
@@ -10,14 +15,29 @@ export function calculateCost({
   estimatedOutputTokens,
   inputPer1M,
   outputPer1M,
+  cachedInputPer1M,
+  cacheCreationInputPer1M,
+  cachedInputTokens = 0,
+  cacheCreationTokens = 0,
+  costMultiplier = 1,
 }: CostInput) {
-  const inputCost = (inputTokens / 1_000_000) * inputPer1M
+  const cacheReadTokens = Math.min(Math.max(cachedInputTokens, 0), Math.max(inputTokens, 0))
+  const billableInputTokens = Math.max(inputTokens - cacheReadTokens, 0)
+  const inputCost = (billableInputTokens / 1_000_000) * inputPer1M
+  const cacheReadCost = (cacheReadTokens / 1_000_000) * (cachedInputPer1M ?? inputPer1M)
+  const cacheCreationCost =
+    (Math.max(cacheCreationTokens, 0) / 1_000_000) * (cacheCreationInputPer1M ?? inputPer1M)
   const outputCost = (estimatedOutputTokens / 1_000_000) * outputPer1M
+  const totalCost = (inputCost + cacheReadCost + cacheCreationCost + outputCost) * costMultiplier
 
   return {
+    billableInputTokens,
+    cacheReadTokens,
     inputCost,
+    cacheReadCost,
+    cacheCreationCost,
     outputCost,
-    totalCost: inputCost + outputCost,
+    totalCost,
   }
 }
 

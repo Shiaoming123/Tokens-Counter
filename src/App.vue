@@ -38,11 +38,15 @@ const selectedModelIds = ref([
   'claude-sonnet-4.5',
   'gemini-2.5-flash',
 ])
-const options = ref<CountOptions>({
+const defaultOptions: CountOptions = {
   openaiDetail: 'high',
   estimatedOutputTokens: 1000,
+  cachedInputTokens: 0,
+  cacheCreationTokens: 0,
+  costMultiplier: 1,
   useOfficialApi: true,
-})
+}
+const options = ref<CountOptions>({ ...defaultOptions })
 const results = ref<TokenCountResult[]>([])
 const history = ref<HistoryEntry[]>([])
 const loading = ref(false)
@@ -179,7 +183,7 @@ function clearHistory() {
 }
 
 function restoreHistory(entry: HistoryEntry) {
-  options.value = entry.options
+  options.value = { ...defaultOptions, ...entry.options }
   results.value = entry.results
 }
 </script>
@@ -251,6 +255,20 @@ function restoreHistory(entry: HistoryEntry) {
               <span>官方计数 API</span>
               <el-switch v-model="options.useOfficialApi" />
             </label>
+            <div class="cost-grid">
+              <label>
+                <span>缓存命中 Tokens</span>
+                <el-input-number v-model="options.cachedInputTokens" :min="0" :step="1000" :max="10000000" />
+              </label>
+              <label>
+                <span>缓存写入 Tokens</span>
+                <el-input-number v-model="options.cacheCreationTokens" :min="0" :step="1000" :max="10000000" />
+              </label>
+              <label>
+                <span>成本倍率</span>
+                <el-input-number v-model="options.costMultiplier" :min="0" :step="0.1" :max="100" />
+              </label>
+            </div>
             <button class="primary-action" :disabled="loading" @click="calculate">
               <Calculator :size="18" />
               <span>{{ loading ? '计算中...' : '开始点钞' }}</span>

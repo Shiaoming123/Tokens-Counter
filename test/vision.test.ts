@@ -49,4 +49,22 @@ describe('cost calculator', () => {
     expect(result.outputCost).toBe(1)
     expect(result.totalCost).toBe(2)
   })
+
+  it('prices cached tokens separately from normal input tokens', () => {
+    const result = calculateCost({
+      inputTokens: 1_000_000,
+      estimatedOutputTokens: 0,
+      inputPer1M: 10,
+      outputPer1M: 20,
+      cachedInputPer1M: 1,
+      cachedInputTokens: 250_000,
+      cacheCreationInputPer1M: 12,
+      cacheCreationTokens: 100_000,
+    })
+
+    expect(result.billableInputTokens).toBe(750_000)
+    expect(result.cacheReadCost).toBe(0.25)
+    expect(result.cacheCreationCost).toBeCloseTo(1.2)
+    expect(result.totalCost).toBeCloseTo(8.95)
+  })
 })

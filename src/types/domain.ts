@@ -30,6 +30,7 @@ export interface ModelPricing {
   inputPer1M: number
   outputPer1M: number
   cachedInputPer1M?: number
+  cacheCreationInputPer1M?: number
   currency: 'USD' | 'CNY' | 'CREDITS'
   lastUpdated?: string
   source?: string
@@ -100,8 +101,14 @@ export interface TokenCountResult {
   totalTokens: number
   inputCost: number
   outputCost: number
+  cacheReadCost: number
+  cacheCreationCost: number
   totalCost: number
   currency: ModelPricing['currency']
+  billableInputTokens: number
+  cacheReadTokens: number
+  cacheCreationTokens: number
+  costMultiplier: number
   contextWindow?: number
   contextUsage?: number
   accuracy: AccuracyLevel
@@ -114,6 +121,9 @@ export interface TokenCountResult {
 export interface CountOptions {
   openaiDetail: ImageDetail
   estimatedOutputTokens: number
+  cachedInputTokens: number
+  cacheCreationTokens: number
+  costMultiplier: number
   useOfficialApi: boolean
 }
 

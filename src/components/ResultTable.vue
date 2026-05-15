@@ -52,7 +52,17 @@ function percent(value?: number) {
           <div class="debug-block">
             <div>
               <strong>费用拆分</strong>
-              <p>Input {{ formatCost(row.inputCost, row.currency) }} · Output {{ formatCost(row.outputCost, row.currency) }}</p>
+              <p>
+                Input {{ formatCost(row.inputCost, row.currency) }} · Cache read
+                {{ formatCost(row.cacheReadCost, row.currency) }} · Cache write
+                {{ formatCost(row.cacheCreationCost, row.currency) }} · Output
+                {{ formatCost(row.outputCost, row.currency) }}
+              </p>
+              <p>
+                Billable input {{ row.billableInputTokens.toLocaleString() }} · Cache read
+                {{ row.cacheReadTokens.toLocaleString() }} · Cache write
+                {{ row.cacheCreationTokens.toLocaleString() }} · Multiplier ×{{ row.costMultiplier }}
+              </p>
             </div>
             <div v-if="row.debug">
               <strong>图片 debug</strong>

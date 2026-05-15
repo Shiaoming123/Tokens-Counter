@@ -242,6 +242,17 @@ MiMo 官方平台提供 hosted 模型和 token/credit 计费说明；开源 MiMo
 - 重点文件：`tokenizer.json`、`tokenizer.model`、`tokenizer_config.json`、`special_tokens_map.json`、`vocab.json`、`merges.txt`、`qwen.tiktoken`。
 - 合规注意：平台本身不是许可证来源，必须读取每个模型的 model card/license 字段。
 
+## CCSwitch 可借鉴点
+
+调研 `farion1231/cc-switch` 后，本项目借鉴了它在 usage 统计里的几个思路：
+
+- 缓存 token 独立计价：把普通 input、cache read、cache write 和 output 分开计算。
+- 多来源 usage 归一化：官方 API、代理日志、CLI session log 的字段结构不同，应该先转成统一结果模型。
+- 模型 ID 需要归一化：真实 usage 里经常出现 snapshot、provider prefix、别名和路由模型名，价格表匹配前要做 normalize。
+- 成本倍率应是显式参数：不同平台可能有折扣、token plan、credit plan 或代理加价，不能隐藏在固定价格里。
+
+当前 UI 已加入“缓存命中 Tokens”“缓存写入 Tokens”“成本倍率”三个参数，后续可以继续做 usage log 导入与 provider/model 聚合报表。
+
 ## 数据配置
 
 新增模型时优先改这三个文件：
@@ -301,6 +312,7 @@ npm start
 - OpenAI 图片 token 为规则估算，实际费用以 API usage 为准。
 - 多轮消息、tools/function calling、PDF token 计数尚未做完整 UI。
 - 生产包里 tokenizer worker 较大，后续可按模型懒加载优化。
+- 暂未实现 CCSwitch 式代理日志导入和 session usage dashboard。
 
 ## 许可证
 

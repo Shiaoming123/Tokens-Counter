@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { CheckSquare, Square } from 'lucide-vue-next'
-import { providerLabels, providerOrder } from '../core/models/providerLabels'
+import { providerAccents, providerLabels, providerMarks, providerOrder } from '../core/models/providerLabels'
 import type { ModelConfig } from '../types/domain'
 
 const props = defineProps<{
@@ -15,6 +15,8 @@ const groupedModels = computed(() =>
     .map((provider) => ({
       provider,
       label: providerLabels[provider],
+      mark: providerMarks[provider],
+      accent: providerAccents[provider],
       models: props.models.filter((model) => model.provider === provider),
     }))
     .filter((group) => group.models.length > 0),
@@ -46,8 +48,9 @@ function providerSelectedCount(modelIds: string[]) {
     </div>
     <el-checkbox-group v-model="selected" class="provider-stack">
       <section v-for="group in groupedModels" :key="group.provider" class="provider-group">
-        <div class="provider-head">
+        <div class="provider-head" :style="{ '--provider-accent': group.accent }">
           <div>
+            <span class="provider-mark">{{ group.mark }}</span>
             <strong>{{ group.label }}</strong>
             <span>{{ providerSelectedCount(group.models.map((model) => model.id)) }}/{{ group.models.length }}</span>
           </div>
@@ -71,7 +74,7 @@ function providerSelectedCount(modelIds: string[]) {
           </div>
         </div>
         <div class="model-grid">
-          <label v-for="model in group.models" :key="model.id" class="model-option">
+          <label v-for="model in group.models" :key="model.id" class="model-option" :style="{ '--provider-accent': group.accent }">
             <el-checkbox :value="model.id">
               <span class="model-name">{{ model.displayName }}</span>
               <span class="model-meta">

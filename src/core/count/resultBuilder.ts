@@ -74,6 +74,9 @@ export function buildLocalResult(
     method,
     warnings,
     debug: imageResult.debug,
+    cachedInputTokens: options.cachedInputTokens,
+    cacheCreationTokens: options.cacheCreationTokens,
+    costMultiplier: options.costMultiplier,
   })
 }
 
@@ -103,6 +106,9 @@ export function buildOfficialResult(
     ],
     debug: estimatedImage.debug,
     overrideInputTokens: inputTokens,
+    cachedInputTokens: options.cachedInputTokens,
+    cacheCreationTokens: options.cacheCreationTokens,
+    costMultiplier: options.costMultiplier,
   })
 }
 
@@ -181,6 +187,9 @@ function finalizeResult({
   warnings,
   debug,
   overrideInputTokens,
+  cachedInputTokens,
+  cacheCreationTokens,
+  costMultiplier,
 }: {
   model: ModelConfig
   textTokens: number
@@ -191,6 +200,9 @@ function finalizeResult({
   warnings: string[]
   debug?: TokenDebug
   overrideInputTokens?: number
+  cachedInputTokens: number
+  cacheCreationTokens: number
+  costMultiplier: number
 }): TokenCountResult {
   const inputTokens = overrideInputTokens ?? textTokens + imageTokens
   const cost = calculateCost({
@@ -198,6 +210,11 @@ function finalizeResult({
     estimatedOutputTokens,
     inputPer1M: model.pricing.inputPer1M,
     outputPer1M: model.pricing.outputPer1M,
+    cachedInputPer1M: model.pricing.cachedInputPer1M,
+    cacheCreationInputPer1M: model.pricing.cacheCreationInputPer1M,
+    cachedInputTokens,
+    cacheCreationTokens,
+    costMultiplier,
   })
 
   return {
@@ -211,6 +228,8 @@ function finalizeResult({
     totalTokens: inputTokens + estimatedOutputTokens,
     ...cost,
     currency: model.pricing.currency,
+    cacheCreationTokens,
+    costMultiplier,
     contextWindow: model.contextWindow,
     contextUsage: model.contextWindow ? inputTokens / model.contextWindow : undefined,
     accuracy,
