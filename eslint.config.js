@@ -3,9 +3,48 @@ import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 import prettier from 'eslint-config-prettier'
 
+const runtimeGlobals = {
+  Blob: 'readonly',
+  DragEvent: 'readonly',
+  Event: 'readonly',
+  FileReader: 'readonly',
+  HTMLInputElement: 'readonly',
+  Image: 'readonly',
+  MessageEvent: 'readonly',
+  MutationObserver: 'readonly',
+  PointerEvent: 'readonly',
+  Request: 'readonly',
+  Response: 'readonly',
+  Storage: 'readonly',
+  TextDecoder: 'readonly',
+  TextEncoder: 'readonly',
+  URL: 'readonly',
+  Worker: 'readonly',
+  clearTimeout: 'readonly',
+  console: 'readonly',
+  crypto: 'readonly',
+  document: 'readonly',
+  fetch: 'readonly',
+  globalThis: 'readonly',
+  localStorage: 'readonly',
+  navigator: 'readonly',
+  process: 'readonly',
+  self: 'readonly',
+  setTimeout: 'readonly',
+  window: 'readonly',
+}
+
 export default tseslint.config(
   {
-    ignores: ['dist/**', 'node_modules/**', '**/*.d.ts'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/*.d.ts',
+      '.agents/**',
+      '.claude/**',
+      '.playwright-mcp/**',
+      'tmp/**',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -17,6 +56,7 @@ export default tseslint.config(
       parserOptions: {
         parser: tseslint.parser,
       },
+      globals: runtimeGlobals,
     },
     rules: {
       'no-console': 'warn',
@@ -32,6 +72,18 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
+    },
+  },
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    languageOptions: {
+      globals: runtimeGlobals,
+    },
+  },
+  {
+    files: ['server/**/*.{ts,tsx}', 'scripts/**/*.{js,mjs,cjs}'],
+    rules: {
+      'no-console': 'off',
     },
   },
 )

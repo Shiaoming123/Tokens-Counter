@@ -582,7 +582,7 @@ function formatBytes(bytes: number) {
         <label class="dropzone">
           <Upload :size="20" />
           <span>{{ localeStore.t('image.dropzone') }}</span>
-          <input type="file" accept="image/*" multiple @change="handleImageFiles" hidden />
+          <input type="file" accept="image/*" multiple hidden @change="handleImageFiles" />
         </label>
 
         <div v-if="images.length === 0" class="empty-zone">
@@ -623,7 +623,7 @@ function formatBytes(bytes: number) {
         <label class="dropzone">
           <Upload :size="20" />
           <span>{{ localeStore.t('pdf.dropzone') }}</span>
-          <input type="file" accept="application/pdf" multiple @change="handleDocFiles" hidden />
+          <input type="file" accept="application/pdf" multiple hidden @change="handleDocFiles" />
         </label>
 
         <div v-if="documents.length === 0" class="empty-zone">

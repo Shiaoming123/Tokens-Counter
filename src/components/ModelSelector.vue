@@ -181,14 +181,14 @@ watch(
         class="model-search"
       />
       <div class="model-sidebar-actions">
-        <button @click="selectAll" class="tiny-text-button">{{ localeStore.t('models.selectAll') }}</button>
-        <button @click="clearAll" class="tiny-text-button">{{ localeStore.t('models.clear') }}</button>
+        <button class="tiny-text-button" @click="selectAll">{{ localeStore.t('models.selectAll') }}</button>
+        <button class="tiny-text-button" @click="clearAll">{{ localeStore.t('models.clear') }}</button>
         <button
-          @click="resetOrder"
           class="tiny-icon-button"
           type="button"
           :title="localeStore.t('models.resetOrder')"
           :aria-label="localeStore.t('models.resetOrder')"
+          @click="resetOrder"
         >
           <RotateCcw :size="13" />
         </button>
@@ -206,9 +206,9 @@ watch(
       >
         <button
           class="provider-head"
-          @click="toggleGroup(provider.id)"
           :aria-expanded="!collapsedGroups.has(provider.id)"
           :aria-label="`${provider.label}, ${selectedCount(provider)} selected of ${provider.models.length}`"
+          @click="toggleGroup(provider.id)"
         >
           <ProviderLogo :provider="provider.id" :size="22" />
           <span class="provider-name" :title="provider.label">{{ provider.label }}</span>
@@ -260,8 +260,8 @@ watch(
             :checked="isSelected(model.id)"
             :disabled="isModelDisabled(model.id)"
             :aria-label="model.displayName"
-            @change="toggle(model.id)"
             class="model-checkbox"
+            @change="toggle(model.id)"
           />
           <ProviderLogo class="model-provider-logo" :provider="model.provider" :size="20" />
           <div class="model-info">
