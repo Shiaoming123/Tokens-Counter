@@ -952,7 +952,7 @@ if (existsSync(distPath)) {
   app.get('*', serveStatic({ path: join(distPath, 'index.html') }))
 }
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   serve({ fetch: app.fetch, port }, (info) => {
     console.log(`Token counter API listening on http://localhost:${info.port}`)
   })

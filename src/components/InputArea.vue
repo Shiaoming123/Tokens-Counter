@@ -12,6 +12,7 @@ import {
   ElSwitch,
   ElTabs,
   ElTabPane,
+  ElTooltip,
   ElMessage,
 } from 'element-plus'
 import { extractPdfMetadata } from '../core/document/pdfExtractor'
