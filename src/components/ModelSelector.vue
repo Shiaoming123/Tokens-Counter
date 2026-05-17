@@ -172,7 +172,7 @@ watch(
 </script>
 
 <template>
-  <div class="model-sidebar" :class="{ 'image-mode': hasImageInput }">
+  <div class="model-sidebar">
     <div class="model-sidebar-top">
       <input
         v-model="searchQuery"
@@ -198,28 +198,29 @@ watch(
       </div>
     </div>
 
-    <div
-      v-for="provider in filteredProviders"
-      :key="provider.id"
-      class="provider-group"
-    >
-      <button
-        class="provider-head"
-        @click="toggleGroup(provider.id)"
-        :aria-expanded="!collapsedGroups.has(provider.id)"
-        :aria-label="`${provider.label}, ${selectedCount(provider)} selected of ${provider.models.length}`"
+    <div class="model-sidebar-list">
+      <div
+        v-for="provider in filteredProviders"
+        :key="provider.id"
+        class="provider-group"
       >
-        <ProviderLogo :provider="provider.id" :size="22" />
-        <span class="provider-name" :title="provider.label">{{ provider.label }}</span>
-        <span class="provider-count" aria-live="polite">
-          {{ selectedCount(provider) }}/{{ provider.models.length }}
-        </span>
-        <ChevronDown
-          :size="14"
-          class="chevron"
-          :class="{ collapsed: collapsedGroups.has(provider.id) }"
-        />
-      </button>
+        <button
+          class="provider-head"
+          @click="toggleGroup(provider.id)"
+          :aria-expanded="!collapsedGroups.has(provider.id)"
+          :aria-label="`${provider.label}, ${selectedCount(provider)} selected of ${provider.models.length}`"
+        >
+          <ProviderLogo :provider="provider.id" :size="22" />
+          <span class="provider-name" :title="provider.label">{{ provider.label }}</span>
+          <span class="provider-count" aria-live="polite">
+            {{ selectedCount(provider) }}/{{ provider.models.length }}
+          </span>
+          <ChevronDown
+            :size="14"
+            class="chevron"
+            :class="{ collapsed: collapsedGroups.has(provider.id) }"
+          />
+        </button>
 
       <div
         v-show="!collapsedGroups.has(provider.id)"
@@ -279,6 +280,7 @@ watch(
           </span>
         </label>
       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -287,21 +289,17 @@ watch(
 /* ---- Sidebar Container ---- */
 
 .model-sidebar {
-  --model-sidebar-top-height: 97px;
   position: sticky;
   top: 68px;
   max-height: calc(100vh - 84px);
-  overflow-y: auto;
+  overflow: hidden;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: var(--shadow-md);
-}
-
-.model-sidebar.image-mode {
-  --model-sidebar-top-height: 136px;
 }
 
 /* ---- Top Bar ---- */
@@ -312,10 +310,15 @@ watch(
   gap: 8px;
   padding: 14px 14px 10px;
   border-bottom: 1px solid var(--line);
-  background: var(--bg-panel);
-  position: sticky;
-  top: 0;
-  z-index: 4;
+  background: var(--bg-elevated);
+  z-index: 2;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+}
+
+.model-sidebar-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .model-search {
@@ -324,7 +327,7 @@ watch(
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background: var(--bg-panel);
+  background: var(--bg-elevated);
   color: var(--text);
   font-size: 13px;
   outline: none;
@@ -418,10 +421,10 @@ watch(
   height: 44px;
   padding: 0 14px;
   border: 0;
-  background: var(--bg-panel);
+  background: var(--bg-elevated);
   cursor: pointer;
   position: sticky;
-  top: var(--model-sidebar-top-height);
+  top: 0;
   z-index: 3;
   transition: background 0.15s;
   text-align: left;
@@ -636,13 +639,12 @@ watch(
 
 @media (max-width: 768px) {
   .model-sidebar {
-    --model-sidebar-top-height: 97px;
     position: static;
     max-height: none;
   }
 
-  .model-sidebar.image-mode {
-    --model-sidebar-top-height: 136px;
+  .model-sidebar-list {
+    overflow: visible;
   }
 
   .model-option {
