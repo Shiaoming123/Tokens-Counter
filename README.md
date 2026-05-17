@@ -1,319 +1,361 @@
-# AI Token 点钞机
+# AI Token Counter
 
-AI Token 点钞机是一个面向多模型输入成本估算的 Web 工具。它把文本 token、图片/视觉 token、官方计数 API、成本估算、准确度等级和许可证提示放在同一个工作台里，适合在写 prompt、评估多模态任务成本、比较模型预算时快速使用。
+<p align="center">
+  <img src="./public/og-image.svg" alt="AI Token Counter preview" width="820" />
+</p>
 
-当前 v1 的核心原则是：
+<p align="center">
+  <a href="https://github.com/Shiaoming123/Tokens-Counter"><img alt="Repository" src="https://img.shields.io/badge/GitHub-Tokens--Counter-111827?logo=github" /></a>
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white" />
+  <img alt="API" src="https://img.shields.io/badge/API-Hono-ff5b11" />
+  <img alt="Tests" src="https://img.shields.io/badge/tests-78%20passing-30a46c" />
+</p>
 
-- 本地能相对可靠计算的，优先本地计算。
-- 闭源模型需要官方计数的，走服务端 API 代理。
-- 图片 token 独立按厂商规则估算或官方 API 计数。
-- 每一条结果都显示准确度、计数方式、许可证引用和 warning。
-- 用户输入与图片默认不上传到第三方，除非启用 Claude/Gemini 官方计数 API。
+<p align="center">
+  <strong>English</strong>
+  ·
+  <a href="./README.zh-CN.md">
+    <img alt="Read the Simplified Chinese README" src="https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-0A84FF" />
+  </a>
+</p>
 
-## 功能特性
+AI Token Counter is a model-aware token and API cost estimation workbench for teams comparing LLM prompts, multimodal inputs, PDFs, tool definitions, model pricing, and tokenizer accuracy across providers.
 
-- 文本 token 计数：支持中文、英文、emoji 和长文本。
-- 图片 token 估算：读取图片尺寸、MIME type、文件大小，并按模型规则估算视觉 token。
-- 多模型对比表：横向比较文本 tokens、图片 tokens、总 input tokens、预估 output tokens、费用、上下文占用比例和准确度。
-- 官方计数模式：通过服务端代理调用 Anthropic Claude `messages.countTokens`、Google Gemini `countTokens` 和 Z.AI/GLM `/tokenizer`。
-- 成本估算：基于 `src/data/model-pricing.json` 的手动价格表计算 input/output/total cost。
-- 准确度标签：区分官方估算、本地精确、本地近似、不支持。
-- 历史记录：最近 20 次结果仅保存到浏览器 LocalStorage。
-- 导出能力：支持复制 Markdown 表格和导出 CSV。
-- 许可证页面：展示 tokenizer、官方 API、开源模型相关许可证和商用风险提示。
+It is built for one practical question:
 
-## 支持矩阵
+> "If I send this input to different AI models, how many tokens will it use, how much might it cost, and how trustworthy is the estimate?"
 
-| 模型 | 文本计数 | 图片计数 | 准确度 | 实现方式 |
-| --- | --- | --- | --- | --- |
-| GPT-4o | 支持 | 支持 | 文本本地，图片估算 | `js-tiktoken` + OpenAI tile 规则 |
-| GPT-4.1 | 支持 | 支持 | 文本本地，图片估算 | `js-tiktoken` + OpenAI tile 规则 |
-| GPT-5 | 支持 | 支持 | 文本本地，图片估算 | `js-tiktoken` + OpenAI tile 规则 |
-| DeepSeek-V4 Flash / Pro | 支持 | 暂不支持 | 本地近似 | 官方 tokenizer 包待接入，v1 先 fallback |
-| Qwen / Qwen3.6 | 支持 | 暂不支持 | 本地近似 | byte-level BPE/tiktoken 路线，v1 未内置模型专属 tokenizer |
-| Qwen-VL Plus | 支持 | 支持 | 本地近似 | 文本近似 + Qwen-VL 像素预算估算 |
-| GLM-4.5 / Air | 支持 | 暂不支持 | 官方估算 / 本地近似 | Z.AI `/tokenizer`，无 Key 时 fallback |
-| GLM-4.5V | 支持 | 支持 | 官方估算 / 本地近似 | Z.AI `/tokenizer` |
-| Xiaomi MiMo | 支持 | 暂不支持 | 本地近似 | MiMo/HF/ModelScope tokenizer 资源待接入 |
-| Claude Opus / Sonnet | 支持 | 支持 | 官方估算 | Anthropic `messages.countTokens` |
-| Gemini Flash / Pro | 支持 | 支持 | 官方估算 / 本地估算 | Google GenAI `countTokens` + 本地图片规则 |
-| Mistral | 支持 | 暂不支持 | 本地近似 | v1 fallback tokenizer |
-| Llama | 支持 | 暂不支持 | 本地近似 | v1 fallback tokenizer + license warning |
+## 中文简介
 
-## 技术栈
+AI Token Counter，也就是这个项目里的「Token 点钞机」，用于对比主流 AI 模型的文本、图片、PDF、工具调用 Token 数量和 API 费用。它会明确区分官方计数、本地精确 tokenizer、本地估算和不支持的能力，避免把闭源模型的第三方估算误标成官方结果。
 
-- 前端：Vite, Vue 3, TypeScript, Element Plus, Pinia, Lucide Icons
-- 本地 tokenizer：`js-tiktoken`
-- 后端：Hono, `@hono/node-server`
-- 官方计数 SDK：`@anthropic-ai/sdk`, `@google/genai`
-- 测试：Vitest
+当前仓库准备公开开源。如果你准备正式设为 public，建议先补齐根目录 `LICENSE`，并决定是 MIT、Apache-2.0，还是更偏商业保护的双许可证 / open-core 策略。
 
-## 快速开始
+## Contents
+
+- [Highlights](#highlights)
+- [Screenshots](#screenshots)
+- [When To Use It](#when-to-use-it)
+- [Accuracy Model](#accuracy-model)
+- [Supported Providers](#supported-providers)
+- [Quick Start](#quick-start)
+- [Environment Variables](#environment-variables)
+- [External API](#external-api)
+- [Project Structure](#project-structure)
+- [Adding A New Model](#adding-a-new-model)
+- [Privacy And Security](#privacy-and-security)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Commercial Use](#commercial-use)
+- [License](#license)
+
+## Highlights
+
+- **177 model catalog entries** across OpenAI, Anthropic, Google, DeepSeek, Qwen, GLM/Z.AI, Mistral, Meta Llama, xAI, Cohere, Baidu ERNIE, Doubao, Moonshot/Kimi, StepFun, MiniMax, and Xiaomi MiMo.
+- **Text, image, PDF, and tool-call inputs** in one workspace.
+- **Accuracy labels for every result**: official exact, official estimate, local exact, local estimate, or unsupported.
+- **Provider-aware image handling**: when images are uploaded, models without vision capability are disabled in the selector.
+- **Pricing profiles**: use the official/catalog pricing profile or the CC Switch-style preset profile when proxy/coding-tool billing differs.
+- **External API v1** for `/api/v1/models`, `/api/v1/estimates`, and `/api/v1/tokens/count`.
+- **Apple-style UI theme** with dark/light mode, provider logos, drawer comparison view, local history, Markdown copy, and CSV export.
+- **Privacy-first default**: local estimates stay in the browser unless the user enables official provider counting APIs.
+
+## Screenshots
+
+<p align="center">
+  <img src="./screenshot.png" alt="AI Token Counter app screenshot" width="920" />
+</p>
+
+If the screenshot is outdated after UI changes, replace `screenshot.png` before publishing.
+
+## When To Use It
+
+Use this project when you need to:
+
+- compare prompt cost before choosing a model,
+- estimate text/image/PDF/tool-call token usage,
+- check whether a model supports a requested input mode,
+- compare official pricing and proxy/coding-tool pricing,
+- expose token counting and cost estimates to internal tools through an API,
+- audit tokenizer assumptions before using estimates commercially.
+
+## Accuracy Model
+
+Token estimation is not one uniform problem. The app intentionally separates methods:
+
+| Accuracy | Meaning |
+| --- | --- |
+| `official_exact` | Provider API returns an exact count for the requested payload. |
+| `official_estimate` | Provider API returns a documented estimate or a model-side count that can differ from final billed usage. |
+| `local_exact` | The app has an explicit local tokenizer implementation or mapped tokenizer asset for raw text. |
+| `local_estimate` | The app uses a family tokenizer, local heuristic, or formula-based estimate. |
+| `unsupported` | The selected model does not support that input capability. |
+
+Important caveats:
+
+- Chat templates, tool/function schemas, system messages, cached tokens, and provider-side optimizations can change final API usage.
+- Image/video/PDF counting is especially provider-specific.
+- Pricing changes frequently; always confirm with the provider before using estimates for billing or procurement.
+
+See [Tokenizer Mapping And License Audit](./docs/tokenizer-research-2026-05-17.md) for the latest tokenizer research notes.
+
+## Supported Providers
+
+| Provider | Model entries | Counting approach |
+| --- | ---: | --- |
+| OpenAI | 60 | `js-tiktoken`, official count API fallback, image formulas |
+| Anthropic Claude | 23 | official `count_tokens` API |
+| Google Gemini | 9 | official `countTokens` API plus local image fallback |
+| DeepSeek | 9 | mapped Hugging Face tokenizer assets where available |
+| Alibaba Qwen | 14 | mapped Qwen tokenizer assets for open models; hosted aliases marked conservatively |
+| Z.AI / GLM | 9 | official tokenizer API path |
+| Xiaomi MiMo | 5 | mapped open checkpoint tokenizer where available |
+| Mistral | 10 | local estimate until `mistral-common` integration |
+| Meta Llama | 4 | local estimate with model-license warnings |
+| xAI Grok | 9 | local estimate until official tokenize API integration |
+| Cohere | 3 | local estimate until official tokenize API integration |
+| Baidu ERNIE | 1 | mapped ERNIE tokenizer asset |
+| ByteDance / Doubao | 6 | local estimate until official calculator integration |
+| Moonshot / Kimi | 7 | local estimate until official estimate API integration |
+| StepFun | 1 | local estimate until official token-count API integration |
+| MiniMax | 7 | local estimate |
+
+## Tech Stack
+
+- Frontend: Vue 3, TypeScript, Vite, Pinia, Element Plus, Lucide Icons
+- API server: Hono on Node.js
+- Tokenizers: `js-tiktoken`, lightweight Hugging Face tokenizer loader, provider-specific estimate rules
+- Documents and images: `pdfjs-dist`, browser-side image metadata extraction
+- Tests: Vitest
+
+## Quick Start
+
+Requirements:
+
+- Node.js 24 or newer is recommended for the current local setup.
+- npm is used by the checked-in lockfile.
 
 ```bash
+git clone git@github.com:Shiaoming123/Tokens-Counter.git
+cd Tokens-Counter
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-默认地址：
+Default local URLs:
 
-- Web: `http://localhost:5173/`
-- API: `http://localhost:8787/`
+- Web: `http://localhost:5173`
+- API: `http://localhost:8787`
 
-Vite 会把 `/api` 代理到本地 Hono API。
+The Vite dev server proxies `/api/*` to the local Hono server.
 
-## 环境变量
-
-复制 `.env.example` 后配置：
+## Environment Variables
 
 ```bash
+# Server
+PORT=8787
+TOKEN_COUNTER_API_KEY=
+
+# Public links used by the Links page
+VITE_APP_PUBLIC_URL=https://your-domain.example
+VITE_APP_GITHUB_URL=https://github.com/Shiaoming123/Tokens-Counter
+
+# Official count APIs
+OPENAI_API_KEY=
 ANTHROPIC_API_KEY=
 GEMINI_API_KEY=
-OPENAI_API_KEY=
 ZAI_API_KEY=
 ZHIPU_API_KEY=
-PORT=8787
 ```
 
-说明：
+Notes:
 
-- `ANTHROPIC_API_KEY`：启用 Claude 官方 `messages.countTokens`。
-- `GEMINI_API_KEY`：启用 Gemini 官方 `countTokens`。
-- `OPENAI_API_KEY`：预留字段，v1 暂未调用 OpenAI 官方 API。
-- `ZAI_API_KEY` / `ZHIPU_API_KEY`：启用 GLM 官方 `/tokenizer`。
-- `PORT`：Hono API 服务端口，默认 `8787`。
+- API keys must stay server-side. Do not expose provider keys in client code.
+- Without official provider keys, the app falls back to local counting where possible and marks results accordingly.
+- `TOKEN_COUNTER_API_KEY` protects the external `/api/v1/*` API when configured.
 
-如果没有配置官方 API Key：
-
-- Claude 会显示“需要 API Key”，不会使用第三方 tokenizer 冒充官方计数。
-- Gemini 会回退到本地文本近似和图片规则估算，并显示 warning。
-- GLM 会回退到本地近似，并提示配置 Z.AI API Key。
-
-## 常用命令
+## Common Commands
 
 ```bash
-# 同时启动前端和 API
+# Start frontend and API together
 npm run dev
 
-# 只启动前端
+# Start only Vite
 npm run dev:web
 
-# 只启动 API
+# Start only Hono API
 npm run dev:api
 
-# 单元测试
-npm run test
+# Run tests
+npm test
 
-# 生产构建
+# Type-check and build production assets
 npm run build
 
-# 启动 Hono API，并在 dist 存在时托管构建后的前端
+# Serve the API and built frontend from dist/
 npm start
 ```
 
-## 项目结构
+## External API
+
+The public API surface is versioned under `/api/v1`.
+
+```bash
+curl "$BASE_URL/api/v1/models" \
+  -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY"
+```
+
+```bash
+curl "$BASE_URL/api/v1/estimates" \
+  -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "models": ["gpt-4o", "claude-sonnet-4.5", "gemini-2.5-flash"],
+    "input": {
+      "type": "text",
+      "text": "Compare the API cost of this prompt."
+    },
+    "options": {
+      "output_tokens": 1000,
+      "pricing_profile": "official"
+    }
+  }'
+```
+
+Endpoints:
+
+- `GET /api/v1/models`
+- `POST /api/v1/estimates`
+- `POST /api/v1/tokens/count`
+
+Full spec: [External Token API Specification](./docs/external-token-api.md)
+
+Production hardening checklist: [External API Production Checklist](./docs/external-api-production-checklist.md)
+
+## Project Structure
 
 ```text
 server/
-  index.ts                  # Hono API: models, pricing, Claude/Gemini count endpoints
+  index.ts                    # Hono API server and official count proxies
+  env.ts                      # Server environment parsing
 
 src/
-  components/               # Vue UI components
+  components/                 # Vue UI components
   core/
-    accuracy/               # 准确度标签映射
-    api/                    # 前端 API client
-    cost/                   # 成本计算
-    count/                  # 结果组装与官方/本地计数合并
-    history/                # LocalStorage 历史和导出
-    models/                 # 模型、价格、许可证 registry
-    tokenizers/             # tiktoken 和 fallback tokenizer
-    vision/                 # OpenAI/Gemini 图片 token 规则
+    accuracy/                 # Accuracy labels and UI metadata
+    api/                      # Frontend API clients
+    cost/                     # Cost calculation and currency conversion
+    count/                    # Result builder and method merging
+    document/                 # PDF text extraction
+    estimate/                 # External API estimate service
+    history/                  # LocalStorage history and export helpers
+    models/                   # Model registry, provider labels, ordering
+    pricing/                  # Pricing profile resolution
+    tokenizers/               # tiktoken, Hugging Face loader, approximations
+    tools/                    # Tool/function schema token estimation
+    vision/                   # Image token formulas
   data/
-    licenses.json           # 许可证声明数据
-    model-pricing.json      # 模型价格表
-    models.json             # 模型能力与计数配置
-  types/
-    domain.ts               # 领域类型定义
-  workers/
-    tokenizer.worker.ts     # 本地 tokenizer worker
+    models.json               # Model capability catalog
+    model-pricing.json        # Catalog/official pricing table
+    pricing-profiles.json     # Alternate pricing profiles
+    licenses.json             # Tokenizer/provider license notices
+  stores/                     # Pinia stores
+  types/                      # Domain types
+  workers/                    # Browser tokenizer worker
+
+docs/
+  external-token-api.md
+  external-api-production-checklist.md
+  tokenizer-research-2026-05-17.md
+  launch-and-monetization-plan.md
 
 test/
-  vision.test.ts            # 图片公式和成本计算测试
+  *.test.ts                   # Vitest coverage for counting, pricing, API, registry
 ```
 
-## API
+## Adding A New Model
 
-### `GET /api/models`
+Most model changes should start in data files:
 
-返回模型配置和许可证配置。
-
-### `GET /api/pricing`
-
-返回 `model-pricing.json` 价格表。
-
-### `POST /api/count/anthropic`
-
-通过 Anthropic 官方 `messages.countTokens` 计算 Claude 输入 tokens。
-
-请求：
-
-```json
-{
-  "modelId": "claude-sonnet-4.5",
-  "input": {
-    "text": "请总结这段文字",
-    "images": []
-  }
-}
-```
-
-### `POST /api/count/gemini`
-
-通过 Google GenAI `countTokens` 计算 Gemini 输入 tokens。图片会以 inline base64 形式发给官方 API，仅在用户启用官方计数并配置 `GEMINI_API_KEY` 时发生。
-
-### `POST /api/count/zai`
-
-通过 Z.AI 官方 `/api/paas/v4/tokenizer` 计算 GLM 输入 tokens。
-
-请求：
-
-```json
-{
-  "modelId": "glm-4.5",
-  "input": {
-    "text": "请总结这段文字",
-    "images": []
-  }
-}
-```
-
-## 计数规则说明
-
-### OpenAI 文本
-
-OpenAI 文本使用 `js-tiktoken` 本地计数。GPT-4o、GPT-4.1、GPT-5 系列默认使用 `o200k_base`。
-
-### OpenAI 图片
-
-OpenAI 图片使用 tile-based 规则估算：
-
-1. 高精度模式先缩放到 `2048 x 2048` 内。
-2. 再把短边缩放到 `768px`。
-3. 按 `512 x 512` tile 计数。
-4. 公式为 `baseTokens + tiles * tileTokens`。
-
-### Gemini 图片
-
-Gemini 本地估算规则：
-
-- 两边都不超过 `384px`：`258 tokens`
-- 更大图片：按 `768 x 768` tile 估算，每个 tile `258 tokens`
-
-有 `GEMINI_API_KEY` 时优先使用官方 `countTokens`。
-
-### Claude 图片
-
-Claude 不做本地图片公式。需要 `ANTHROPIC_API_KEY` 走官方 `messages.countTokens`。
-
-### DeepSeek
-
-DeepSeek 官方文档提供离线 tokenizer 下载，用于在本地计算 token 用量。v1 已在模型配置中加入 DeepSeek-V4 Flash / Pro，但还没有把官方 tokenizer zip 打包进浏览器 worker，因此文本结果标为本地近似。
-
-### Qwen
-
-Qwen 开源文档说明 tokenizer 使用 byte-level BPE，早期 Qwen 系列基于 tiktoken 并带模型专属词表和控制 token。v1 已加入 Qwen Plus、Qwen3.6 Plus 和 Qwen-VL Plus；后续可从 Hugging Face 或 ModelScope 拉取模型专属 `tokenizer.json`、`tokenizer_config.json`、`special_tokens_map.json` 或 `qwen.tiktoken` 来做精确本地计数。
-
-Qwen-VL 图片估算当前按 28×28 patch 和像素预算做本地近似，实际以百炼/DashScope usage 为准。
-
-### GLM / Z.AI
-
-Z.AI 提供官方 tokenizer endpoint：`/api/paas/v4/tokenizer`。配置 `ZAI_API_KEY` 或 `ZHIPU_API_KEY` 后，GLM 模型会优先走官方计数；无 Key 时显示本地近似 warning。
-
-### Xiaomi MiMo
-
-MiMo 官方平台提供 hosted 模型和 token/credit 计费说明；开源 MiMo checkpoints 可以从 Hugging Face 和 ModelScope 获取。v1 已加入 MiMo-V2.5、MiMo-V2.5-Pro 和 MiMo-7B-RL，当前使用本地近似，后续应加载对应 checkpoint 的 tokenizer 文件。
-
-## Hugging Face 与 ModelScope 可用资源
-
-这两个平台对本项目最有价值的是 tokenizer 资源，而不是网页展示本身：
-
-- Hugging Face Hub：可用 `hf_hub_download` 或 Transformers `AutoTokenizer.from_pretrained()` 获取 tokenizer 文件。
-- ModelScope Hub：可用 `snapshot_download` 或 `AutoTokenizer.from_pretrained()` 获取国内镜像/社区模型资源。
-- 重点文件：`tokenizer.json`、`tokenizer.model`、`tokenizer_config.json`、`special_tokens_map.json`、`vocab.json`、`merges.txt`、`qwen.tiktoken`。
-- 合规注意：平台本身不是许可证来源，必须读取每个模型的 model card/license 字段。
-
-## CCSwitch 可借鉴点
-
-调研 `farion1231/cc-switch` 后，本项目借鉴了它在 usage 统计里的几个思路：
-
-- 缓存 token 独立计价：把普通 input、cache read、cache write 和 output 分开计算。
-- 多来源 usage 归一化：官方 API、代理日志、CLI session log 的字段结构不同，应该先转成统一结果模型。
-- 模型 ID 需要归一化：真实 usage 里经常出现 snapshot、provider prefix、别名和路由模型名，价格表匹配前要做 normalize。
-- 成本倍率应是显式参数：不同平台可能有折扣、token plan、credit plan 或代理加价，不能隐藏在固定价格里。
-
-当前 UI 已加入“缓存命中 Tokens”“缓存写入 Tokens”“成本倍率”三个参数，后续可以继续做 usage log 导入与 provider/model 聚合报表。
-
-## 数据配置
-
-新增模型时优先改这三个文件：
-
-- `src/data/models.json`：模型能力、context window、tokenizer、vision 规则、licenseRef。
-- `src/data/model-pricing.json`：input/output 每百万 token 价格。
-- `src/data/licenses.json`：tokenizer 或模型许可证说明。
-
-价格变化频繁，本项目价格只用于估算，请以模型厂商官方价格页为准。
-
-## 测试
+1. Add or update the model in `src/data/models.json`.
+2. Add pricing in `src/data/model-pricing.json` or `src/data/pricing-profiles.json`.
+3. Add or update the license/source notice in `src/data/licenses.json`.
+4. If the model claims `local_exact` with a Hugging Face-style tokenizer, add an explicit mapping in `src/core/tokenizers/tokenizerLoader.ts`.
+5. Run:
 
 ```bash
-npm run test
+npm test
 npm run build
 ```
 
-当前测试覆盖：
+The registry test fails if a `local_exact` Hugging Face-style tokenizer does not have an explicit repo mapping.
 
-- OpenAI 512×512 high detail tile 计算
-- OpenAI 2048×2048 缩放后 tile 计算
-- Gemini 小图 258 tokens
-- Gemini 大图 768 tile 估算
-- input/output 成本计算
+## Privacy And Security
 
-## 部署
+- Local text/image/PDF estimates are processed in the browser where possible.
+- Official count mode sends payloads to the selected provider API through the server.
+- Local history is stored in browser LocalStorage.
+- Provider API keys are read from server environment variables.
+- Public API access should use `TOKEN_COUNTER_API_KEY` and a real rate limiter before production use.
+- Do not log full prompts, images, PDFs, or tool payloads in production by default.
 
-### 单 Node 服务
+## Roadmap
+
+- Integrate official count APIs for Cohere, xAI, Moonshot/Kimi, StepFun, and Volcano Ark.
+- Replace generic Mistral fallback with `mistral-common`.
+- Add chat-template-aware counting for structured messages and tools.
+- Add account/API-key management, real rate limits, and usage analytics.
+- Add deployment docs for Vercel, Cloudflare Pages, and a single Node service.
+- Add a public pricing/profile editor for teams with custom proxy billing.
+- Add more automated checks for tokenizer license and pricing-source freshness.
+
+## Contributing
+
+Contributions are welcome after the repository is made public.
+
+Good first contributions:
+
+- correct a model price with an official source link,
+- add a missing model catalog entry,
+- improve tokenizer mapping accuracy,
+- add a provider logo or capability flag,
+- improve documentation or API examples,
+- add focused tests for a tokenizer or cost formula.
+
+Before opening a pull request:
 
 ```bash
-npm install
+npm test
 npm run build
-npm start
 ```
 
-构建后 `server/index.ts` 会在 `dist/` 存在时托管前端静态文件，同时提供 `/api/*`。
+Please keep pricing/tokenizer changes source-backed. Include the provider documentation, model card, pricing page, or API documentation that justifies the change.
 
-### Vercel / Netlify / Cloudflare
+## Commercial Use
 
-也可以把前端静态部署，API 单独部署为 Node/Worker 服务。注意官方 API Key 必须只放在服务端环境变量中，不要暴露到前端。
+This project is designed to support both open-source adoption and future paid services:
 
-## 隐私与合规
+- free public UI,
+- paid hosted API keys,
+- team pricing profiles,
+- private deployments,
+- custom model catalog maintenance,
+- consulting for LLM cost estimation workflows.
 
-- 本地模式下，文本与图片只在浏览器内处理。
-- 开启 Claude/Gemini 官方计数时，请求内容会发送给对应厂商 API。
-- 历史记录默认只保存在浏览器 LocalStorage 最近 20 次。
-- 不缓存用户上传图片和文本到服务端。
-- 不把 Claude/Gemini 的第三方 tokenizer 标成官方。
-- 不把 Llama tokenizer 或模型许可证标成 MIT/Apache。
-- 商业使用前请核对模型厂商文档、价格页和许可证。
+See [Launch And Monetization Plan](./docs/launch-and-monetization-plan.md) for a staged plan.
 
-## 已知限制
+## License
 
-- Mistral/Llama v1 使用 fallback tokenizer，结果标为本地近似。
-- DeepSeek/Qwen/MiMo v1 尚未内置模型专属 tokenizer 文件，结果标为本地近似。
-- GLM 官方 tokenizer 需要服务端 `ZAI_API_KEY` 或 `ZHIPU_API_KEY`。
-- OpenAI 图片 token 为规则估算，实际费用以 API usage 为准。
-- 多轮消息、tools/function calling、PDF token 计数尚未做完整 UI。
-- 生产包里 tokenizer worker 较大，后续可按模型懒加载优化。
-- 暂未实现 CCSwitch 式代理日志导入和 session usage dashboard。
+The repository does not currently include a root `LICENSE` file. Before making the repository public as open source, choose one:
 
-## 许可证
+- **MIT**: simplest and adoption-friendly.
+- **Apache-2.0**: permissive with explicit patent language.
+- **Open-core / dual license**: keep the public tool open while reserving hosted/team/enterprise features for paid plans.
 
-项目内第三方 tokenizer、官方 API 和模型许可证说明见 [LICENSES.md](./LICENSES.md)。
+Third-party tokenizer, model, provider API, and pricing-source notices are tracked in [LICENSES.md](./LICENSES.md) and `src/data/licenses.json`.
+
+## Acknowledgements
+
+This project builds on the work of many open-source and provider ecosystems, including Vue, Vite, Hono, Element Plus, js-tiktoken, pdf.js, Simple Icons, Hugging Face tokenizer assets, and official model-provider APIs.
