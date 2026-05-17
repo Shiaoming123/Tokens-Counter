@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { siGithub } from 'simple-icons'
 import { RotateCcw, Trash2 } from 'lucide-vue-next'
 import { ElDrawer, ElMessage, ElSegmented } from 'element-plus'
+import { inject } from '@vercel/analytics'
 import InputArea from './components/InputArea.vue'
 import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
@@ -39,6 +40,7 @@ const localeOptions = computed(() => [
 onMounted(() => {
   history.load()
   navigation.initListener()
+  inject()
 })
 
 async function handleCalculate() {
