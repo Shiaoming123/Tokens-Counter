@@ -22,11 +22,11 @@ This audit separates token counting into three accuracy tiers:
 | Mistral | `local_estimate` until `mistral-common` is integrated. | Mistral points to `mistral-common`, which covers tokenization of text, images, tools, and message normalization. |
 | Meta Llama | `local_estimate` in this app. | Tokenizer assets are model-license governed and can require gated access. |
 | xAI | `local_estimate`; official endpoint not integrated. | xAI documents console tokenizer/Tokenize Text endpoint and actual usage in API responses. |
-| Cohere | `local_estimate`; official endpoint not integrated. | Cohere `/v1/tokenize` tokenizes with the selected model tokenizer. |
+| Cohere | `official_estimate` when `COHERE_API_KEY` is configured; otherwise `local_estimate`. | Cohere `/v1/tokenize` tokenizes with the selected model tokenizer. |
 | Baidu ERNIE | `local_exact` for ERNIE 4.5 mapped to Baidu tokenizer files; complex chat/tools still need chat template handling. | Baidu Qianfan documents downloading ERNIE tokenizer files and using tokenizer.json/tokenizer_config.json. |
 | ByteDance / Volcano Ark | `local_estimate`; official calculator not integrated. | Volcano Ark Token Calculator applies model-specific tokenizer and calculation logic. |
-| Moonshot / Kimi | `local_estimate`; official estimate endpoint not integrated. | Kimi provides `/v1/tokenizers/estimate-token-count`. |
-| StepFun | `local_estimate`; official token-count API not integrated. | StepFun provides `POST /v1/token/count`. |
+| Moonshot / Kimi | `official_estimate` when `MOONSHOT_API_KEY` is configured; otherwise `local_estimate`. | Kimi provides `/v1/tokenizers/estimate-token-count`. |
+| StepFun | `official_estimate` when `STEPFUN_API_KEY` is configured; otherwise `local_estimate`. | StepFun provides `POST /v1/token/count`. |
 | MiniMax | `local_estimate`. | MiniMax documents hosted model usage and billing, but no standalone tokenizer endpoint is integrated here. |
 
 ## Implementation Notes
@@ -38,8 +38,7 @@ This audit separates token counting into three accuracy tiers:
 
 ## Follow-Up Candidates
 
-- Integrate official provider count APIs for Cohere, xAI, Moonshot/Kimi, StepFun, and Z.AI behind server-side API keys.
+- Add xAI gRPC TokenizeText and a production Mistral `mistral-common` sidecar when the deployment target supports them.
 - Replace generic Mistral Hugging Face parsing with `mistral-common` for message/tool/image-accurate counts.
 - Add chat template application for Qwen, DeepSeek V3.2, ERNIE, and other open models when counting structured messages/tools.
 - Add a provider-facing accuracy matrix in the UI so users can see why a result is exact, official estimate, or local estimate.
-

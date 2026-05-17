@@ -138,6 +138,9 @@ Vite 开发服务会把 `/api/*` 代理到本地 Hono 服务。
 # Server
 PORT=8787
 TOKEN_COUNTER_API_KEY=
+TOKEN_COUNTER_API_KEYS=
+TOKEN_COUNTER_RATE_LIMIT_MAX=120
+TOKEN_COUNTER_RATE_LIMIT_WINDOW_MS=3600000
 
 # Header GitHub 图标使用的公开仓库链接
 VITE_APP_GITHUB_URL=https://github.com/Shiaoming123/Tokens-Counter
@@ -148,13 +151,18 @@ ANTHROPIC_API_KEY=
 GEMINI_API_KEY=
 ZAI_API_KEY=
 ZHIPU_API_KEY=
+COHERE_API_KEY=
+MOONSHOT_API_KEY=
+STEPFUN_API_KEY=
+XAI_API_KEY=
 ```
 
 说明：
 
 - API key 必须只放在服务端环境变量里，不要写进前端代码。
 - 没有官方 provider key 时，项目会尽量使用本地计数，并在结果中标明准确度。
-- 配置 `TOKEN_COUNTER_API_KEY` 后，外部 `/api/v1/*` API 会要求 Bearer token。
+- 配置 `TOKEN_COUNTER_API_KEY` 后，外部 `/api/v1/*` API 会要求 Bearer token。多个客户端或简单轮换可以用逗号分隔的 `TOKEN_COUNTER_API_KEYS`。
+- `TOKEN_COUNTER_RATE_LIMIT_MAX` 和 `TOKEN_COUNTER_RATE_LIMIT_WINDOW_MS` 控制外部 API 的内存级按 key/IP 限流。
 
 ## 常用命令
 
@@ -173,6 +181,9 @@ npm test
 
 # 类型检查并构建
 npm run build
+
+# 校验模型、价格和许可证目录完整性
+npm run validate:catalog
 
 # 用 dist/ 静态文件启动生产服务
 npm start

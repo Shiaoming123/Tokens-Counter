@@ -73,6 +73,60 @@ describe('external token API', () => {
     )
   })
 
+  it('replays matching estimate requests with the same Idempotency-Key', async () => {
+    const payload = {
+      models: ['gpt-4o'],
+      input: { text: 'Count this once and replay it.' },
+      options: { expected_output_tokens: 50 },
+    }
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Idempotency-Key': 'vitest-replay-001' },
+      body: JSON.stringify(payload),
+    }
+
+    const first = await request('/api/v1/estimates', init)
+    const second = await request('/api/v1/estimates', init)
+    const firstBody = await first.json()
+    const secondBody = await second.json()
+
+    expect(first.status).toBe(200)
+    expect(first.headers.get('Idempotency-Status')).toBe('stored')
+    expect(second.status).toBe(200)
+    expect(second.headers.get('Idempotency-Status')).toBe('replayed')
+    expect(secondBody.id).toBe(firstBody.id)
+    expect(secondBody.request_id).toBe(firstBody.request_id)
+  })
+
+  it('rejects reused idempotency keys with a different body', async () => {
+    const first = await request('/api/v1/estimates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Idempotency-Key': 'vitest-conflict-001' },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'first body' },
+      }),
+    })
+    const second = await request('/api/v1/estimates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Idempotency-Key': 'vitest-conflict-001' },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'second body' },
+      }),
+    })
+    const body = await second.json()
+
+    expect(first.status).toBe(200)
+    expect(second.status).toBe(409)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'invalid_request',
+        param: 'Idempotency-Key',
+      }),
+    )
+  })
+
   it('accepts public option aliases from the API spec', async () => {
     const response = await request('/api/v1/estimates', {
       method: 'POST',
@@ -190,5 +244,20 @@ describe('external token API', () => {
     const countKeys = Object.keys(countBody.results[0]).filter((key) => key !== 'model' && key !== 'provider')
 
     expect(estimateCountKeys.sort()).toEqual(countKeys.sort())
+  })
+
+  it('documents optional official count endpoints as protected server proxies', async () => {
+    const response = await request('/api/count/cohere', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        modelId: 'command-r',
+        input: { text: 'hello', images: [] },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(401)
+    expect(body.error).toContain('COHERE_API_KEY')
   })
 })

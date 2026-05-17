@@ -100,9 +100,9 @@
     "id": "cohere-api",
     "name": "Cohere API terms",
     "license": "Vendor API terms",
-    "usage": "Command-R model token estimation through approximate local tokenizer",
+    "usage": "Command-R model token counting through optional official Tokenize API and approximate local fallback",
     "noticeRequired": true,
-    "risk": "Cohere provides an authenticated Tokenize endpoint for model-specific BPE tokenization. This app has not integrated it yet, so local counts are approximate.",
+    "risk": "Cohere provides an authenticated Tokenize endpoint for model-specific BPE tokenization. Configure COHERE_API_KEY to use it; local fallback counts remain approximate.",
     "url": "https://docs.cohere.com/reference/tokenize"
   },
   {
@@ -129,7 +129,7 @@
     "license": "Vendor API terms",
     "usage": "Moonshot/Kimi model token estimation through local approximation and optional official estimate API",
     "noticeRequired": true,
-    "risk": "Moonshot/Kimi provides /v1/tokenizers/estimate-token-count. This app has not integrated it yet, so local counts are approximate.",
+    "risk": "Moonshot/Kimi provides /v1/tokenizers/estimate-token-count. Configure MOONSHOT_API_KEY to use it; local fallback counts remain approximate.",
     "url": "https://platform.kimi.com/docs/api/estimate"
   },
   {
@@ -165,7 +165,7 @@
     "license": "Vendor API terms",
     "usage": "Step model token estimation and hosted pricing display",
     "noticeRequired": true,
-    "risk": "StepFun provides POST /v1/token/count. This app has not integrated it yet, so local counts are approximate.",
+    "risk": "StepFun provides POST /v1/token/count. Configure STEPFUN_API_KEY to use it; local fallback counts remain approximate.",
     "url": "https://platform.stepfun.ai/docs/en/api-reference/token-count"
   },
   {

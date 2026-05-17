@@ -77,7 +77,7 @@ export function buildLocalResult(
   }
 
   if (model.provider === 'cohere') {
-    warnings.push('Cohere provides an official Tokenize API, but this app has not integrated it yet; local counts are approximate.')
+    warnings.push('Cohere provides an official Tokenize API; configure COHERE_API_KEY to use it. Local fallback counts are approximate.')
   }
 
   if (model.provider === 'baidu') {
@@ -91,11 +91,11 @@ export function buildLocalResult(
   }
 
   if (model.provider === 'moonshot') {
-    warnings.push('Moonshot/Kimi provides an estimate-token-count API, but this app has not integrated it yet; local counts are approximate.')
+    warnings.push('Moonshot/Kimi provides an estimate-token-count API; configure MOONSHOT_API_KEY to use it. Local fallback counts are approximate.')
   }
 
   if (model.provider === 'stepfun') {
-    warnings.push('StepFun provides a token/count API, but this app has not integrated it yet; local counts are approximate.')
+    warnings.push('StepFun provides a token/count API; configure STEPFUN_API_KEY to use it. Local fallback counts are approximate.')
   }
 
   if (model.provider === 'minimax') {

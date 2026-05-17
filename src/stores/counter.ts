@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { countAnthropicOfficial, countGeminiOfficial, countOpenaiOfficial, countZaiOfficial } from '../core/api/countApi'
+import {
+  countAnthropicOfficial,
+  countCohereOfficial,
+  countGeminiOfficial,
+  countMoonshotOfficial,
+  countOpenaiOfficial,
+  countStepFunOfficial,
+  countZaiOfficial,
+} from '../core/api/countApi'
 import {
   buildLocalResult,
   buildOfficialResult,
@@ -277,6 +285,57 @@ export const useCounterStore = defineStore('counter', () => {
           warnings: [
             error instanceof Error ? error.message : 'Z.AI official tokenizer failed',
             'Fell back to local approximation. Configure ZAI_API_KEY to use official /tokenizer.',
+            ...fallback.warnings,
+          ],
+        }
+      }
+    }
+
+    if (model.provider === 'cohere' && options.value.useOfficialApi) {
+      try {
+        const official = await countCohereOfficial({ modelId: model.id, input })
+        return buildOfficialResult(model, input, options.value, official, textTokensByModel)
+      } catch (error) {
+        const fallback = buildLocalResult(model, input, options.value, textTokensByModel)
+        return {
+          ...fallback,
+          warnings: [
+            error instanceof Error ? error.message : 'Cohere official tokenize failed',
+            'Fell back to local approximation. Configure COHERE_API_KEY to use official /v1/tokenize.',
+            ...fallback.warnings,
+          ],
+        }
+      }
+    }
+
+    if (model.provider === 'moonshot' && options.value.useOfficialApi) {
+      try {
+        const official = await countMoonshotOfficial({ modelId: model.id, input })
+        return buildOfficialResult(model, input, options.value, official, textTokensByModel)
+      } catch (error) {
+        const fallback = buildLocalResult(model, input, options.value, textTokensByModel)
+        return {
+          ...fallback,
+          warnings: [
+            error instanceof Error ? error.message : 'Moonshot/Kimi official estimate failed',
+            'Fell back to local approximation. Configure MOONSHOT_API_KEY to use estimate-token-count.',
+            ...fallback.warnings,
+          ],
+        }
+      }
+    }
+
+    if (model.provider === 'stepfun' && options.value.useOfficialApi) {
+      try {
+        const official = await countStepFunOfficial({ modelId: model.id, input })
+        return buildOfficialResult(model, input, options.value, official, textTokensByModel)
+      } catch (error) {
+        const fallback = buildLocalResult(model, input, options.value, textTokensByModel)
+        return {
+          ...fallback,
+          warnings: [
+            error instanceof Error ? error.message : 'StepFun official token count failed',
+            'Fell back to local approximation. Configure STEPFUN_API_KEY to use /v1/token/count.',
             ...fallback.warnings,
           ],
         }

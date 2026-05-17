@@ -157,6 +157,9 @@ The Vite dev server proxies `/api/*` to the local Hono server.
 # Server
 PORT=8787
 TOKEN_COUNTER_API_KEY=
+TOKEN_COUNTER_API_KEYS=
+TOKEN_COUNTER_RATE_LIMIT_MAX=120
+TOKEN_COUNTER_RATE_LIMIT_WINDOW_MS=3600000
 
 # Public repository link used by the header GitHub icon
 VITE_APP_GITHUB_URL=https://github.com/Shiaoming123/Tokens-Counter
@@ -167,13 +170,18 @@ ANTHROPIC_API_KEY=
 GEMINI_API_KEY=
 ZAI_API_KEY=
 ZHIPU_API_KEY=
+COHERE_API_KEY=
+MOONSHOT_API_KEY=
+STEPFUN_API_KEY=
+XAI_API_KEY=
 ```
 
 Notes:
 
 - API keys must stay server-side. Do not expose provider keys in client code.
 - Without official provider keys, the app falls back to local counting where possible and marks results accordingly.
-- `TOKEN_COUNTER_API_KEY` protects the external `/api/v1/*` API when configured.
+- `TOKEN_COUNTER_API_KEY` protects the external `/api/v1/*` API when configured. Use comma-separated `TOKEN_COUNTER_API_KEYS` for simple rotation or multiple clients.
+- `TOKEN_COUNTER_RATE_LIMIT_MAX` and `TOKEN_COUNTER_RATE_LIMIT_WINDOW_MS` control the in-memory per-key/IP external API limiter.
 
 ## Common Commands
 
@@ -192,6 +200,9 @@ npm test
 
 # Type-check and build production assets
 npm run build
+
+# Validate model/pricing/license catalog integrity
+npm run validate:catalog
 
 # Serve the API and built frontend from dist/
 npm start

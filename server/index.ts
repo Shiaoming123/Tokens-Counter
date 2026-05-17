@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { join } from 'node:path'
 import Anthropic from '@anthropic-ai/sdk'
 import { GoogleGenAI } from '@google/genai'
@@ -49,15 +50,108 @@ type ValidationResult =
       details?: Record<string, unknown>
     }
 
+interface RateLimitState {
+  limit: number
+  remaining: number
+  reset: number
+  allowed: boolean
+}
+
+interface IdempotencyRecord {
+  bodyHash: string
+  response: unknown
+  status: ContentfulStatusCode
+  createdAt: number
+}
+
+const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>()
+const idempotencyRecords = new Map<string, IdempotencyRecord>()
+const IDEMPOTENCY_TTL_MS = 24 * 60 * 60 * 1000
+
 function createRequestId() {
   return `req_${crypto.randomUUID().replaceAll('-', '')}`
 }
 
-function applyRateLimitHeaders(context: Context) {
-  const reset = Math.floor(Date.now() / 1000) + 3600
-  context.header('X-RateLimit-Limit', '120')
-  context.header('X-RateLimit-Remaining', '119')
-  context.header('X-RateLimit-Reset', String(reset))
+function getConfiguredApiKeys() {
+  return new Set(
+    [env.TOKEN_COUNTER_API_KEY, ...(env.TOKEN_COUNTER_API_KEYS?.split(',') ?? [])]
+      .map((key) => key?.trim())
+      .filter((key): key is string => Boolean(key)),
+  )
+}
+
+function getBearerToken(context: Context) {
+  const authorization = context.req.header('Authorization')
+  const match = authorization?.match(/^Bearer\s+(.+)$/i)
+  return match?.[1]?.trim()
+}
+
+function getClientIp(context: Context) {
+  return (
+    context.req.header('CF-Connecting-IP') ??
+    context.req.header('X-Forwarded-For')?.split(',')[0]?.trim() ??
+    'local'
+  )
+}
+
+function hashValue(value: string) {
+  return createHash('sha256').update(value).digest('hex')
+}
+
+function rateLimitIdentity(context: Context, bearerToken?: string) {
+  if (bearerToken) return `key:${hashValue(bearerToken).slice(0, 16)}`
+  return `ip:${getClientIp(context)}`
+}
+
+function checkRateLimit(identity: string): RateLimitState {
+  const now = Date.now()
+  const limit = Math.max(Math.trunc(env.TOKEN_COUNTER_RATE_LIMIT_MAX), 1)
+  const windowMs = Math.max(Math.trunc(env.TOKEN_COUNTER_RATE_LIMIT_WINDOW_MS), 1_000)
+  const existing = rateLimitBuckets.get(identity)
+  const bucket = existing && existing.resetAt > now ? existing : { count: 0, resetAt: now + windowMs }
+
+  bucket.count += 1
+  rateLimitBuckets.set(identity, bucket)
+
+  const remaining = Math.max(limit - bucket.count, 0)
+  return {
+    limit,
+    remaining,
+    reset: Math.ceil(bucket.resetAt / 1000),
+    allowed: bucket.count <= limit,
+  }
+}
+
+function applyRateLimitHeaders(context: Context, state: RateLimitState) {
+  context.header('X-RateLimit-Limit', String(state.limit))
+  context.header('X-RateLimit-Remaining', String(state.remaining))
+  context.header('X-RateLimit-Reset', String(state.reset))
+}
+
+function idempotencyIdentity(context: Context, bearerToken?: string) {
+  return rateLimitIdentity(context, bearerToken)
+}
+
+function cleanupIdempotencyRecords() {
+  const cutoff = Date.now() - IDEMPOTENCY_TTL_MS
+  for (const [key, record] of idempotencyRecords) {
+    if (record.createdAt < cutoff) idempotencyRecords.delete(key)
+  }
+}
+
+function getIdempotencyCacheKey(context: Context, requestId: string, bearerToken?: string) {
+  const idempotencyKey = context.req.header('Idempotency-Key')?.trim()
+  if (!idempotencyKey) return undefined
+  if (idempotencyKey.length > 200) {
+    return { error: externalError(context, 400, 'invalid_request', 'Idempotency-Key is too long.', requestId, 'Idempotency-Key') }
+  }
+  return {
+    key: `${idempotencyIdentity(context, bearerToken)}:${idempotencyKey}`,
+  }
+}
+
+function stableJsonHash(value: unknown) {
+  return hashValue(JSON.stringify(value))
 }
 
 function externalError(
@@ -151,6 +245,50 @@ function hasCountableInput(input: ExternalInputPayload) {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function countInputToPlainText(input: CountInput) {
+  const messageText = input.messages?.length
+    ? input.messages.map((message) => `${message.role}: ${message.content}`).join('\n')
+    : ''
+  return [messageText, input.text].filter(Boolean).join('\n') || 'Count this input.'
+}
+
+function countInputToChatMessages(input: CountInput, fallbackText = 'Count this input.') {
+  if (input.messages?.length) {
+    return input.messages.map((message) => ({
+      role: message.role,
+      content: message.content,
+    }))
+  }
+
+  const text = input.text || fallbackText
+  if (!input.images.length) {
+    return [{ role: 'user', content: text }]
+  }
+
+  return [
+    {
+      role: 'user',
+      content: [
+        ...input.images.map((image) => ({
+          type: 'image_url',
+          image_url: {
+            url: `data:${image.mimeType};base64,${image.base64 ?? ''}`,
+          },
+        })),
+        { type: 'text', text },
+      ],
+    },
+  ]
+}
+
+function normalizeMoonshotModelId(modelId: string) {
+  const aliases: Record<string, string> = {
+    'kimi-k2-0905': 'kimi-k2-0905-preview',
+    'kimi-k2-turbo': 'kimi-k2-turbo-preview',
+  }
+  return aliases[modelId] ?? modelId
 }
 
 function modelHasCapability(model: ModelConfig, capability: string) {
@@ -261,14 +399,18 @@ const port = env.PORT
 
 app.use('/api/*', cors())
 app.use('/api/v1/*', async (context, next) => {
-  applyRateLimitHeaders(context)
+  const configuredApiKeys = getConfiguredApiKeys()
+  const bearerToken = getBearerToken(context)
+  const identity = rateLimitIdentity(context, bearerToken)
+  const rateLimit = checkRateLimit(identity)
+  applyRateLimitHeaders(context, rateLimit)
 
-  const configuredApiKey = env.TOKEN_COUNTER_API_KEY
-  if (configuredApiKey) {
-    const authorization = context.req.header('Authorization')
-    if (authorization !== `Bearer ${configuredApiKey}`) {
-      return externalError(context, 401, 'unauthorized', 'Missing or invalid API key.')
-    }
+  if (!rateLimit.allowed) {
+    return externalError(context, 429, 'rate_limited', 'Rate limit exceeded.')
+  }
+
+  if (configuredApiKeys.size > 0 && (!bearerToken || !configuredApiKeys.has(bearerToken))) {
+    return externalError(context, 401, 'unauthorized', 'Missing or invalid API key.')
   }
 
   await next()
@@ -322,8 +464,31 @@ app.get('/api/v1/models', (context) => {
 
 app.post('/api/v1/estimates', async (context) => {
   const requestId = createRequestId()
+  const bearerToken = getBearerToken(context)
   const body = await readExternalJson(context, requestId)
   if (!body.ok) return body.response
+
+  cleanupIdempotencyRecords()
+  const idempotency = getIdempotencyCacheKey(context, requestId, bearerToken)
+  if (idempotency && 'error' in idempotency) return idempotency.error
+  const bodyHash = stableJsonHash(body.value)
+  if (idempotency?.key) {
+    const cached = idempotencyRecords.get(idempotency.key)
+    if (cached) {
+      if (cached.bodyHash !== bodyHash) {
+        return externalError(
+          context,
+          409,
+          'invalid_request',
+          'Idempotency-Key was reused with a different request body.',
+          requestId,
+          'Idempotency-Key',
+        )
+      }
+      context.header('Idempotency-Status', 'replayed')
+      return context.json(cached.response, cached.status)
+    }
+  }
 
   const validation = validateEstimateBody(body.value)
   if (!validation.ok) return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
@@ -341,7 +506,7 @@ app.post('/api/v1/estimates', async (context) => {
     options: validation.value.options,
   })
 
-  return context.json({
+  const responseBody = {
     id: `est_${requestId.slice(4)}`,
     object: 'estimate',
     created_at: new Date().toISOString(),
@@ -355,7 +520,19 @@ app.post('/api/v1/estimates', async (context) => {
     summary: toApiEstimateSummary(serviceResult.results),
     results: serviceResult.results.map(toApiEstimateResult),
     ...(serviceResult.failures.length ? { failures: serviceResult.failures } : {}),
-  })
+  }
+
+  if (idempotency?.key) {
+    idempotencyRecords.set(idempotency.key, {
+      bodyHash,
+      response: responseBody,
+      status: 200,
+      createdAt: Date.now(),
+    })
+    context.header('Idempotency-Status', 'stored')
+  }
+
+  return context.json(responseBody)
 })
 
 app.post('/api/v1/tokens/count', async (context) => {
@@ -594,6 +771,114 @@ app.post('/api/count/zai', async (context) => {
     accuracy: 'official_estimate',
     method: 'official_count_api',
     warnings: ['GLM 计数来自 Z.AI 官方 /api/paas/v4/tokenizer。多模态 token 以 usage.total_tokens 为准。'],
+  })
+})
+
+app.post('/api/count/cohere', async (context) => {
+  const apiKey = env.COHERE_API_KEY
+  if (!apiKey) {
+    return context.json({ error: 'Missing COHERE_API_KEY; Cohere official /v1/tokenize is unavailable.' }, 401)
+  }
+
+  const body = await context.req.json<OfficialRequest>()
+  const response = await fetch('https://api.cohere.com/v1/tokenize', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: body.modelId,
+      text: countInputToPlainText(body.input).slice(0, 65_536),
+    }),
+  })
+
+  if (!response.ok) {
+    const text = await response.text()
+    return context.json(
+      { error: `Cohere tokenize request failed: ${text || response.status}` },
+      response.status as ContentfulStatusCode,
+    )
+  }
+
+  const result = (await response.json()) as { tokens?: number[] }
+  return context.json({
+    inputTokens: result.tokens?.length ?? 0,
+    accuracy: 'official_estimate',
+    method: 'official_count_api',
+    warnings: ['Cohere count uses the official /v1/tokenize endpoint. Chat role/template overhead is approximated by serialized messages.'],
+  })
+})
+
+app.post('/api/count/moonshot', async (context) => {
+  const apiKey = env.MOONSHOT_API_KEY
+  if (!apiKey) {
+    return context.json({ error: 'Missing MOONSHOT_API_KEY; Moonshot/Kimi official estimate-token-count is unavailable.' }, 401)
+  }
+
+  const body = await context.req.json<OfficialRequest>()
+  const response = await fetch('https://api.moonshot.ai/v1/tokenizers/estimate-token-count', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: normalizeMoonshotModelId(body.modelId),
+      messages: countInputToChatMessages(body.input),
+    }),
+  })
+
+  if (!response.ok) {
+    const text = await response.text()
+    return context.json(
+      { error: `Moonshot/Kimi token estimate failed: ${text || response.status}` },
+      response.status as ContentfulStatusCode,
+    )
+  }
+
+  const result = (await response.json()) as { data?: { total_tokens?: number } }
+  return context.json({
+    inputTokens: Number(result.data?.total_tokens ?? 0),
+    accuracy: 'official_estimate',
+    method: 'official_count_api',
+    warnings: ['Moonshot/Kimi count uses the official /v1/tokenizers/estimate-token-count endpoint.'],
+  })
+})
+
+app.post('/api/count/stepfun', async (context) => {
+  const apiKey = env.STEPFUN_API_KEY
+  if (!apiKey) {
+    return context.json({ error: 'Missing STEPFUN_API_KEY; StepFun official /v1/token/count is unavailable.' }, 401)
+  }
+
+  const body = await context.req.json<OfficialRequest>()
+  const response = await fetch('https://api.stepfun.ai/v1/token/count', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: body.modelId,
+      messages: countInputToChatMessages(body.input),
+    }),
+  })
+
+  if (!response.ok) {
+    const text = await response.text()
+    return context.json(
+      { error: `StepFun token count failed: ${text || response.status}` },
+      response.status as ContentfulStatusCode,
+    )
+  }
+
+  const result = (await response.json()) as { data?: { total_tokens?: number } }
+  return context.json({
+    inputTokens: Number(result.data?.total_tokens ?? 0),
+    accuracy: 'official_estimate',
+    method: 'official_count_api',
+    warnings: ['StepFun count uses the official /v1/token/count endpoint.'],
   })
 })
 

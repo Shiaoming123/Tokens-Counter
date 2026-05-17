@@ -10,8 +10,9 @@ Current implementation notes:
 
 - `GET /api/v1/models`, `POST /api/v1/estimates`, and `POST /api/v1/tokens/count` are implemented.
 - `GET /api/v1/estimates/:id` is reserved for future persisted estimates and is not implemented yet.
-- Bearer authentication is enforced when `TOKEN_COUNTER_API_KEY` is configured. Public deployments should always configure an API key source.
-- Rate-limit headers are returned today; production deployments should replace preview/static quota values with persisted per-key/IP quota enforcement.
+- Bearer authentication is enforced when `TOKEN_COUNTER_API_KEY` or comma-separated `TOKEN_COUNTER_API_KEYS` is configured. Public deployments should always configure an API key source.
+- Rate-limit headers are backed by an in-memory per-key/IP limiter. Production deployments should persist quotas in shared storage when running multiple instances.
+- A machine-readable OpenAPI 3.1 schema is published at [`docs/openapi.json`](./openapi.json).
 - Cost estimates support `official` and `ccswitch` pricing profiles, with input/output/cache prices split in the response.
 
 ## Conventions

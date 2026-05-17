@@ -1,0 +1,282 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AI Token Counter External API",
+    "version": "1.0.0",
+    "description": "Public v1 API for model catalog lookup, token counting, and cost estimation."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/models": {
+      "get": {
+        "summary": "List supported models",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "capability",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["text", "image", "coding", "messages", "cost_estimate", "official_count", "local_count"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Model catalog response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["data"],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Model" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/Error" },
+          "429": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/estimates": {
+      "post": {
+        "summary": "Create token and cost estimates",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": { "type": "string", "maxLength": 200 }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EstimateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estimate response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EstimateResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "409": { "$ref": "#/components/responses/Error" },
+          "429": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/tokens/count": {
+      "post": {
+        "summary": "Count tokens without returning cost fields",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EstimateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token count response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokenCountResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error" },
+          "401": { "$ref": "#/components/responses/Error" },
+          "429": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "Standard error response",
+        "headers": {
+          "X-RateLimit-Limit": { "schema": { "type": "integer" } },
+          "X-RateLimit-Remaining": { "schema": { "type": "integer" } },
+          "X-RateLimit-Reset": { "schema": { "type": "integer" } }
+        },
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Model": {
+        "type": "object",
+        "required": ["model", "provider", "display_name", "capabilities", "pricing", "count_methods"],
+        "properties": {
+          "model": { "type": "string" },
+          "provider": { "type": "string" },
+          "display_name": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "context_window": { "type": ["integer", "null"] },
+          "capabilities": { "type": "object", "additionalProperties": { "type": "boolean" } },
+          "pricing": { "$ref": "#/components/schemas/Pricing" },
+          "count_methods": { "type": "object" }
+        }
+      },
+      "Pricing": {
+        "type": "object",
+        "required": ["currency", "input_per_1m", "output_per_1m"],
+        "properties": {
+          "currency": { "type": "string" },
+          "input_per_1m": { "type": "number" },
+          "output_per_1m": { "type": "number" },
+          "cached_input_per_1m": { "type": ["number", "null"] },
+          "cache_write_per_1m": { "type": ["number", "null"] },
+          "source": { "type": ["string", "null"] },
+          "last_updated": { "type": ["string", "null"] }
+        }
+      },
+      "EstimateRequest": {
+        "type": "object",
+        "required": ["models", "input"],
+        "properties": {
+          "models": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "input": { "$ref": "#/components/schemas/InputPayload" },
+          "options": { "$ref": "#/components/schemas/EstimateOptions" },
+          "project_id": { "type": "string" },
+          "workspace_id": { "type": "string" }
+        }
+      },
+      "InputPayload": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role", "content"],
+              "properties": {
+                "role": { "type": "string", "enum": ["system", "user", "assistant"] },
+                "content": { "type": "string" }
+              }
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mime_type": { "type": "string" },
+                "mimeType": { "type": "string" },
+                "width": { "type": "integer" },
+                "height": { "type": "integer" },
+                "base64": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "EstimateOptions": {
+        "type": "object",
+        "properties": {
+          "expected_output_tokens": { "type": "integer", "minimum": 0 },
+          "output_tokens": { "type": "integer", "minimum": 0 },
+          "cached_input_tokens": { "type": "integer", "minimum": 0 },
+          "cache_hit_tokens": { "type": "integer", "minimum": 0 },
+          "cache_write_tokens": { "type": "integer", "minimum": 0 },
+          "cost_multiplier": { "type": "number" },
+          "pricing_profile": { "type": "string", "enum": ["official", "ccswitch"] },
+          "use_official_api": { "type": "boolean" },
+          "prefer_official_count": { "type": "boolean" },
+          "allow_fallback": { "type": "boolean" },
+          "redact": { "type": "boolean" }
+        }
+      },
+      "EstimateResponse": {
+        "type": "object",
+        "required": ["id", "object", "created_at", "request_id", "summary", "results"],
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "const": "estimate" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "request_id": { "type": "string" },
+          "summary": { "type": "object" },
+          "results": { "type": "array", "items": { "$ref": "#/components/schemas/EstimateResult" } },
+          "failures": { "type": "array" }
+        }
+      },
+      "EstimateResult": {
+        "type": "object",
+        "required": ["model", "provider", "count", "cost"],
+        "properties": {
+          "model": { "type": "string" },
+          "provider": { "type": "string" },
+          "count": { "type": "object" },
+          "cost": { "type": "object" },
+          "warnings": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "TokenCountResponse": {
+        "type": "object",
+        "required": ["object", "created_at", "request_id", "results"],
+        "properties": {
+          "object": { "const": "token_count" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "request_id": { "type": "string" },
+          "results": { "type": "array", "items": { "type": "object" } },
+          "failures": { "type": "array" }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "request_id"],
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "param": { "type": "string" },
+              "request_id": { "type": "string" },
+              "details": { "type": "object" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

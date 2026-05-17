@@ -21,6 +21,18 @@ export async function countZaiOfficial(request: OfficialCountRequest) {
   return postOfficial('/api/count/zai', request)
 }
 
+export async function countCohereOfficial(request: OfficialCountRequest) {
+  return postOfficial('/api/count/cohere', request)
+}
+
+export async function countMoonshotOfficial(request: OfficialCountRequest) {
+  return postOfficial('/api/count/moonshot', request)
+}
+
+export async function countStepFunOfficial(request: OfficialCountRequest) {
+  return postOfficial('/api/count/stepfun', request)
+}
+
 async function postOfficial(url: string, request: OfficialCountRequest) {
   const response = await fetch(url, {
     method: 'POST',

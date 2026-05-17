@@ -4,17 +4,17 @@ Before opening the Token Counter API to external users, keep the current v1 endp
 
 ## Access Control
 
-- Require `TOKEN_COUNTER_API_KEY` or a real API key table in every non-local environment.
+- Require `TOKEN_COUNTER_API_KEY`, comma-separated `TOKEN_COUNTER_API_KEYS`, or a real API key table in every non-local environment.
 - Support API key rotation, revocation, scopes, and per-key usage attribution.
 - Restrict CORS to known origins for browser clients.
 - Keep admin/debug endpoints off the public API surface.
 
 ## Abuse Protection
 
-- Replace static rate-limit headers with enforced per-key and per-IP limits.
+- Replace the built-in in-memory per-key/IP limiter with Redis/database-backed shared limits before running multiple API instances.
 - Add request body size limits for text, multimodal payloads, PDFs, and tool schemas.
 - Add concurrency limits for expensive official count calls.
-- Persist idempotency keys for estimate requests that clients may retry.
+- Persist idempotency keys for estimate requests that clients may retry. The current implementation keeps replay records in memory for one process.
 
 ## Privacy And Logging
 
@@ -34,7 +34,7 @@ Before opening the Token Counter API to external users, keep the current v1 endp
 - Version model aliases and pricing metadata so old integrations remain reproducible.
 - Return `pricing.status: unavailable` instead of zero-price fallbacks when a model has no trusted pricing.
 - Add official count API integration per provider behind a capability flag.
-- Publish an OpenAPI schema and keep tests aligned with the schema examples.
+- Keep `docs/openapi.json` aligned with route tests and published docs examples.
 
 ## Operations
 

@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "start": "tsx server/index.ts",
     "test": "vitest run",
+    "validate:catalog": "node scripts/validate-catalog.mjs",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "check": "npm run lint && npm run format"
