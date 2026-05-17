@@ -384,7 +384,7 @@ function formatBytes(bytes: number) {
             </ElTooltip>
           </div>
         </label>
-        <ElPopover trigger="click" placement="bottom-end" :width="260">
+        <ElPopover trigger="click" placement="bottom-end" :width="340">
           <template #reference>
             <button class="icon-button qs-more" :title="localeStore.t('settings.moreSettings')">
               <Settings :size="16" />
@@ -392,21 +392,21 @@ function formatBytes(bytes: number) {
           </template>
           <div class="qs-popover">
             <div class="pricing-breakdown">
-              <div>
+              <div class="pricing-breakdown-head">
                 <span>{{ localeStore.t('pricing.profile') }}</span>
                 <strong>{{ selectedPricingProfile?.label }}</strong>
               </div>
               <p>{{ localeStore.t('pricing.profileHelp') }}</p>
-              <dl>
-                <div>
+              <dl class="pricing-split-list">
+                <div class="pricing-split-row">
                   <dt>{{ localeStore.t('pricing.inputRate') }}</dt>
                   <dd>{{ localeStore.t('pricing.inputRateHelp') }}</dd>
                 </div>
-                <div>
+                <div class="pricing-split-row">
                   <dt>{{ localeStore.t('pricing.outputRate') }}</dt>
                   <dd>{{ localeStore.t('pricing.outputRateHelp') }}</dd>
                 </div>
-                <div>
+                <div class="pricing-split-row">
                   <dt>{{ localeStore.t('pricing.cacheRate') }}</dt>
                   <dd>{{ localeStore.t('pricing.cacheRateHelp') }}</dd>
                 </div>
@@ -416,6 +416,7 @@ function formatBytes(bytes: number) {
             <label class="qs-popover-item">
               <span>{{ localeStore.t('settings.cacheHit') }}</span>
               <ElInputNumber
+                class="cache-token-input"
                 :model-value="options.cachedInputTokens"
                 :min="0"
                 :step="1000"
@@ -428,6 +429,7 @@ function formatBytes(bytes: number) {
             <label class="qs-popover-item">
               <span>{{ localeStore.t('settings.cacheWrite') }}</span>
               <ElInputNumber
+                class="cache-token-input"
                 :model-value="options.cacheCreationTokens"
                 :min="0"
                 :step="1000"
@@ -831,19 +833,19 @@ function formatBytes(bytes: number) {
 .qs-popover {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .pricing-breakdown {
   display: grid;
-  gap: 9px;
-  padding: 10px;
+  gap: 8px;
+  padding: 12px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   background: var(--bg-elevated);
 }
 
-.pricing-breakdown > div:first-child {
+.pricing-breakdown-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -868,32 +870,40 @@ function formatBytes(bytes: number) {
   margin: 0;
   color: var(--muted);
   font-size: 11px;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
 .pricing-breakdown dl {
   display: grid;
-  gap: 7px;
+  gap: 8px;
   margin: 0;
 }
 
-.pricing-breakdown dl > div {
+.pricing-split-row {
   display: grid;
-  gap: 2px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
 }
 
 .qs-popover-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 124px;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 34px;
 }
 
 .qs-popover-item span {
   font-size: 13px;
   color: var(--text-secondary);
   white-space: nowrap;
+}
+
+.cache-token-input {
+  width: 124px;
 }
 
 .qs-popover-item small {

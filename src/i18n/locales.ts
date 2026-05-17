@@ -36,11 +36,11 @@ export const translations: Record<string, { en: string; zh: string }> = {
   'pricing.ccswitch': { en: 'CC Switch preset', zh: 'CC Switch 预设价' },
   'pricing.profileHelp': { en: 'Use this when proxy or coding-tool billing differs from provider pricing.', zh: '代理或代码工具计费和官方价不同时可切换。' },
   'pricing.inputRate': { en: 'Input price', zh: '输入价格' },
-  'pricing.inputRateHelp': { en: 'Calculated from actual text, image, PDF, and tool input tokens.', zh: '按实际文本、图片、PDF 和工具输入 Token 计费。' },
+  'pricing.inputRateHelp': { en: 'Actual input tokens × input rate.', zh: '实际输入 Token × 输入价。' },
   'pricing.outputRate': { en: 'Output price', zh: '输出价格' },
-  'pricing.outputRateHelp': { en: 'Calculated from the expected output tokens field in the top bar.', zh: '按顶部的预估输出 Token 数计费。' },
+  'pricing.outputRateHelp': { en: 'Expected output tokens × output rate.', zh: '预估输出 Token × 输出价。' },
   'pricing.cacheRate': { en: 'Cache price', zh: '缓存价格' },
-  'pricing.cacheRateHelp': { en: 'Cache hit and cache write tokens use their own rates when the profile provides them.', zh: '如果计费规则提供缓存命中/写入价格，会单独计算。' },
+  'pricing.cacheRateHelp': { en: 'Cache hit/write use profile rates when available.', zh: '有缓存命中/写入价时单独计算。' },
 
   // ── Action Button ─────────────────────────────────────────────────
   'action.calculating': { en: 'Calculating...', zh: '计算中...' },
