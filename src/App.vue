@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { siGithub } from 'simple-icons'
 import { RotateCcw, Trash2 } from 'lucide-vue-next'
 import { ElDrawer, ElMessage, ElSegmented } from 'element-plus'
 import InputArea from './components/InputArea.vue'
@@ -7,7 +8,6 @@ import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
 import LicenseNotice from './components/LicenseNotice.vue'
 import ApiDocsPage from './components/ApiDocsPage.vue'
-import LinksPage from './components/LinksPage.vue'
 import { formatCost } from './core/cost/costCalculator'
 import { licenses, models } from './core/models/modelRegistry'
 import { useCounterStore } from './stores/counter'
@@ -23,6 +23,7 @@ const navigation = useNavigationStore()
 const themeStore = useThemeStore()
 const localeStore = useLocaleStore()
 const historyDrawerOpen = ref(false)
+const githubUrl = import.meta.env.VITE_APP_GITHUB_URL || 'https://github.com/Shiaoming123/Tokens-Counter'
 
 const themeOptions = computed(() => [
   { label: localeStore.t('theme.light'), value: 'light' },
@@ -86,13 +87,19 @@ function restoreHistory(entry: HistoryEntry) {
           >
             {{ localeStore.t('nav.apiDocs') }}
           </button>
-          <button
-            :class="{ active: navigation.route === '/links' }"
-            @click="navigation.navigate('/links')"
-          >
-            {{ localeStore.t('nav.links') }}
-          </button>
         </nav>
+        <a
+          class="header-icon-link"
+          :href="githubUrl"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="GitHub repository"
+          title="GitHub repository"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path :d="siGithub.path" />
+          </svg>
+        </a>
         <div class="header-controls">
           <ElSegmented v-model="themeStore.theme" :options="themeOptions" size="small" />
           <ElSegmented v-model="localeStore.locale" :options="localeOptions" size="small" />
@@ -102,7 +109,6 @@ function restoreHistory(entry: HistoryEntry) {
 
     <LicenseNotice v-if="navigation.route === '/licenses'" :licenses="licenses" />
     <ApiDocsPage v-else-if="navigation.route === '/api-docs'" />
-    <LinksPage v-else-if="navigation.route === '/links'" />
 
     <div v-else class="workspace">
       <section class="hero">

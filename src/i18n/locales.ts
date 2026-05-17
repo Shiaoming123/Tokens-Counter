@@ -4,7 +4,6 @@ export const translations: Record<string, { en: string; zh: string }> = {
   'nav.workbench': { en: 'Workbench', zh: '工作台' },
   'nav.licenses': { en: 'Licenses', zh: '许可证' },
   'nav.apiDocs': { en: 'API Docs', zh: 'API 文档' },
-  'nav.links': { en: 'Links', zh: '友链' },
 
   // ── Hero ──────────────────────────────────────────────────────────
   'hero.title': { en: 'Estimate tokens & API cost', zh: '估算 Token 数量与 API 费用' },

@@ -158,8 +158,7 @@ The Vite dev server proxies `/api/*` to the local Hono server.
 PORT=8787
 TOKEN_COUNTER_API_KEY=
 
-# Public links used by the Links page
-VITE_APP_PUBLIC_URL=https://your-domain.example
+# Public repository link used by the header GitHub icon
 VITE_APP_GITHUB_URL=https://github.com/Shiaoming123/Tokens-Counter
 
 # Official count APIs
@@ -269,7 +268,6 @@ docs/
   external-token-api.md
   external-api-production-checklist.md
   tokenizer-research-2026-05-17.md
-  launch-and-monetization-plan.md
 
 test/
   *.test.ts                   # Vitest coverage for counting, pricing, API, registry
@@ -343,8 +341,6 @@ This project is designed to support both open-source adoption and future paid se
 - private deployments,
 - custom model catalog maintenance,
 - consulting for LLM cost estimation workflows.
-
-See [Launch And Monetization Plan](./docs/launch-and-monetization-plan.md) for a staged plan.
 
 ## License
 

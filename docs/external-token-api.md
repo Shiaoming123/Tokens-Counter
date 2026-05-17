@@ -242,7 +242,7 @@ Creates a token and cost estimate for one or more models. Implementations may co
   "input": {
     "messages": [
       { "role": "system", "content": "You are concise." },
-      { "role": "user", "content": "Summarize the attached launch plan." }
+      { "role": "user", "content": "Summarize the attached project brief." }
     ],
     "images": [
       {

@@ -139,8 +139,7 @@ Vite 开发服务会把 `/api/*` 代理到本地 Hono 服务。
 PORT=8787
 TOKEN_COUNTER_API_KEY=
 
-# Links 页面使用的公开链接
-VITE_APP_PUBLIC_URL=https://your-domain.example
+# Header GitHub 图标使用的公开仓库链接
 VITE_APP_GITHUB_URL=https://github.com/Shiaoming123/Tokens-Counter
 
 # 官方计数 API
@@ -250,7 +249,6 @@ docs/
   external-token-api.md
   external-api-production-checklist.md
   tokenizer-research-2026-05-17.md
-  launch-and-monetization-plan.md
 
 test/
   *.test.ts                   # Vitest 测试
@@ -324,9 +322,6 @@ npm run build
 - 私有部署。
 - 自定义模型目录维护。
 - LLM 成本估算工作流咨询。
-
-分阶段计划见：[Launch And Monetization Plan](./docs/launch-and-monetization-plan.md)。
-
 ## 许可证
 
 当前仓库还没有根目录 `LICENSE` 文件。设为公开开源前建议选择：

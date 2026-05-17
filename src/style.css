@@ -510,6 +510,40 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
   background: rgba(37, 99, 235, 0.05);
 }
 
+.header-icon-link {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.header-icon-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.header-icon-link:hover {
+  color: var(--accent);
+  background: rgba(37, 99, 235, 0.06);
+  border-color: rgba(37, 99, 235, 0.12);
+  transform: translateY(-1px);
+}
+
+.header-icon-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .header-right {
   display: flex;
   align-items: center;
@@ -1589,6 +1623,23 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
 [data-style="apple"] .app-header nav button:hover {
   color: var(--accent);
   background: rgba(0, 102, 204, 0.05);
+}
+
+[data-style="apple"] .header-icon-link {
+  width: 32px;
+  height: 32px;
+  color: #3a3a3c;
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+[data-style="apple"] .header-icon-link:hover {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.76);
+  border-color: rgba(0, 122, 255, 0.18);
 }
 
 /* Apple: hero section — frosted glass card */

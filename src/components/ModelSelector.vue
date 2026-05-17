@@ -172,7 +172,7 @@ watch(
 </script>
 
 <template>
-  <div class="model-sidebar">
+  <div class="model-sidebar" :class="{ 'image-mode': hasImageInput }">
     <div class="model-sidebar-top">
       <input
         v-model="searchQuery"
@@ -287,6 +287,7 @@ watch(
 /* ---- Sidebar Container ---- */
 
 .model-sidebar {
+  --model-sidebar-top-height: 97px;
   position: sticky;
   top: 68px;
   max-height: calc(100vh - 84px);
@@ -297,6 +298,10 @@ watch(
   border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: var(--shadow-md);
+}
+
+.model-sidebar.image-mode {
+  --model-sidebar-top-height: 136px;
 }
 
 /* ---- Top Bar ---- */
@@ -310,7 +315,7 @@ watch(
   background: var(--bg-panel);
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 4;
 }
 
 .model-search {
@@ -415,8 +420,12 @@ watch(
   border: 0;
   background: var(--bg-panel);
   cursor: pointer;
+  position: sticky;
+  top: var(--model-sidebar-top-height);
+  z-index: 3;
   transition: background 0.15s;
   text-align: left;
+  box-shadow: 0 1px 0 var(--line);
 }
 
 .provider-head:hover {
@@ -627,8 +636,13 @@ watch(
 
 @media (max-width: 768px) {
   .model-sidebar {
+    --model-sidebar-top-height: 97px;
     position: static;
     max-height: none;
+  }
+
+  .model-sidebar.image-mode {
+    --model-sidebar-top-height: 136px;
   }
 
   .model-option {
