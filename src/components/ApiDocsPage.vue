@@ -57,6 +57,61 @@ const errorRows: Array<[string, string, Localized]> = [
   ['internal_error', '500', { en: 'Unexpected server error.', zh: '非预期服务端错误。' }],
 ]
 
+const optionRows: Array<{
+  name: string
+  values: string
+  description: Localized
+}> = [
+  {
+    name: 'options.pricing_profile',
+    values: 'official | ccswitch',
+    description: {
+      en: 'Selects provider list pricing or the CC Switch proxy/coding-tool preset. Missing profile prices fall back to catalog pricing.',
+      zh: '选择官方目录价格或 CC Switch 代理/编码工具预设价格；预设缺失时回退到模型目录价格。',
+    },
+  },
+  {
+    name: 'options.expected_output_tokens',
+    values: 'integer',
+    description: {
+      en: 'Estimates output-side billing separately from input tokens.',
+      zh: '单独估算输出侧计费，不再把输入和输出 Token 混在同一价格里。',
+    },
+  },
+  {
+    name: 'options.cached_input_tokens',
+    values: 'integer',
+    description: {
+      en: 'Counts the portion billed at the cache-hit rate. Alias: cache_hit_tokens.',
+      zh: '按缓存命中价格计费的输入 Token 数；也兼容 cache_hit_tokens。',
+    },
+  },
+  {
+    name: 'options.cache_write_tokens',
+    values: 'integer',
+    description: {
+      en: 'Counts the portion billed at cache-write/create rate when the provider or proxy exposes one.',
+      zh: '按缓存写入/创建价格计费的 Token 数，适用于供应商或代理支持该价格时。',
+    },
+  },
+  {
+    name: 'options.use_official_api',
+    values: 'boolean',
+    description: {
+      en: 'Requests official provider counting where configured. Alias: prefer_official_count.',
+      zh: '在已配置时优先调用供应商官方计数；也兼容 prefer_official_count。',
+    },
+  },
+  {
+    name: 'options.cost_multiplier',
+    values: 'number',
+    description: {
+      en: 'Applies explicit markup, discount, or credit conversion after the selected pricing profile.',
+      zh: '在选定计费规则之后叠加倍率，可用于代理加价、折扣或 credits 换算。',
+    },
+  },
+]
+
 const productionNotes = computed(() => [
   {
     title: localeStore.locale === 'zh' ? '密钥与权限' : 'Keys and access',
@@ -133,7 +188,7 @@ const copy = computed(() => {
     authText: 'External API requests use Authorization: Bearer <api_key>. The current server enforces this only when TOKEN_COUNTER_API_KEY is configured; public environments should always require it.',
     headersTitle: 'Response headers',
     headersText: 'Every /api/v1 response includes window-style rate limit headers. The current implementation returns preview static values; production should return real remaining quota.',
-    examples: 'Short examples',
+    examples: 'Live request examples',
     schema: 'Request / Response Schema',
     inputPayload: 'InputPayload must include at least one of text, messages, or images. POST /api/v1/estimates adds cost and summary; POST /api/v1/tokens/count returns count data only.',
     errors: 'Error codes',
@@ -149,7 +204,7 @@ const estimateCurl = `curl -sS "$BASE_URL/api/v1/estimates" \\
   -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY" \\
   -H "Content-Type: application/json" \\
   -H "Idempotency-Key: estimate-001" \\
-  -d '{"models":["gpt-4o"],"input":{"text":"Count this."},"options":{"expected_output_tokens":200,"redact":true}}'`
+  -d '{"models":["gpt-4o"],"input":{"text":"Count this."},"options":{"expected_output_tokens":700,"cached_input_tokens":0,"cache_write_tokens":0,"pricing_profile":"ccswitch","use_official_api":false,"redact":true}}'`
 
 const countCurl = `curl -sS "$BASE_URL/api/v1/tokens/count" \\
   -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY" \\
@@ -164,9 +219,12 @@ const requestSchema = `{
     "images": [{"mime_type": "image/png", "width": 1280, "height": 720}]
   },
   "options": {
-    "expected_output_tokens": 200,
-    "pricing_profile": "official",
-    "prefer_official_count": false,
+    "expected_output_tokens": 700,
+    "cached_input_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost_multiplier": 1,
+    "pricing_profile": "official | ccswitch",
+    "use_official_api": false,
     "allow_fallback": true,
     "redact": true
   }
@@ -180,10 +238,27 @@ const responseSchema = `{
     "provider": "openai",
     "count": {
       "input_tokens": 178,
-      "total_tokens": 378,
+      "expected_output_tokens": 700,
+      "total_tokens": 878,
       "accuracy": {"overall": "local_exact"}
     },
-    "cost": {"currency": "USD", "total": 0.0012}
+    "cost": {
+      "currency": "USD",
+      "input": 0.000445,
+      "cached_input": 0,
+      "cache_write": 0,
+      "output": 0.007,
+      "total": 0.007445,
+      "pricing": {
+        "input_per_1m": 2.5,
+        "output_per_1m": 10,
+        "cached_input_per_1m": null,
+        "cache_write_per_1m": null,
+        "source": "official",
+        "last_updated": "2026-05-17"
+      },
+      "multiplier": 1
+    }
   }]
 }`
 </script>
@@ -233,6 +308,38 @@ const responseSchema = `{
         </div>
       </article>
     </div>
+
+    <section class="api-docs-section api-docs-options">
+      <div class="api-docs-section-head">
+        <Gauge :size="20" />
+        <h2>{{ localeStore.locale === 'zh' ? '计费与计数选项' : 'Billing and counting options' }}</h2>
+      </div>
+      <p class="api-docs-copy">
+        {{
+          localeStore.locale === 'zh'
+            ? '这些字段决定 API 如何区分输入、输出、缓存和官方计数，适合直接暴露给外部调用者。'
+            : 'These fields control input, output, cache, pricing profile, and official-count behavior for external clients.'
+        }}
+      </p>
+      <div class="api-docs-table-wrap compact">
+        <table class="api-docs-table">
+          <thead>
+            <tr>
+              <th>{{ localeStore.locale === 'zh' ? '字段' : 'Field' }}</th>
+              <th>{{ localeStore.locale === 'zh' ? '值' : 'Values' }}</th>
+              <th>{{ copy.description }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="option in optionRows" :key="option.name">
+              <td><code>{{ option.name }}</code></td>
+              <td><span class="api-option-value">{{ option.values }}</span></td>
+              <td>{{ option.description[localeStore.locale] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <section class="api-docs-section">
       <div class="api-docs-section-head">
@@ -516,6 +623,19 @@ const responseSchema = `{
 
 .api-docs-table-wrap.compact .api-docs-table {
   min-width: 620px;
+}
+
+.api-option-value {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .api-code-grid {

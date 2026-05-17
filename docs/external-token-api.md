@@ -1,10 +1,18 @@
 # External Token API Specification
 
-Status: draft for implementation  
+Status: implemented v1 preview
 Base path: `/api/v1`  
 Content type: `application/json; charset=utf-8`
 
-This document defines the public API contract for the Token Counter service. It is intentionally separate from the current internal `/api/*` routes so implementation can keep the UI-facing API stable while adding an external, authenticated API surface.
+This document defines the public API contract for the Token Counter service. It is intentionally separate from the internal UI routes so the external API can stay stable while the workbench evolves.
+
+Current implementation notes:
+
+- `GET /api/v1/models`, `POST /api/v1/estimates`, and `POST /api/v1/tokens/count` are implemented.
+- `GET /api/v1/estimates/:id` is reserved for future persisted estimates and is not implemented yet.
+- Bearer authentication is enforced when `TOKEN_COUNTER_API_KEY` is configured. Public deployments should always configure an API key source.
+- Rate-limit headers are returned today; production deployments should replace preview/static quota values with persisted per-key/IP quota enforcement.
+- Cost estimates support `official` and `ccswitch` pricing profiles, with input/output/cache prices split in the response.
 
 ## Conventions
 
@@ -258,6 +266,7 @@ Creates a token and cost estimate for one or more models. Implementations may co
     "cached_input_tokens": 0,
     "cache_write_tokens": 0,
     "cost_multiplier": 1,
+    "pricing_profile": "ccswitch",
     "prefer_official_count": true,
     "allow_fallback": true,
     "redact": false
@@ -281,6 +290,14 @@ Creates a token and cost estimate for one or more models. Implementations may co
 | `options.redact` | boolean | no | Redact prompt and image payloads from request logs and persisted records. Defaults to service policy, recommended `true` for sensitive workloads. |
 | `project_id` | string | no | Future project scope. |
 | `workspace_id` | string | no | Future workspace scope. |
+
+Supported compatibility aliases:
+
+| Canonical field | Alias |
+| --- | --- |
+| `options.expected_output_tokens` | `options.output_tokens` |
+| `options.cached_input_tokens` | `options.cache_hit_tokens` |
+| `options.use_official_api` | `options.prefer_official_count` |
 
 ### Response
 
@@ -341,6 +358,8 @@ Creates a token and cost estimate for one or more models. Implementations may co
 }
 ```
 
+`cost.input`, `cost.output`, `cost.cached_input`, and `cost.cache_write` are reported separately because provider and proxy billing tables usually price them differently. `cost.total` is the sum after applying `options.cost_multiplier`.
+
 If at least one requested model succeeds and another fails, return `200` with per-model failures:
 
 ```json
@@ -380,6 +399,7 @@ curl -sS https://tokens.example.com/api/v1/estimates \
     },
     "options": {
       "expected_output_tokens": 500,
+      "pricing_profile": "ccswitch",
       "allow_fallback": true,
       "redact": true
     }
