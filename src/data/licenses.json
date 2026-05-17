@@ -3,19 +3,19 @@
     "id": "deepseek-tokenizer",
     "name": "DeepSeek tokenizer",
     "license": "Vendor tokenizer/model terms",
-    "usage": "DeepSeek token estimation and future offline tokenizer integration",
+    "usage": "DeepSeek local token counting through official/open tokenizer assets and hosted API usage reconciliation",
     "noticeRequired": true,
-    "risk": "DeepSeek offers an official tokenizer zip for offline token usage calculation. This MVP has not bundled that zip yet, so local counts are estimates.",
+    "risk": "DeepSeek offers an official tokenizer zip and open Hugging Face tokenizer files for offline token usage calculation. Hosted aliases can move to newer models, so API usage remains the billing source of truth.",
     "url": "https://api-docs.deepseek.com/quick_start/token_usage"
   },
   {
     "id": "qwen-tokenizer",
     "name": "Qwen tokenizer",
     "license": "Apache-2.0 for code; model-specific terms for weights/API",
-    "usage": "Qwen byte-level BPE token estimation and future tokenizer.json/qwen.tiktoken integration",
+    "usage": "Qwen byte-level BPE counting through official Hugging Face tokenizer files",
     "noticeRequired": true,
-    "risk": "Qwen uses byte-level BPE with model-specific control tokens. Use official Hugging Face/ModelScope tokenizer files for exact counts.",
-    "url": "https://qwen.readthedocs.io/en/stable/getting_started/concepts.html"
+    "risk": "Qwen models use tokenizer.json plus model-specific chat templates and control tokens. Raw text can be counted locally when a matching tokenizer is mapped; hosted aliases and tool/chat overhead remain estimates.",
+    "url": "https://huggingface.co/Qwen/Qwen3-8B/blob/main/tokenizer.json"
   },
   {
     "id": "zai-tokenizer-api",
@@ -56,9 +56,10 @@
     "id": "anthropic-api",
     "name": "Anthropic count_tokens API",
     "license": "Vendor API terms",
-    "usage": "Claude text and image token counting through the official API",
+    "usage": "Claude text, image, PDF, tools, and thinking token counting through the official API",
     "noticeRequired": false,
-    "risk": "Requires a server-side ANTHROPIC_API_KEY. Counts are estimates per Anthropic API behavior."
+    "risk": "Requires a server-side ANTHROPIC_API_KEY. Anthropic documents count_tokens as an estimate and notes actual creation usage may differ slightly.",
+    "url": "https://docs.anthropic.com/en/docs/build-with-claude/token-counting"
   },
   {
     "id": "google-genai-api",
@@ -66,22 +67,114 @@
     "license": "Vendor API terms",
     "usage": "Gemini text and multimodal token counting through the official API",
     "noticeRequired": false,
-    "risk": "Requires a server-side GEMINI_API_KEY for official mode; local image estimates are rule-based."
+    "risk": "Requires a server-side GEMINI_API_KEY for official mode; local image estimates are rule-based.",
+    "url": "https://ai.google.dev/api/tokens"
   },
   {
     "id": "mistral-tokenizer",
     "name": "Mistral tokenizer",
     "license": "Vendor tokenizer/model terms",
-    "usage": "Mistral local token approximation",
+    "usage": "Mistral token counting through official mistral-common concepts and local fallback",
     "noticeRequired": true,
-    "risk": "This MVP uses cl100k_base as a local fallback until an official Mistral tokenizer file is wired in."
+    "risk": "Mistral's official path is mistral-common for text, images, tools, validation, and message normalization. This app has not integrated mistral-common yet, so Mistral counts are marked as local estimates.",
+    "url": "https://github.com/mistralai/mistral-common"
   },
   {
     "id": "llama-tokenizer",
     "name": "Llama tokenizer files",
     "license": "Meta Llama Community License",
-    "usage": "Llama model token estimation",
+    "usage": "Llama tokenizer/model resource discovery through gated/open Hugging Face assets",
     "noticeRequired": true,
-    "risk": "Check model-specific license before commercial redistribution. This MVP uses a local approximation."
+    "risk": "Check model-specific license before commercial redistribution. Meta Llama tokenizer assets may require accepting model terms, so this app treats counts as estimates unless exact assets are available."
+  },
+  {
+    "id": "xai-api",
+    "name": "xAI API terms",
+    "license": "Vendor API terms",
+    "usage": "Grok model token estimation through approximate local tokenizer",
+    "noticeRequired": true,
+    "risk": "xAI exposes token usage, console tokenizer tooling, and a Tokenize Text API. This app has not integrated that API yet, so local counts are approximate.",
+    "url": "https://docs.x.ai/docs/consumption-and-rate-limits"
+  },
+  {
+    "id": "cohere-api",
+    "name": "Cohere API terms",
+    "license": "Vendor API terms",
+    "usage": "Command-R model token estimation through approximate local tokenizer",
+    "noticeRequired": true,
+    "risk": "Cohere provides an authenticated Tokenize endpoint for model-specific BPE tokenization. This app has not integrated it yet, so local counts are approximate.",
+    "url": "https://docs.cohere.com/reference/tokenize"
+  },
+  {
+    "id": "baidu-api",
+    "name": "Baidu ERNIE API terms",
+    "license": "Vendor API terms",
+    "usage": "ERNIE model token counting through documented tokenizer.json workflow and hosted API terms",
+    "noticeRequired": true,
+    "risk": "Baidu Qianfan documents local tokenizer.json/tokenizer_config.json counting for ERNIE 4.5 open weights, plus a platform token calculator. Complex chat/tools require applying the chat template.",
+    "url": "https://cloud.baidu.com/doc/qianfan/s/ymh4sv71t"
+  },
+  {
+    "id": "bytedance-api",
+    "name": "ByteDance Doubao API terms",
+    "license": "Vendor API terms",
+    "usage": "Doubao model token estimation through approximate local tokenizer",
+    "noticeRequired": true,
+    "risk": "Volcano Ark provides a Token Calculator that applies model-specific tokenizer and calculation logic. This app has not integrated it yet, so local Doubao counts are approximate.",
+    "url": "https://www.volcengine.com/docs/82379"
+  },
+  {
+    "id": "moonshot-api",
+    "name": "Moonshot AI API terms",
+    "license": "Vendor API terms",
+    "usage": "Moonshot/Kimi model token estimation through local approximation and optional official estimate API",
+    "noticeRequired": true,
+    "risk": "Moonshot/Kimi provides /v1/tokenizers/estimate-token-count. This app has not integrated it yet, so local counts are approximate.",
+    "url": "https://platform.kimi.com/docs/api/estimate"
+  },
+  {
+    "id": "zai-api",
+    "name": "Z.AI API terms",
+    "license": "Vendor API terms",
+    "usage": "GLM hosted model token estimation and optional official tokenizer API integration",
+    "noticeRequired": false,
+    "risk": "Exact GLM counting should call the official tokenizer endpoint when configured.",
+    "url": "https://docs.z.ai/"
+  },
+  {
+    "id": "mimo-tokenizer",
+    "name": "Xiaomi MiMo tokenizer/API terms",
+    "license": "Vendor tokenizer/model/API terms",
+    "usage": "MiMo model token estimation and hosted pricing display",
+    "noticeRequired": true,
+    "risk": "Exact local counts require the matching MiMo tokenizer assets. Newer hosted MiMo variants are estimates until matching tokenizer assets or official counts are wired in.",
+    "url": "https://huggingface.co/XiaomiMiMo"
+  },
+  {
+    "id": "volcano-ark-api",
+    "name": "Volcano Ark / Doubao API terms",
+    "license": "Vendor API terms",
+    "usage": "Doubao model token estimation and hosted pricing display",
+    "noticeRequired": true,
+    "risk": "Local counts are approximate unless the official Volcano Ark tokenizer/count path is configured.",
+    "url": "https://www.volcengine.com/docs/82379/1749096"
+  },
+  {
+    "id": "stepfun-api",
+    "name": "StepFun API terms",
+    "license": "Vendor API terms",
+    "usage": "Step model token estimation and hosted pricing display",
+    "noticeRequired": true,
+    "risk": "StepFun provides POST /v1/token/count. This app has not integrated it yet, so local counts are approximate.",
+    "url": "https://platform.stepfun.ai/docs/en/api-reference/token-count"
+  },
+  {
+    "id": "minimax-api",
+    "name": "MiniMax API terms",
+    "license": "Vendor API terms",
+    "usage": "MiniMax model token estimation and hosted pricing display",
+    "noticeRequired": true,
+    "risk": "MiniMax hosted APIs expose token-based usage/billing, but this app has not found or integrated a public standalone tokenizer endpoint; local counts are approximate.",
+    "url": "https://platform.minimax.io/docs/api-reference/api-overview"
   }
 ]

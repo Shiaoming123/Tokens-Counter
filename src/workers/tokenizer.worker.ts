@@ -1,5 +1,6 @@
 import { countApproxTokens } from '../core/tokenizers/approxTokenizer'
-import { countTextTokens, type SupportedEncoding } from '../core/tokenizers/openaiTokenizer'
+import { countHfTokens, loadHfTokenizer } from '../core/tokenizers/huggingfaceTokenizer'
+import { getHfRepoForModel, loadTokenizerConfig } from '../core/tokenizers/tokenizerLoader'
 import { models } from '../core/models/modelRegistry'
 
 export interface TokenizerWorkerRequest {
@@ -14,27 +15,45 @@ export interface TokenizerWorkerResponse {
   errors: Record<string, string>
 }
 
-self.onmessage = (event: MessageEvent<TokenizerWorkerRequest>) => {
+const HF_TOKENIZER_TYPES = new Set(['deepseek', 'qwen', 'mimo', 'mistral', 'llama', 'huggingface'])
+
+async function countForModel(modelId: string, text: string): Promise<number> {
+  const model = models.find((item) => item.id === modelId)
+  if (!model) throw new Error('Unknown model')
+
+  const tokenizerType = model.tokenizer?.type
+
+  if (tokenizerType && HF_TOKENIZER_TYPES.has(tokenizerType)) {
+    const repo = getHfRepoForModel(modelId)
+    if (repo) {
+      const config = await loadTokenizerConfig(repo)
+      const tokenizer = await loadHfTokenizer(config)
+      return countHfTokens(text, tokenizer)
+    }
+  }
+
+  return countApproxTokens(text)
+}
+
+self.onmessage = async (event: MessageEvent<TokenizerWorkerRequest>) => {
   const { requestId, text, modelIds } = event.data
   const results: Record<string, number> = {}
   const errors: Record<string, string> = {}
 
-  for (const modelId of modelIds) {
-    const model = models.find((item) => item.id === modelId)
-    if (!model) {
-      errors[modelId] = 'Unknown model'
-      continue
-    }
+  const entries = await Promise.allSettled(
+    modelIds.map(async (modelId) => {
+      const count = await countForModel(modelId, text)
+      return { modelId, count }
+    }),
+  )
 
-    try {
-      const encoding = model.tokenizer?.encoding as SupportedEncoding | undefined
-      if (encoding) {
-        results[modelId] = countTextTokens(text, encoding)
-      } else {
-        results[modelId] = countApproxTokens(text)
-      }
-    } catch (error) {
-      errors[modelId] = error instanceof Error ? error.message : 'Tokenizer failed'
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i]
+    const modelId = modelIds[i]
+    if (entry.status === 'fulfilled') {
+      results[modelId] = entry.value.count
+    } else {
+      errors[modelId] = entry.reason instanceof Error ? entry.reason.message : 'Tokenizer failed'
       results[modelId] = countApproxTokens(text)
     }
   }

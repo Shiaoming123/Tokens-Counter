@@ -1,23 +1,32 @@
 [
   {
-    "id": "gpt-4o",
-    "displayName": "GPT-4o",
+    "id": "codex-mini",
+    "displayName": "Codex Mini",
     "provider": "openai",
-    "family": "GPT-4o",
+    "family": "Codex",
     "supportsText": true,
-    "supportsImage": true,
-    "contextWindow": 128000,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
     "textCountMethod": "local_tokenizer",
-    "imageCountMethod": "vision_formula",
-    "tokenizer": { "type": "tiktoken", "encoding": "o200k_base" },
-    "vision": {
-      "type": "openai_tile",
-      "detailLevels": ["low", "high", "auto"],
-      "baseTokens": 85,
-      "tileTokens": 170
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
     },
-    "pricing": { "inputPer1M": 5, "outputPer1M": 15, "currency": "USD" },
-    "accuracy": { "text": "local_exact", "image": "local_estimate" },
+    "pricing": {
+      "inputPer1M": 0.75,
+      "outputPer1M": 3,
+      "cachedInputPer1M": 0.025,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
     "licenseRef": "tiktoken"
   },
   {
@@ -30,15 +39,169 @@
     "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "vision_formula",
-    "tokenizer": { "type": "tiktoken", "encoding": "o200k_base" },
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
     "vision": {
       "type": "openai_tile",
-      "detailLevels": ["low", "high", "auto"],
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
       "baseTokens": 85,
       "tileTokens": 170
     },
-    "pricing": { "inputPer1M": 2, "outputPer1M": 8, "currency": "USD" },
-    "accuracy": { "text": "local_exact", "image": "local_estimate" },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 8,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-4.1-mini",
+    "displayName": "GPT-4.1 Mini",
+    "provider": "openai",
+    "family": "GPT-4.1",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 85,
+      "tileTokens": 170
+    },
+    "pricing": {
+      "inputPer1M": 0.4,
+      "outputPer1M": 1.6,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-4.1-nano",
+    "displayName": "GPT-4.1 Nano",
+    "provider": "openai",
+    "family": "GPT-4.1",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 85,
+      "tileTokens": 170
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.4,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-4o",
+    "displayName": "GPT-4o",
+    "provider": "openai",
+    "family": "GPT-4o",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 85,
+      "tileTokens": 170
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 15,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-4o-mini",
+    "displayName": "GPT-4o Mini",
+    "provider": "openai",
+    "family": "GPT-4o",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 85,
+      "tileTokens": 170
+    },
+    "pricing": {
+      "inputPer1M": 0.15,
+      "outputPer1M": 0.6,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
     "licenseRef": "tiktoken"
   },
   {
@@ -51,16 +214,1853 @@
     "contextWindow": 400000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "vision_formula",
-    "tokenizer": { "type": "tiktoken", "encoding": "o200k_base" },
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
     "vision": {
       "type": "openai_tile",
-      "detailLevels": ["low", "high", "auto"],
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
       "baseTokens": 70,
       "tileTokens": 140
     },
-    "pricing": { "inputPer1M": 1.25, "outputPer1M": 10, "currency": "USD" },
-    "accuracy": { "text": "local_exact", "image": "local_estimate" },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
     "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex",
+    "displayName": "GPT-5 Codex",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-high",
+    "displayName": "GPT-5 Codex High",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-low",
+    "displayName": "GPT-5 Codex Low",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-medium",
+    "displayName": "GPT-5 Codex Medium",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-mini",
+    "displayName": "GPT-5 Codex Mini",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-mini-high",
+    "displayName": "GPT-5 Codex Mini High",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-codex-mini-medium",
+    "displayName": "GPT-5 Codex Mini Medium",
+    "provider": "openai",
+    "family": "Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-high",
+    "displayName": "GPT-5 High",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-low",
+    "displayName": "GPT-5 Low",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-medium",
+    "displayName": "GPT-5 Medium",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-mini",
+    "displayName": "GPT-5 Mini",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 0.25,
+      "outputPer1M": 2,
+      "cachedInputPer1M": 0.025,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-minimal",
+    "displayName": "GPT-5 Minimal",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5-nano",
+    "displayName": "GPT-5 Nano",
+    "provider": "openai",
+    "family": "GPT-5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 0.05,
+      "outputPer1M": 0.4,
+      "cachedInputPer1M": 0.005,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1",
+    "displayName": "GPT-5.1",
+    "provider": "openai",
+    "family": "GPT-5.1",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": false,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-codex",
+    "displayName": "GPT-5.1 Codex",
+    "provider": "openai",
+    "family": "GPT-5.1 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-codex-max",
+    "displayName": "GPT-5.1 Codex",
+    "provider": "openai",
+    "family": "GPT-5.1 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-codex-max-high",
+    "displayName": "GPT-5.1 Codex High",
+    "provider": "openai",
+    "family": "GPT-5.1 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-codex-max-xhigh",
+    "displayName": "GPT-5.1 Codex XHigh",
+    "provider": "openai",
+    "family": "GPT-5.1 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-codex-mini",
+    "displayName": "GPT-5.1 Codex Mini",
+    "provider": "openai",
+    "family": "GPT-5.1 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-high",
+    "displayName": "GPT-5.1 High",
+    "provider": "openai",
+    "family": "GPT-5.1",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-low",
+    "displayName": "GPT-5.1 Low",
+    "provider": "openai",
+    "family": "GPT-5.1",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-medium",
+    "displayName": "GPT-5.1 Medium",
+    "provider": "openai",
+    "family": "GPT-5.1",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.1-minimal",
+    "displayName": "GPT-5.1 Minimal",
+    "provider": "openai",
+    "family": "GPT-5.1",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2",
+    "displayName": "GPT-5.2",
+    "provider": "openai",
+    "family": "GPT-5.2",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": false,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-codex",
+    "displayName": "GPT-5.2 Codex",
+    "provider": "openai",
+    "family": "GPT-5.2 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-codex-high",
+    "displayName": "GPT-5.2 Codex High",
+    "provider": "openai",
+    "family": "GPT-5.2 Codex",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-codex-low",
+    "displayName": "GPT-5.2 Codex Low",
+    "provider": "openai",
+    "family": "GPT-5.2 Codex",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-codex-medium",
+    "displayName": "GPT-5.2 Codex Medium",
+    "provider": "openai",
+    "family": "GPT-5.2 Codex",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-codex-xhigh",
+    "displayName": "GPT-5.2 Codex XHigh",
+    "provider": "openai",
+    "family": "GPT-5.2 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-high",
+    "displayName": "GPT-5.2 High",
+    "provider": "openai",
+    "family": "GPT-5.2",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-low",
+    "displayName": "GPT-5.2 Low",
+    "provider": "openai",
+    "family": "GPT-5.2",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-medium",
+    "displayName": "GPT-5.2 Medium",
+    "provider": "openai",
+    "family": "GPT-5.2",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.2-xhigh",
+    "displayName": "GPT-5.2 XHigh",
+    "provider": "openai",
+    "family": "GPT-5.2",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.3-codex",
+    "displayName": "GPT-5.3 Codex",
+    "provider": "openai",
+    "family": "GPT-5.3 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.3-codex-high",
+    "displayName": "GPT-5.3 Codex High",
+    "provider": "openai",
+    "family": "GPT-5.3 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.3-codex-low",
+    "displayName": "GPT-5.3 Codex Low",
+    "provider": "openai",
+    "family": "GPT-5.3 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.3-codex-medium",
+    "displayName": "GPT-5.3 Codex Medium",
+    "provider": "openai",
+    "family": "GPT-5.3 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.3-codex-xhigh",
+    "displayName": "GPT-5.3 Codex XHigh",
+    "provider": "openai",
+    "family": "GPT-5.3 Codex",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.75,
+      "outputPer1M": 14,
+      "cachedInputPer1M": 0.175,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.4",
+    "displayName": "GPT-5.4",
+    "provider": "openai",
+    "family": "GPT-5.4",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 2.5,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.25,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.4-mini",
+    "displayName": "GPT-5.4 Mini",
+    "provider": "openai",
+    "family": "GPT-5.4",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 0.75,
+      "outputPer1M": 4.5,
+      "cachedInputPer1M": 0.075,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.4-nano",
+    "displayName": "GPT-5.4 Nano",
+    "provider": "openai",
+    "family": "GPT-5.4",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 1.25,
+      "cachedInputPer1M": 0.02,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5",
+    "displayName": "GPT-5.5",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 1050000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5-high",
+    "displayName": "GPT-5.5 High",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5-low",
+    "displayName": "GPT-5.5 Low",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5-medium",
+    "displayName": "GPT-5.5 Medium",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5-minimal",
+    "displayName": "GPT-5.5 Minimal",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.5-xhigh",
+    "displayName": "GPT-5.5 XHigh",
+    "provider": "openai",
+    "family": "GPT-5.5",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 400000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o1",
+    "displayName": "OpenAI o1",
+    "provider": "openai",
+    "family": "o1",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 60,
+      "cachedInputPer1M": 7.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o1-mini",
+    "displayName": "OpenAI o1-mini",
+    "provider": "openai",
+    "family": "o1-mini",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 0.55,
+      "outputPer1M": 2.2,
+      "cachedInputPer1M": 0.55,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o3",
+    "displayName": "OpenAI o3",
+    "provider": "openai",
+    "family": "o3",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 8,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o3-mini",
+    "displayName": "o3-mini",
+    "provider": "openai",
+    "family": "o3",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.1,
+      "outputPer1M": 4.4,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o3-pro",
+    "displayName": "OpenAI o3-pro",
+    "provider": "openai",
+    "family": "o3-pro",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 20,
+      "outputPer1M": 80,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "o4-mini",
+    "displayName": "o4-mini",
+    "provider": "openai",
+    "family": "o4",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "pricing": {
+      "inputPer1M": 1.1,
+      "outputPer1M": 4.4,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "deepseek-chat",
+    "displayName": "DeepSeek Chat",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.27,
+      "outputPer1M": 1.1,
+      "cachedInputPer1M": 0.07,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-r1",
+    "displayName": "DeepSeek-R1",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 64000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.55,
+      "outputPer1M": 2.19,
+      "cachedInputPer1M": 0.14,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-reasoner",
+    "displayName": "DeepSeek Reasoner",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.55,
+      "outputPer1M": 2.19,
+      "cachedInputPer1M": 0.14,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-v3",
+    "displayName": "DeepSeek V3",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.28,
+      "outputPer1M": 1.11,
+      "cachedInputPer1M": 0.028,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-v3-0324",
+    "displayName": "DeepSeek-V3 0324",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 64000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.27,
+      "outputPer1M": 1.1,
+      "cachedInputPer1M": 0.07,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-v3.1",
+    "displayName": "DeepSeek V3.1",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.55,
+      "outputPer1M": 1.67,
+      "cachedInputPer1M": 0.055,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "deepseek-v3.2",
+    "displayName": "DeepSeek V3.2",
+    "provider": "deepseek",
+    "family": "DeepSeek",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.28,
+      "outputPer1M": 0.42,
+      "cachedInputPer1M": 0.028,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "deepseek-tokenizer"
   },
   {
     "id": "deepseek-v4-flash",
@@ -69,12 +2069,22 @@
     "family": "DeepSeek",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "deepseek", "localModelFile": "deepseek_tokenizer.zip" },
-    "pricing": { "inputPer1M": 0.14, "outputPer1M": 0.28, "cachedInputPer1M": 0.0028, "currency": "USD" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.14,
+      "outputPer1M": 0.28,
+      "cachedInputPer1M": 0.0028,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
     "licenseRef": "deepseek-tokenizer"
   },
   {
@@ -84,13 +2094,47 @@
     "family": "DeepSeek",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "deepseek", "localModelFile": "deepseek_tokenizer.zip" },
-    "pricing": { "inputPer1M": 0.435, "outputPer1M": 0.87, "cachedInputPer1M": 0.003625, "currency": "USD" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "deepseek"
+    },
+    "pricing": {
+      "inputPer1M": 0.435,
+      "outputPer1M": 0.87,
+      "cachedInputPer1M": 0.003625,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
     "licenseRef": "deepseek-tokenizer"
+  },
+  {
+    "id": "qwen-max-latest",
+    "displayName": "Qwen Max",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 32000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 20,
+      "outputPer1M": 60,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
   },
   {
     "id": "qwen-plus",
@@ -102,14 +2146,23 @@
     "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "qwen", "localModelFile": "qwen.tiktoken/tokenizer.json" },
-    "pricing": { "inputPer1M": 0.8, "outputPer1M": 2, "currency": "CNY" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 2,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "qwen-tokenizer"
   },
   {
-    "id": "qwen3.6-plus",
-    "displayName": "Qwen3.6 Plus",
+    "id": "qwen-turbo-latest",
+    "displayName": "Qwen Turbo",
     "provider": "alibaba",
     "family": "Qwen",
     "supportsText": true,
@@ -117,9 +2170,18 @@
     "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "qwen", "localModelFile": "qwen.tiktoken/tokenizer.json" },
-    "pricing": { "inputPer1M": 2, "outputPer1M": 12, "currency": "CNY" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 0.6,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "qwen-tokenizer"
   },
   {
@@ -132,15 +2194,343 @@
     "contextWindow": 129000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "vision_formula",
-    "tokenizer": { "type": "qwen", "localModelFile": "qwen.tiktoken/tokenizer.json" },
+    "tokenizer": {
+      "type": "qwen"
+    },
     "vision": {
       "type": "qwen_vl_tile",
       "baseTokens": 1024,
       "patchBudget": 16777216
     },
-    "pricing": { "inputPer1M": 0.8, "outputPer1M": 2, "currency": "CNY" },
-    "accuracy": { "text": "local_estimate", "image": "local_estimate" },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 2,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "local_estimate"
+    },
     "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-235b-a22b",
+    "displayName": "Qwen3 235B-A22B",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.7,
+      "outputPer1M": 8.4,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-32b",
+    "displayName": "Qwen3 32B",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.16,
+      "outputPer1M": 0.64,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-coder-flash",
+    "displayName": "Qwen3 Coder Flash",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.195,
+      "outputPer1M": 0.975,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-coder-next",
+    "displayName": "Qwen3 Coder Next",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.12,
+      "outputPer1M": 0.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-coder-plus",
+    "displayName": "Qwen3 Coder Plus",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.65,
+      "outputPer1M": 3.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3-max",
+    "displayName": "Qwen3 Max",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.78,
+      "outputPer1M": 3.9,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3.5-plus",
+    "displayName": "Qwen3.5 Plus",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.26,
+      "outputPer1M": 1.56,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3.6-plus",
+    "displayName": "Qwen3.6 Plus",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 12,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwq-32b",
+    "displayName": "QwQ 32B",
+    "provider": "alibaba",
+    "family": "QwQ",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 0.6,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwq-plus",
+    "displayName": "QwQ Plus",
+    "provider": "alibaba",
+    "family": "QwQ",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 2.4,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "glm-4-flash",
+    "displayName": "GLM-4 Flash",
+    "provider": "zhipu",
+    "family": "GLM",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0,
+      "outputPer1M": 0.1,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
+  },
+  {
+    "id": "glm-4-plus",
+    "displayName": "GLM-4 Plus",
+    "provider": "zhipu",
+    "family": "GLM",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.6,
+      "outputPer1M": 2.2,
+      "cachedInputPer1M": 0.11,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
   },
   {
     "id": "glm-4.5",
@@ -152,9 +2542,19 @@
     "contextWindow": 128000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "glm" },
-    "pricing": { "inputPer1M": 0.6, "outputPer1M": 2.2, "cachedInputPer1M": 0.11, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.6,
+      "outputPer1M": 2.2,
+      "cachedInputPer1M": 0.11,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "zai-tokenizer-api"
   },
   {
@@ -167,9 +2567,19 @@
     "contextWindow": 128000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "glm" },
-    "pricing": { "inputPer1M": 0.2, "outputPer1M": 1.1, "cachedInputPer1M": 0.03, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 1.1,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "zai-tokenizer-api"
   },
   {
@@ -182,41 +2592,133 @@
     "contextWindow": 64000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "official_count_api",
-    "vision": { "type": "official_only" },
-    "tokenizer": { "type": "glm" },
-    "pricing": { "inputPer1M": 0.6, "outputPer1M": 1.8, "cachedInputPer1M": 0.11, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "official_estimate" },
+    "vision": {
+      "type": "official_only"
+    },
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.6,
+      "outputPer1M": 1.8,
+      "cachedInputPer1M": 0.11,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
     "licenseRef": "zai-tokenizer-api"
   },
   {
-    "id": "mimo-v2.5-pro",
-    "displayName": "Xiaomi MiMo-V2.5-Pro",
-    "provider": "xiaomi",
-    "family": "MiMo",
+    "id": "glm-4.6",
+    "displayName": "GLM-4.6",
+    "provider": "zhipu",
+    "family": "GLM",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
-    "textCountMethod": "local_tokenizer",
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "mimo", "localModelFile": "tokenizer.json" },
-    "pricing": { "inputPer1M": 2, "outputPer1M": 2, "currency": "CREDITS" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
-    "licenseRef": "xiaomi-mimo"
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.28,
+      "outputPer1M": 1.11,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
   },
   {
-    "id": "mimo-v2.5",
-    "displayName": "Xiaomi MiMo-V2.5",
-    "provider": "xiaomi",
-    "family": "MiMo",
+    "id": "glm-4.7",
+    "displayName": "GLM-4.7",
+    "provider": "zhipu",
+    "family": "GLM",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
-    "textCountMethod": "local_tokenizer",
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "mimo", "localModelFile": "tokenizer.json" },
-    "pricing": { "inputPer1M": 1, "outputPer1M": 1, "currency": "CREDITS" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
-    "licenseRef": "xiaomi-mimo"
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 8,
+      "cachedInputPer1M": 0.4,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
+  },
+  {
+    "id": "glm-5",
+    "displayName": "GLM-5",
+    "provider": "zhipu",
+    "family": "GLM",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.72,
+      "outputPer1M": 2.3,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
+  },
+  {
+    "id": "glm-5.1",
+    "displayName": "GLM-5.1",
+    "provider": "zhipu",
+    "family": "GLM",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 0.95,
+      "outputPer1M": 3.15,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
   },
   {
     "id": "mimo-7b-rl",
@@ -228,10 +2730,563 @@
     "contextWindow": 32000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "mimo", "localModelFile": "tokenizer.json" },
-    "pricing": { "inputPer1M": 0, "outputPer1M": 0, "currency": "USD" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 0,
+      "outputPer1M": 0,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
     "licenseRef": "xiaomi-mimo"
+  },
+  {
+    "id": "mimo-v2-flash",
+    "displayName": "MiMo-V2 Flash",
+    "provider": "xiaomi",
+    "family": "MiMo",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 0,
+      "outputPer1M": 0,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mimo-tokenizer"
+  },
+  {
+    "id": "mimo-v2-pro",
+    "displayName": "MiMo V2 Pro",
+    "provider": "xiaomi",
+    "family": "MiMo",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 3,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mimo-tokenizer"
+  },
+  {
+    "id": "mimo-v2.5",
+    "displayName": "Xiaomi MiMo-V2.5",
+    "provider": "xiaomi",
+    "family": "MiMo",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 64000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 1,
+      "currency": "CREDITS"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xiaomi-mimo"
+  },
+  {
+    "id": "mimo-v2.5-pro",
+    "displayName": "Xiaomi MiMo-V2.5-Pro",
+    "provider": "xiaomi",
+    "family": "MiMo",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 64000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 2,
+      "currency": "CREDITS"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xiaomi-mimo"
+  },
+  {
+    "id": "claude-3-5-haiku",
+    "displayName": "Claude 3.5 Haiku",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 4,
+      "cachedInputPer1M": 0.08,
+      "cacheCreationInputPer1M": 1,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-3-5-haiku-20241022",
+    "displayName": "Claude 3.5 Haiku",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 4,
+      "cachedInputPer1M": 0.08,
+      "cacheCreationInputPer1M": 1,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-3-5-sonnet",
+    "displayName": "Claude 3.5 Sonnet",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-3-5-sonnet-20241022",
+    "displayName": "Claude 3.5 Sonnet",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-haiku-4-5",
+    "displayName": "Claude Haiku 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 5,
+      "cachedInputPer1M": 0.1,
+      "cacheCreationInputPer1M": 1.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-haiku-4-5-20251001",
+    "displayName": "Claude Haiku 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 5,
+      "cachedInputPer1M": 0.1,
+      "cacheCreationInputPer1M": 1.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-haiku-4.5",
+    "displayName": "Claude Haiku 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 0.8,
+      "outputPer1M": 4,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4",
+    "displayName": "Claude Opus 4",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 75,
+      "cachedInputPer1M": 1.5,
+      "cacheCreationInputPer1M": 18.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-1",
+    "displayName": "Claude Opus 4.1",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 75,
+      "cachedInputPer1M": 1.5,
+      "cacheCreationInputPer1M": 18.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-1-20250805",
+    "displayName": "Claude Opus 4.1",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 75,
+      "cachedInputPer1M": 1.5,
+      "cacheCreationInputPer1M": 18.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-20250514",
+    "displayName": "Claude Opus 4",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 75,
+      "cachedInputPer1M": 1.5,
+      "cacheCreationInputPer1M": 18.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-5",
+    "displayName": "Claude Opus 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "cachedInputPer1M": 0.5,
+      "cacheCreationInputPer1M": 6.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-5-20251101",
+    "displayName": "Claude Opus 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "cachedInputPer1M": 0.5,
+      "cacheCreationInputPer1M": 6.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-6-20260206",
+    "displayName": "Claude Opus 4.6",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "cachedInputPer1M": 0.5,
+      "cacheCreationInputPer1M": 6.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-opus-4-7",
+    "displayName": "Claude Opus 4.7",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 15,
+      "outputPer1M": 75,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
   },
   {
     "id": "claude-opus-4.5",
@@ -245,9 +3300,190 @@
     "contextWindow": 200000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "official_count_api",
-    "vision": { "type": "official_only" },
-    "pricing": { "inputPer1M": 5, "outputPer1M": 25, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "official_estimate" },
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4",
+    "displayName": "Claude Sonnet 4",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4-20250514",
+    "displayName": "Claude Sonnet 4",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4-5",
+    "displayName": "Claude Sonnet 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4-5-20250929",
+    "displayName": "Claude Sonnet 4.5",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4-6",
+    "displayName": "Claude Sonnet 4.6",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-4-6-20260217",
+    "displayName": "Claude Sonnet 4.6",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.3,
+      "cacheCreationInputPer1M": 3.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
     "licenseRef": "anthropic-api"
   },
   {
@@ -262,14 +3498,23 @@
     "contextWindow": 200000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "official_count_api",
-    "vision": { "type": "official_only" },
-    "pricing": { "inputPer1M": 3, "outputPer1M": 15, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "official_estimate" },
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
     "licenseRef": "anthropic-api"
   },
   {
-    "id": "gemini-3-pro-preview",
-    "displayName": "Gemini 3 Pro Preview",
+    "id": "gemini-2.0-flash",
+    "displayName": "Gemini 2.0 Flash",
     "provider": "google",
     "family": "Gemini",
     "supportsText": true,
@@ -277,9 +3522,20 @@
     "contextWindow": 1000000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "hybrid",
-    "vision": { "type": "gemini_tile", "baseTokens": 258, "tileTokens": 258 },
-    "pricing": { "inputPer1M": 2, "outputPer1M": 12, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "official_estimate" },
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.4,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
     "licenseRef": "google-genai-api"
   },
   {
@@ -292,10 +3548,388 @@
     "contextWindow": 1000000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "hybrid",
-    "vision": { "type": "gemini_tile", "baseTokens": 258, "tileTokens": 258 },
-    "pricing": { "inputPer1M": 0.3, "outputPer1M": 2.5, "currency": "USD" },
-    "accuracy": { "text": "official_estimate", "image": "official_estimate" },
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 2.5,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
     "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-2.5-flash-lite",
+    "displayName": "Gemini 2.5 Flash-Lite",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "hybrid",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.4,
+      "cachedInputPer1M": 0.01,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-2.5-pro",
+    "displayName": "Gemini 2.5 Pro",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "hybrid",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.125,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-2.5-pro-preview",
+    "displayName": "Gemini 2.5 Pro Preview",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "hybrid",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 10,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3-flash-preview",
+    "displayName": "Gemini 3 Flash Preview",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "hybrid",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.5,
+      "outputPer1M": 3,
+      "cachedInputPer1M": 0.05,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3-pro-preview",
+    "displayName": "Gemini 3 Pro Preview",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "hybrid",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 12,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3.1-flash-lite-preview",
+    "displayName": "Gemini 3.1 Flash Lite Preview",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.25,
+      "outputPer1M": 1.5,
+      "cachedInputPer1M": 0.025,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3.1-pro-preview",
+    "displayName": "Gemini 3.1 Pro Preview",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 12,
+      "cachedInputPer1M": 0.2,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "codestral-2508",
+    "displayName": "Codestral",
+    "provider": "mistral",
+    "family": "Codestral",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 0.9,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "devstral-2-2512",
+    "displayName": "Devstral 2",
+    "provider": "mistral",
+    "family": "Devstral 2",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.4,
+      "outputPer1M": 0.9,
+      "cachedInputPer1M": 0.04,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "devstral-medium",
+    "displayName": "Devstral Medium",
+    "provider": "mistral",
+    "family": "Devstral Medium",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.4,
+      "outputPer1M": 2,
+      "cachedInputPer1M": 0.04,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "devstral-small-1.1",
+    "displayName": "Devstral Small 1.1",
+    "provider": "mistral",
+    "family": "Devstral Small",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.07,
+      "outputPer1M": 0.28,
+      "cachedInputPer1M": 0.01,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "magistral-medium",
+    "displayName": "Magistral Medium",
+    "provider": "mistral",
+    "family": "Magistral Medium",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "mistral-large-3-2512",
+    "displayName": "Mistral Large 3",
+    "provider": "mistral",
+    "family": "Mistral Large",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.5,
+      "outputPer1M": 1.5,
+      "cachedInputPer1M": 0.05,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
   },
   {
     "id": "mistral-large-latest",
@@ -307,9 +3941,98 @@
     "contextWindow": 128000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "mistral", "encoding": "cl100k_base" },
-    "pricing": { "inputPer1M": 2, "outputPer1M": 6, "currency": "USD" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 6,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "mistral-medium-3.1",
+    "displayName": "Mistral Medium 3.1",
+    "provider": "mistral",
+    "family": "Mistral Medium",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.4,
+      "outputPer1M": 2,
+      "cachedInputPer1M": 0.04,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "mistral-small-3.2-24b",
+    "displayName": "Mistral Small 3.2",
+    "provider": "mistral",
+    "family": "Mistral Small",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.075,
+      "outputPer1M": 0.2,
+      "cachedInputPer1M": 0.01,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "mistral-small-latest",
+    "displayName": "Mistral Small",
+    "provider": "mistral",
+    "family": "Mistral",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 32000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.3,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "mistral-tokenizer"
   },
   {
@@ -322,9 +4045,1010 @@
     "contextWindow": 128000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
-    "tokenizer": { "type": "llama", "encoding": "cl100k_base" },
-    "pricing": { "inputPer1M": 0.7, "outputPer1M": 0.9, "currency": "USD" },
-    "accuracy": { "text": "local_estimate", "image": "unsupported" },
+    "tokenizer": {
+      "type": "llama"
+    },
+    "pricing": {
+      "inputPer1M": 0.7,
+      "outputPer1M": 0.9,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
     "licenseRef": "llama-tokenizer"
+  },
+  {
+    "id": "llama-3.3-70b",
+    "displayName": "Llama 3.3 70B",
+    "provider": "meta",
+    "family": "Llama",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "llama"
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.1,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "llama-tokenizer"
+  },
+  {
+    "id": "llama-4-maverick",
+    "displayName": "Llama 4 Maverick",
+    "provider": "meta",
+    "family": "Llama",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "llama"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 0.6,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "llama-tokenizer"
+  },
+  {
+    "id": "llama-4-scout",
+    "displayName": "Llama 4 Scout",
+    "provider": "meta",
+    "family": "Llama",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 512000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "llama"
+    },
+    "pricing": {
+      "inputPer1M": 0.15,
+      "outputPer1M": 0.42,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "llama-tokenizer"
+  },
+  {
+    "id": "grok-3",
+    "displayName": "Grok-3",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 131072,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-3-mini",
+    "displayName": "Grok-3 Mini",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 131072,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 0.5,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4",
+    "displayName": "Grok 4",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 3,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.75,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4-1-fast-non-reasoning",
+    "displayName": "Grok 4.1 Fast",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 2000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 0.5,
+      "cachedInputPer1M": 0.05,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4-1-fast-reasoning",
+    "displayName": "Grok 4.1 Fast Reasoning",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 2000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 0.5,
+      "cachedInputPer1M": 0.05,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4.20-0309-non-reasoning",
+    "displayName": "Grok 4.20",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 6,
+      "cachedInputPer1M": 0.2,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4.20-0309-reasoning",
+    "displayName": "Grok 4.20 Reasoning",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 6,
+      "cachedInputPer1M": 0.2,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-4.3",
+    "displayName": "Grok 4.3",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 1.25,
+      "outputPer1M": 2.5,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "grok-code-fast-1",
+    "displayName": "Grok Code Fast",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 2000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.2,
+      "outputPer1M": 1.5,
+      "cachedInputPer1M": 0.02,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "command-a",
+    "displayName": "Cohere Command A",
+    "provider": "cohere",
+    "family": "Command",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2.5,
+      "outputPer1M": 10,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "cohere-api"
+  },
+  {
+    "id": "command-r",
+    "displayName": "Command R",
+    "provider": "cohere",
+    "family": "Command-R",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.15,
+      "outputPer1M": 0.6,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "cohere-api"
+  },
+  {
+    "id": "command-r-plus",
+    "displayName": "Command R+",
+    "provider": "cohere",
+    "family": "Command-R",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2.5,
+      "outputPer1M": 10,
+      "currency": "USD"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "cohere-api"
+  },
+  {
+    "id": "ernie-4.5-8k",
+    "displayName": "ERNIE 4.5 8K",
+    "provider": "baidu",
+    "family": "ERNIE",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 8000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "huggingface"
+    },
+    "pricing": {
+      "inputPer1M": 4,
+      "outputPer1M": 8,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "baidu-api"
+  },
+  {
+    "id": "doubao-pro-256k",
+    "displayName": "Doubao Pro 256K",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 9,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "bytedance-api"
+  },
+  {
+    "id": "doubao-seed-2-0-code",
+    "displayName": "Doubao Seed 2.0 Code",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.47,
+      "outputPer1M": 2.37,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "volcano-ark-api"
+  },
+  {
+    "id": "doubao-seed-2-0-lite",
+    "displayName": "Doubao Seed 2.0 Lite",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.25,
+      "outputPer1M": 2,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "volcano-ark-api"
+  },
+  {
+    "id": "doubao-seed-2-0-mini",
+    "displayName": "Doubao Seed 2.0 Mini",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.03,
+      "outputPer1M": 0.31,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "volcano-ark-api"
+  },
+  {
+    "id": "doubao-seed-2-0-pro",
+    "displayName": "Doubao Seed 2.0 Pro",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.47,
+      "outputPer1M": 2.37,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "volcano-ark-api"
+  },
+  {
+    "id": "doubao-seed-code",
+    "displayName": "Doubao Seed Code",
+    "provider": "bytedance",
+    "family": "Doubao",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 1.2,
+      "outputPer1M": 8,
+      "cachedInputPer1M": 0.24,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "volcano-ark-api"
+  },
+  {
+    "id": "kimi-k2",
+    "displayName": "Kimi K2",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 4,
+      "outputPer1M": 16,
+      "cachedInputPer1M": 1,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2-0905",
+    "displayName": "Kimi K2",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.55,
+      "outputPer1M": 2.2,
+      "cachedInputPer1M": 0.1,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2-thinking",
+    "displayName": "Kimi K2 Thinking",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 4,
+      "outputPer1M": 16,
+      "cachedInputPer1M": 1,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2-turbo",
+    "displayName": "Kimi K2 Turbo",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 8,
+      "outputPer1M": 58,
+      "cachedInputPer1M": 1,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2.5",
+    "displayName": "Kimi K2.5",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.6,
+      "outputPer1M": 2.5,
+      "cachedInputPer1M": 0.1,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2.6",
+    "displayName": "Kimi K2.6",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.95,
+      "outputPer1M": 4,
+      "cachedInputPer1M": 0.16,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "moonshot-v1-128k",
+    "displayName": "Moonshot v1 128K",
+    "provider": "moonshot",
+    "family": "Moonshot",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 60,
+      "outputPer1M": 60,
+      "currency": "CNY"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "step-3.5-flash",
+    "displayName": "Step 3.5 Flash",
+    "provider": "stepfun",
+    "family": "Step",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.1,
+      "outputPer1M": 0.3,
+      "cachedInputPer1M": 0.02,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "stepfun-api"
+  },
+  {
+    "id": "minimax-m2",
+    "displayName": "MiniMax M2",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.27,
+      "outputPer1M": 0.95,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.1",
+    "displayName": "MiniMax M2.1",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2.1,
+      "outputPer1M": 8.4,
+      "cachedInputPer1M": 0.21,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.1-lightning",
+    "displayName": "MiniMax M2.1 Lightning",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 200000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2.1,
+      "outputPer1M": 16.8,
+      "cachedInputPer1M": 0.21,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch preset pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.5",
+    "displayName": "MiniMax M2.5",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.12,
+      "outputPer1M": 0.95,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.5-lightning",
+    "displayName": "MiniMax M2.5 Lightning",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 2.4,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.7",
+    "displayName": "MiniMax M2.7",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 1.2,
+      "cachedInputPer1M": 0.06,
+      "cacheCreationInputPer1M": 0.375,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m2.7-highspeed",
+    "displayName": "MiniMax M2.7 Highspeed",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.6,
+      "outputPer1M": 2.4,
+      "cachedInputPer1M": 0.06,
+      "cacheCreationInputPer1M": 0.375,
+      "currency": "USD",
+      "lastUpdated": "2026-05-17",
+      "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
   }
 ]

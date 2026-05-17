@@ -9,6 +9,13 @@ export type Provider =
   | 'mistral'
   | 'meta'
   | 'huggingface'
+  | 'xai'
+  | 'cohere'
+  | 'baidu'
+  | 'bytedance'
+  | 'moonshot'
+  | 'stepfun'
+  | 'minimax'
 
 export type TokenCountMethod =
   | 'local_tokenizer'
@@ -16,6 +23,7 @@ export type TokenCountMethod =
   | 'vision_formula'
   | 'hybrid'
   | 'unsupported'
+  | 'pending'
 
 export type AccuracyLevel =
   | 'official_exact'
@@ -25,6 +33,9 @@ export type AccuracyLevel =
   | 'unsupported'
 
 export type ImageDetail = 'low' | 'high' | 'auto'
+
+export type CurrencyCode = 'USD' | 'CNY' | 'EUR' | 'JPY' | 'GBP' | 'KRW' | 'CREDITS'
+export type PricingProfileId = 'official' | 'ccswitch'
 
 export interface ModelPricing {
   inputPer1M: number
@@ -45,11 +56,12 @@ export interface ModelConfig {
   supportsImage: boolean
   supportsPdf?: boolean
   supportsTools?: boolean
+  supportsCoding?: boolean
   contextWindow?: number
   textCountMethod: TokenCountMethod
   imageCountMethod?: TokenCountMethod
   tokenizer?: {
-    type: 'tiktoken' | 'sentencepiece' | 'mistral' | 'llama' | 'huggingface' | 'deepseek' | 'qwen' | 'glm' | 'mimo'
+    type: 'tiktoken' | 'sentencepiece' | 'mistral' | 'llama' | 'huggingface' | 'deepseek' | 'qwen' | 'glm' | 'mimo' | 'approx'
     encoding?: 'o200k_base' | 'cl100k_base' | 'p50k_base'
     localModelFile?: string
   }
@@ -80,6 +92,16 @@ export interface ImageMetadata {
   base64?: string
 }
 
+export interface DocumentMetadata {
+  id: string
+  name: string
+  mimeType: string
+  sizeBytes: number
+  pageCount: number
+  text: string
+  base64?: string
+}
+
 export interface TokenDebug {
   imageWidth?: number
   imageHeight?: number
@@ -89,6 +111,8 @@ export interface TokenDebug {
   patches?: number
   formula?: string
 }
+
+export type ResultStatus = 'pending' | 'loading' | 'complete' | 'error'
 
 export interface TokenCountResult {
   modelId: string
@@ -105,6 +129,7 @@ export interface TokenCountResult {
   cacheCreationCost: number
   totalCost: number
   currency: ModelPricing['currency']
+  pricing?: ModelPricing
   billableInputTokens: number
   cacheReadTokens: number
   cacheCreationTokens: number
@@ -116,6 +141,8 @@ export interface TokenCountResult {
   licenseRef: string
   warnings: string[]
   debug?: TokenDebug
+  normalizedCostUSD?: number
+  status?: ResultStatus
 }
 
 export interface CountOptions {
@@ -125,11 +152,26 @@ export interface CountOptions {
   cacheCreationTokens: number
   costMultiplier: number
   useOfficialApi: boolean
+  pricingProfile: PricingProfileId
+}
+
+export interface Message {
+  role: 'user' | 'assistant' | 'system'
+  content: string
+}
+
+export interface ToolDefinition {
+  name: string
+  description: string
+  parameters: Record<string, unknown>
 }
 
 export interface CountInput {
   text: string
   images: ImageMetadata[]
+  documents?: DocumentMetadata[]
+  tools?: ToolDefinition[]
+  messages?: Message[]
 }
 
 export interface LicenseNotice {

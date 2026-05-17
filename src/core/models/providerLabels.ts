@@ -5,12 +5,19 @@ export const providerLabels: Record<Provider, string> = {
   anthropic: 'Anthropic Claude',
   google: 'Google Gemini',
   deepseek: 'DeepSeek',
-  alibaba: '阿里云 Qwen',
-  zhipu: '智谱 GLM / Z.AI',
-  xiaomi: '小米 MiMo',
+  alibaba: 'Alibaba Qwen',
+  zhipu: 'Zhipu GLM / Z.AI',
+  xiaomi: 'Xiaomi MiMo',
   mistral: 'Mistral',
   meta: 'Meta Llama',
   huggingface: 'Hugging Face',
+  xai: 'xAI',
+  cohere: 'Cohere',
+  baidu: 'Baidu ERNIE',
+  bytedance: 'ByteDance Doubao',
+  moonshot: 'Moonshot',
+  stepfun: 'StepFun',
+  minimax: 'MiniMax',
 }
 
 export const providerMarks: Record<Provider, string> = {
@@ -24,6 +31,13 @@ export const providerMarks: Record<Provider, string> = {
   mistral: 'Mi',
   meta: 'L',
   huggingface: 'HF',
+  xai: 'X',
+  cohere: 'Cr',
+  baidu: 'B',
+  bytedance: 'BD',
+  moonshot: 'Ms',
+  stepfun: 'SF',
+  minimax: 'MM',
 }
 
 export const providerAccents: Record<Provider, string> = {
@@ -37,6 +51,13 @@ export const providerAccents: Record<Provider, string> = {
   mistral: '#ffdb6e',
   meta: '#8ab4ff',
   huggingface: '#ffd166',
+  xai: '#c084fc',
+  cohere: '#f472b6',
+  baidu: '#34d399',
+  bytedance: '#60a5fa',
+  moonshot: '#fbbf24',
+  stepfun: '#22c55e',
+  minimax: '#38bdf8',
 }
 
 export const providerOrder: Provider[] = [
@@ -50,4 +71,11 @@ export const providerOrder: Provider[] = [
   'mistral',
   'meta',
   'huggingface',
+  'xai',
+  'cohere',
+  'baidu',
+  'bytedance',
+  'moonshot',
+  'stepfun',
+  'minimax',
 ]

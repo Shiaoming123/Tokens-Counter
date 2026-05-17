@@ -1,35 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">AI Token Counter</title>
+  <desc id="desc">A polished product banner showing model selection, token counting, and cost comparison.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F8FBFF"/>
-      <stop offset=".52" stop-color="#EEF6FF"/>
-      <stop offset="1" stop-color="#F7FAFC"/>
+      <stop stop-color="#F7FBFF"/>
+      <stop offset=".55" stop-color="#EFF7FF"/>
+      <stop offset="1" stop-color="#F9FAFB"/>
     </linearGradient>
-    <linearGradient id="accent" x1="220" y1="120" x2="540" y2="470" gradientUnits="userSpaceOnUse">
+    <linearGradient id="blue" x1="472" y1="94" x2="728" y2="94" gradientUnits="userSpaceOnUse">
       <stop stop-color="#0A84FF"/>
-      <stop offset=".55" stop-color="#34C759"/>
-      <stop offset="1" stop-color="#64D2FF"/>
+      <stop offset=".55" stop-color="#64D2FF"/>
+      <stop offset="1" stop-color="#34C759"/>
     </linearGradient>
-    <filter id="soft" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#0A84FF" flood-opacity=".14"/>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FC"/>
+    </linearGradient>
+    <filter id="shadow" x="-12%" y="-14%" width="124%" height="132%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#0F172A" flood-opacity=".14"/>
+    </filter>
+    <filter id="softBlue" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0A84FF" flood-opacity=".18"/>
     </filter>
   </defs>
-  <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
-  <g filter="url(#soft)">
-    <rect x="92" y="104" width="220" height="220" rx="56" fill="#fff"/>
-    <path d="M202 150a62 62 0 1 1-57 86" fill="none" stroke="url(#accent)" stroke-width="15" stroke-linecap="round"/>
-    <path d="M153 232h45m-24 32h58m-36-88h78m-51 28h64" stroke="#111827" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="265" cy="266" r="25" fill="#0A84FF"/>
-    <path d="M255 267l7 7 14-17" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect width="1200" height="630" rx="44" fill="url(#bg)"/>
+  <circle cx="1024" cy="130" r="164" fill="#E9F5FF" opacity=".75"/>
+  <circle cx="190" cy="522" r="140" fill="#EAF8EF" opacity=".7"/>
+
+  <g transform="translate(503 54)" filter="url(#softBlue)">
+    <rect width="194" height="88" rx="30" fill="#FFFFFF"/>
+    <path d="M67 25a31 31 0 1 1-28 43" fill="none" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M43 65h23m-9 15h35m-20-44h54m-34 14h48" stroke="#111827" stroke-width="5.5" stroke-linecap="round"/>
+    <circle cx="145" cy="67" r="14" fill="#0A84FF"/>
+    <path d="M138 67l5 5 10-13" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="360" y="218" fill="#111827" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Arial,sans-serif" font-size="70" font-weight="750">AI Token Counter</text>
-  <text x="363" y="292" fill="#4B5563" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="32" font-weight="450">Compare tokens, multimodal usage, and API cost across models.</text>
-  <g transform="translate(365 374)">
-    <rect width="176" height="46" rx="23" fill="#E8F2FF"/>
-    <text x="28" y="31" fill="#0A55CC" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="20" font-weight="650">Open API</text>
-    <rect x="196" width="206" height="46" rx="23" fill="#EAF8EF"/>
-    <text x="224" y="31" fill="#16753A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="20" font-weight="650">Model Catalog</text>
-    <rect x="422" width="194" height="46" rx="23" fill="#FFF4DF"/>
-    <text x="450" y="31" fill="#9A5A00" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="20" font-weight="650">Cost Estimate</text>
+
+  <text x="600" y="196" text-anchor="middle" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Arial,sans-serif" font-size="66" font-weight="760">AI Token Counter</text>
+  <text x="600" y="246" text-anchor="middle" fill="#475569" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="26" font-weight="450">Compare tokens, multimodal usage, and API cost across modern AI models.</text>
+
+  <g transform="translate(266 278)" filter="url(#shadow)">
+    <rect width="668" height="264" rx="32" fill="url(#panel)" stroke="#E5EEF8"/>
+    <rect x="22" y="20" width="624" height="46" rx="18" fill="#FFFFFF" stroke="#E8EEF6"/>
+    <circle cx="48" cy="43" r="8" fill="#FF5F57"/>
+    <circle cx="74" cy="43" r="8" fill="#FFBD2E"/>
+    <circle cx="100" cy="43" r="8" fill="#28C840"/>
+    <rect x="132" y="32" width="210" height="22" rx="11" fill="#EEF6FF"/>
+    <rect x="498" y="32" width="92" height="22" rx="11" fill="#EAF8EF"/>
+
+    <g transform="translate(32 90)">
+      <rect width="204" height="144" rx="22" fill="#FFFFFF" stroke="#E6EEF7"/>
+      <text x="22" y="34" fill="#64748B" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="16" font-weight="650">Models</text>
+      <g transform="translate(22 54)">
+        <rect width="160" height="24" rx="12" fill="#EEF6FF"/>
+        <circle cx="16" cy="12" r="8" fill="#0A84FF"/>
+        <rect x="34" y="8" width="82" height="8" rx="4" fill="#2563EB" opacity=".78"/>
+        <rect x="124" y="7" width="24" height="10" rx="5" fill="#C7DDFF"/>
+      </g>
+      <g transform="translate(22 88)">
+        <rect width="160" height="24" rx="12" fill="#F1F5F9"/>
+        <circle cx="16" cy="12" r="8" fill="#111827"/>
+        <rect x="34" y="8" width="96" height="8" rx="4" fill="#64748B" opacity=".68"/>
+      </g>
+      <g transform="translate(22 122)">
+        <rect width="160" height="24" rx="12" fill="#ECFDF3"/>
+        <circle cx="16" cy="12" r="8" fill="#34C759"/>
+        <rect x="34" y="8" width="74" height="8" rx="4" fill="#16A34A" opacity=".68"/>
+      </g>
+    </g>
+
+    <g transform="translate(258 90)">
+      <rect width="176" height="144" rx="22" fill="#FFFFFF" stroke="#E6EEF7"/>
+      <text x="22" y="34" fill="#64748B" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="16" font-weight="650">Tokens</text>
+      <text x="22" y="82" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Arial,sans-serif" font-size="42" font-weight="760">128K</text>
+      <rect x="22" y="104" width="132" height="12" rx="6" fill="#E2E8F0"/>
+      <rect x="22" y="104" width="94" height="12" rx="6" fill="#0A84FF"/>
+    </g>
+
+    <g transform="translate(456 90)">
+      <rect width="178" height="144" rx="22" fill="#FFFFFF" stroke="#E6EEF7"/>
+      <text x="22" y="34" fill="#64748B" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="16" font-weight="650">Estimate</text>
+      <text x="22" y="82" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Arial,sans-serif" font-size="42" font-weight="760">$0.42</text>
+      <rect x="22" y="103" width="118" height="28" rx="14" fill="#FFF4DF"/>
+      <text x="40" y="123" fill="#9A5A00" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="15" font-weight="700">Best value</text>
+    </g>
+  </g>
+
+  <g transform="translate(354 570)">
+    <rect width="132" height="34" rx="17" fill="#E8F2FF"/>
+    <text x="66" y="23" text-anchor="middle" fill="#0A55CC" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="15" font-weight="700">Open API</text>
+    <rect x="148" width="168" height="34" rx="17" fill="#EAF8EF"/>
+    <text x="232" y="23" text-anchor="middle" fill="#16753A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="15" font-weight="700">Model Catalog</text>
+    <rect x="332" width="160" height="34" rx="17" fill="#EEF2FF"/>
+    <text x="412" y="23" text-anchor="middle" fill="#4338CA" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Arial,sans-serif" font-size="15" font-weight="700">Local Counting</text>
   </g>
 </svg>

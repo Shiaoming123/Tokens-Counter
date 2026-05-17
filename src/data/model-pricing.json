@@ -9,32 +9,42 @@
   "gpt-4.1": {
     "inputPer1M": 2,
     "outputPer1M": 8,
+    "cachedInputPer1M": 0.5,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "manual"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "gpt-5": {
     "inputPer1M": 1.25,
     "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "manual"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "deepseek-v4-flash": {
     "inputPer1M": 0.14,
     "outputPer1M": 0.28,
-    "cachedInputPer1M": 0.0028,
+    "cachedInputPer1M": 0.028,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "DeepSeek official pricing, cache-miss input"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "deepseek-v4-pro": {
-    "inputPer1M": 0.435,
-    "outputPer1M": 0.87,
-    "cachedInputPer1M": 0.003625,
+    "inputPer1M": 1.68,
+    "outputPer1M": 3.36,
+    "cachedInputPer1M": 0.14,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "DeepSeek official 75% discount pricing, cache-miss input"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "qwen-plus": {
     "inputPer1M": 0.8,
@@ -44,11 +54,11 @@
     "source": "Alibaba Cloud Model Studio mainland pricing, first tier"
   },
   "qwen3.6-plus": {
-    "inputPer1M": 2,
-    "outputPer1M": 12,
-    "currency": "CNY",
-    "lastUpdated": "2026-05-15",
-    "source": "Alibaba Cloud Model Studio mainland pricing, first tier"
+    "inputPer1M": 0.325,
+    "outputPer1M": 1.95,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "qwen-vl-plus": {
     "inputPer1M": 0.8,
@@ -119,16 +129,18 @@
   "gemini-3-pro-preview": {
     "inputPer1M": 2,
     "outputPer1M": 12,
+    "cachedInputPer1M": 0.2,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "manual"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "gemini-2.5-flash": {
     "inputPer1M": 0.3,
     "outputPer1M": 2.5,
+    "cachedInputPer1M": 0.03,
     "currency": "USD",
-    "lastUpdated": "2026-05-15",
-    "source": "manual"
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   },
   "mistral-large-latest": {
     "inputPer1M": 2,
@@ -143,5 +155,1236 @@
     "currency": "USD",
     "lastUpdated": "2026-05-15",
     "source": "manual"
+  },
+  "gpt-4o-mini": {
+    "inputPer1M": 0.15,
+    "outputPer1M": 0.6,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "OpenAI official pricing"
+  },
+  "gpt-4.1-mini": {
+    "inputPer1M": 0.4,
+    "outputPer1M": 1.6,
+    "cachedInputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-4.1-nano": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.4,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "o3-mini": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.55,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-haiku-4.5": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 4,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Anthropic official pricing"
+  },
+  "claude-sonnet-4": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Anthropic official pricing"
+  },
+  "deepseek-r1": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.19,
+    "cachedInputPer1M": 0.14,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "DeepSeek official pricing"
+  },
+  "deepseek-v3-0324": {
+    "inputPer1M": 0.27,
+    "outputPer1M": 1.1,
+    "cachedInputPer1M": 0.07,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "DeepSeek official pricing"
+  },
+  "gemini-2.5-pro-preview": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Google official pricing"
+  },
+  "gemini-2.0-flash": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.4,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mistral-small-latest": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.3,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Mistral official pricing"
+  },
+  "llama-3.3-70b": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Meta official pricing"
+  },
+  "llama-4-scout": {
+    "inputPer1M": 0.15,
+    "outputPer1M": 0.42,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Meta official pricing"
+  },
+  "llama-4-maverick": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 0.6,
+    "currency": "USD",
+    "lastUpdated": "2026-05-16",
+    "source": "Meta official pricing"
+  },
+  "grok-3": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-3-mini": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 0.5,
+    "cachedInputPer1M": 0.075,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "command-r-plus": {
+    "inputPer1M": 2.5,
+    "outputPer1M": 10,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "ernie-4.5-8k": {
+    "inputPer1M": 4,
+    "outputPer1M": 8,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-16",
+    "source": "Baidu official pricing"
+  },
+  "doubao-pro-256k": {
+    "inputPer1M": 5,
+    "outputPer1M": 9,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-16",
+    "source": "ByteDance official pricing"
+  },
+  "moonshot-v1-128k": {
+    "inputPer1M": 60,
+    "outputPer1M": 60,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-16",
+    "source": "Moonshot official pricing"
+  },
+  "o4-mini": {
+    "inputPer1M": 1.1,
+    "outputPer1M": 4.4,
+    "cachedInputPer1M": 0.275,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-7": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "cacheCreationInputPer1M": 6.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-sonnet-4-6": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "Anthropic official pricing"
+  },
+  "qwen-max-latest": {
+    "inputPer1M": 20,
+    "outputPer1M": 60,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-17",
+    "source": "Alibaba Cloud Model Studio official pricing"
+  },
+  "qwen-turbo-latest": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 0.6,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-17",
+    "source": "Alibaba Cloud Model Studio official pricing"
+  },
+  "command-r": {
+    "inputPer1M": 0.15,
+    "outputPer1M": 0.6,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "glm-4-plus": {
+    "inputPer1M": 0.6,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.11,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "Z.AI official pricing"
+  },
+  "glm-4-flash": {
+    "inputPer1M": 0,
+    "outputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "Z.AI official pricing"
+  },
+  "gpt-5.4": {
+    "inputPer1M": 2.5,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.4-mini": {
+    "inputPer1M": 0.75,
+    "outputPer1M": 4.5,
+    "cachedInputPer1M": 0.075,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.4-nano": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 1.25,
+    "cachedInputPer1M": 0.02,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-3-flash-preview": {
+    "inputPer1M": 0.5,
+    "outputPer1M": 3,
+    "cachedInputPer1M": 0.05,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-2.5-pro": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-2.5-flash-lite": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.4,
+    "cachedInputPer1M": 0.01,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4.3": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 2.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "xAI official pricing"
+  },
+  "claude-opus-4-5": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "cacheCreationInputPer1M": 6.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-sonnet-4-5": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-haiku-4-5": {
+    "inputPer1M": 1,
+    "outputPer1M": 5,
+    "cachedInputPer1M": 0.1,
+    "cacheCreationInputPer1M": 1.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-opus-4": {
+    "inputPer1M": 15,
+    "outputPer1M": 75,
+    "cachedInputPer1M": 1.5,
+    "cacheCreationInputPer1M": 18.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-opus-4-1": {
+    "inputPer1M": 15,
+    "outputPer1M": 75,
+    "cachedInputPer1M": 1.5,
+    "cacheCreationInputPer1M": 18.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-3-5-sonnet": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "claude-3-5-haiku": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 4,
+    "cachedInputPer1M": 0.08,
+    "cacheCreationInputPer1M": 1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "gpt-5.2": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-codex-low": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-codex-medium": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-codex-high": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "step-3.5-flash": {
+    "inputPer1M": 0.1,
+    "outputPer1M": 0.3,
+    "cachedInputPer1M": 0.02,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "kimi-k2-thinking": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "kimi-k2": {
+    "inputPer1M": 4,
+    "outputPer1M": 16,
+    "cachedInputPer1M": 1,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch preset pricing"
+  },
+  "kimi-k2-turbo": {
+    "inputPer1M": 1.11,
+    "outputPer1M": 8.06,
+    "cachedInputPer1M": 0.14,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.1": {
+    "inputPer1M": 0.27,
+    "outputPer1M": 0.95,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.1-lightning": {
+    "inputPer1M": 0.27,
+    "outputPer1M": 2.33,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "glm-4.7": {
+    "inputPer1M": 0.39,
+    "outputPer1M": 1.75,
+    "cachedInputPer1M": 0.04,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "doubao-seed-code": {
+    "inputPer1M": 0.17,
+    "outputPer1M": 1.11,
+    "cachedInputPer1M": 0.02,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mimo-v2-flash": {
+    "inputPer1M": 0.09,
+    "outputPer1M": 0.29,
+    "cachedInputPer1M": 0.009,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-6-20260206": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "cacheCreationInputPer1M": 6.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-sonnet-4-6-20260217": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-5-20251101": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "cacheCreationInputPer1M": 6.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-sonnet-4-5-20250929": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-haiku-4-5-20251001": {
+    "inputPer1M": 1,
+    "outputPer1M": 5,
+    "cachedInputPer1M": 0.1,
+    "cacheCreationInputPer1M": 1.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-20250514": {
+    "inputPer1M": 15,
+    "outputPer1M": 75,
+    "cachedInputPer1M": 1.5,
+    "cacheCreationInputPer1M": 18.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-1-20250805": {
+    "inputPer1M": 15,
+    "outputPer1M": 75,
+    "cachedInputPer1M": 1.5,
+    "cacheCreationInputPer1M": 18.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-sonnet-4-20250514": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-3-5-haiku-20241022": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 4,
+    "cachedInputPer1M": 0.08,
+    "cacheCreationInputPer1M": 1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "claude-3-5-sonnet-20241022": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.3,
+    "cacheCreationInputPer1M": 3.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5-low": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5-medium": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5-high": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5-xhigh": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.5-minimal": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-low": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-medium": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-high": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-xhigh": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-codex": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.2-codex-xhigh": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.3-codex": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.3-codex-low": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.3-codex-medium": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.3-codex-high": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.3-codex-xhigh": {
+    "inputPer1M": 1.75,
+    "outputPer1M": 14,
+    "cachedInputPer1M": 0.175,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-low": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-medium": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-high": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-minimal": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-codex": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-codex-mini": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-codex-max": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-codex-max-high": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5.1-codex-max-xhigh": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-low": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-medium": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-high": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-minimal": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-low": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-medium": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-high": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-mini": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-mini-medium": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-codex-mini-high": {
+    "inputPer1M": 1.25,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.125,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "o3": {
+    "inputPer1M": 2,
+    "outputPer1M": 8,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-3.1-pro-preview": {
+    "inputPer1M": 2,
+    "outputPer1M": 12,
+    "cachedInputPer1M": 0.2,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-3.1-flash-lite-preview": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 1.5,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "doubao-seed-2-0-pro": {
+    "inputPer1M": 0.47,
+    "outputPer1M": 2.37,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "doubao-seed-2-0-code": {
+    "inputPer1M": 0.47,
+    "outputPer1M": 2.37,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "doubao-seed-2-0-lite": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 2,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "doubao-seed-2-0-mini": {
+    "inputPer1M": 0.03,
+    "outputPer1M": 0.31,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "deepseek-v3.2": {
+    "inputPer1M": 0.28,
+    "outputPer1M": 0.42,
+    "cachedInputPer1M": 0.028,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "deepseek-v3.1": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 1.67,
+    "cachedInputPer1M": 0.055,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "deepseek-v3": {
+    "inputPer1M": 0.28,
+    "outputPer1M": 1.11,
+    "cachedInputPer1M": 0.028,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "deepseek-chat": {
+    "inputPer1M": 0.27,
+    "outputPer1M": 1.1,
+    "cachedInputPer1M": 0.07,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "deepseek-reasoner": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.19,
+    "cachedInputPer1M": 0.14,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "kimi-k2-0905": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "kimi-k2.5": {
+    "inputPer1M": 0.6,
+    "outputPer1M": 2.5,
+    "cachedInputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "kimi-k2.6": {
+    "inputPer1M": 0.95,
+    "outputPer1M": 4,
+    "cachedInputPer1M": 0.16,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2": {
+    "inputPer1M": 0.27,
+    "outputPer1M": 0.95,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.5": {
+    "inputPer1M": 0.12,
+    "outputPer1M": 0.95,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.5-lightning": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 2.4,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.7": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 1.2,
+    "cachedInputPer1M": 0.06,
+    "cacheCreationInputPer1M": 0.375,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "minimax-m2.7-highspeed": {
+    "inputPer1M": 0.6,
+    "outputPer1M": 2.4,
+    "cachedInputPer1M": 0.06,
+    "cacheCreationInputPer1M": 0.375,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "glm-4.6": {
+    "inputPer1M": 0.28,
+    "outputPer1M": 1.11,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "glm-5": {
+    "inputPer1M": 0.72,
+    "outputPer1M": 2.3,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "glm-5.1": {
+    "inputPer1M": 0.95,
+    "outputPer1M": 3.15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mimo-v2-pro": {
+    "inputPer1M": 1,
+    "outputPer1M": 3,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3.5-plus": {
+    "inputPer1M": 0.26,
+    "outputPer1M": 1.56,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-max": {
+    "inputPer1M": 0.78,
+    "outputPer1M": 3.9,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-235b-a22b": {
+    "inputPer1M": 0.7,
+    "outputPer1M": 8.4,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-coder-plus": {
+    "inputPer1M": 0.65,
+    "outputPer1M": 3.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-coder-flash": {
+    "inputPer1M": 0.195,
+    "outputPer1M": 0.975,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-coder-next": {
+    "inputPer1M": 0.12,
+    "outputPer1M": 0.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwq-plus": {
+    "inputPer1M": 0.8,
+    "outputPer1M": 2.4,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwq-32b": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 0.6,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "qwen3-32b": {
+    "inputPer1M": 0.16,
+    "outputPer1M": 0.64,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4.20-0309-reasoning": {
+    "inputPer1M": 2,
+    "outputPer1M": 6,
+    "cachedInputPer1M": 0.2,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4.20-0309-non-reasoning": {
+    "inputPer1M": 2,
+    "outputPer1M": 6,
+    "cachedInputPer1M": 0.2,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4-1-fast-reasoning": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 0.5,
+    "cachedInputPer1M": 0.05,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4-1-fast-non-reasoning": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 0.5,
+    "cachedInputPer1M": 0.05,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-4": {
+    "inputPer1M": 3,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.75,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "grok-code-fast-1": {
+    "inputPer1M": 0.2,
+    "outputPer1M": 1.5,
+    "cachedInputPer1M": 0.02,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "codestral-2508": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 0.9,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "devstral-small-1.1": {
+    "inputPer1M": 0.07,
+    "outputPer1M": 0.28,
+    "cachedInputPer1M": 0.01,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "devstral-2-2512": {
+    "inputPer1M": 0.4,
+    "outputPer1M": 0.9,
+    "cachedInputPer1M": 0.04,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "devstral-medium": {
+    "inputPer1M": 0.4,
+    "outputPer1M": 2,
+    "cachedInputPer1M": 0.04,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mistral-large-3-2512": {
+    "inputPer1M": 0.5,
+    "outputPer1M": 1.5,
+    "cachedInputPer1M": 0.05,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mistral-medium-3.1": {
+    "inputPer1M": 0.4,
+    "outputPer1M": 2,
+    "cachedInputPer1M": 0.04,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "mistral-small-3.2-24b": {
+    "inputPer1M": 0.075,
+    "outputPer1M": 0.2,
+    "cachedInputPer1M": 0.01,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "magistral-medium": {
+    "inputPer1M": 2,
+    "outputPer1M": 5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "command-a": {
+    "inputPer1M": 2.5,
+    "outputPer1M": 10,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "o3-pro": {
+    "inputPer1M": 20,
+    "outputPer1M": 80,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "o1": {
+    "inputPer1M": 15,
+    "outputPer1M": 60,
+    "cachedInputPer1M": 7.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "o1-mini": {
+    "inputPer1M": 0.55,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.55,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "codex-mini": {
+    "inputPer1M": 0.75,
+    "outputPer1M": 3,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-mini": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 2,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
+  },
+  "gpt-5-nano": {
+    "inputPer1M": 0.05,
+    "outputPer1M": 0.4,
+    "cachedInputPer1M": 0.005,
+    "currency": "USD",
+    "lastUpdated": "2026-05-17",
+    "source": "CC Switch v9 seed pricing"
   }
 }

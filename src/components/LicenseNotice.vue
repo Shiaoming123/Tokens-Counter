@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { ElTag } from 'element-plus'
+import { useLocaleStore } from '../stores/locale'
 import type { LicenseNotice } from '../types/domain'
+
+const localeStore = useLocaleStore()
 
 defineProps<{
   licenses: LicenseNotice[]
@@ -9,11 +13,9 @@ defineProps<{
 <template>
   <section class="licenses-layout">
     <div class="license-hero">
-      <p class="eyebrow">Compliance</p>
-      <h1>许可证与计数方式说明</h1>
-      <p>
-        本工具不会把闭源模型的第三方 tokenizer 标成官方。官方 API、开源 tokenizer、图片规则估算会在结果里明确显示准确度和方法。
-      </p>
+      <p class="eyebrow">{{ localeStore.t('license.eyebrow') }}</p>
+      <h1>{{ localeStore.t('license.title') }}</h1>
+      <p>{{ localeStore.t('license.description') }}</p>
     </div>
 
     <div class="license-list">
@@ -24,11 +26,11 @@ defineProps<{
           <p v-if="item.risk" class="risk">{{ item.risk }}</p>
         </div>
         <div class="license-meta">
-          <el-tag>{{ item.license }}</el-tag>
-          <el-tag :type="item.noticeRequired ? 'warning' : 'info'">
-            {{ item.noticeRequired ? '需保留声明' : '无需本地声明' }}
-          </el-tag>
-          <a v-if="item.url" :href="item.url" target="_blank" rel="noreferrer">查看</a>
+          <ElTag>{{ item.license }}</ElTag>
+          <ElTag :type="item.noticeRequired ? 'warning' : 'info'">
+            {{ item.noticeRequired ? localeStore.t('license.noticeRequired') : localeStore.t('license.noNotice') }}
+          </ElTag>
+          <a v-if="item.url" :href="item.url" target="_blank" rel="noreferrer">{{ localeStore.t('license.view') }}</a>
         </div>
       </article>
     </div>

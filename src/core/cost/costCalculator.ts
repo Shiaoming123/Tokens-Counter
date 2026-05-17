@@ -1,3 +1,5 @@
+import type { CurrencyCode } from '../../types/domain'
+
 export interface CostInput {
   inputTokens: number
   estimatedOutputTokens: number
@@ -41,7 +43,7 @@ export function calculateCost({
   }
 }
 
-export function formatCost(value: number, currency: 'USD' | 'CNY' | 'CREDITS' = 'USD') {
+export function formatCost(value: number, currency: string = 'USD') {
   if (currency === 'CREDITS') {
     return `${value.toFixed(value < 0.01 ? 6 : 4)} credits`
   }
@@ -57,3 +59,36 @@ export function formatCost(value: number, currency: 'USD' | 'CNY' | 'CREDITS' = 
 }
 
 export const formatUsd = formatCost
+
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  USD: '$',
+  CNY: '¥',
+  EUR: '€',
+  JPY: '¥',
+  GBP: '£',
+  KRW: '₩',
+  CREDITS: '',
+}
+
+const CREDITS_PER_USD = 1000
+
+export function convertFromUSD(amountUSD: number, target: CurrencyCode, rates: Record<string, number>): number {
+  if (target === 'CREDITS') return amountUSD * CREDITS_PER_USD
+  return amountUSD * (rates[target] ?? 1)
+}
+
+export function convertToUSD(amount: number, source: CurrencyCode, rates: Record<string, number>): number {
+  if (source === 'CREDITS') return amount / CREDITS_PER_USD
+  const rate = rates[source]
+  if (!rate || rate === 0) return amount
+  return amount / rate
+}
+
+export function formatCurrencyValue(value: number, currency: CurrencyCode): string {
+  if (currency === 'CREDITS') {
+    return `${value.toFixed(value < 1 ? 4 : 2)} credits`
+  }
+  const symbol = CURRENCY_SYMBOLS[currency] ?? ''
+  const decimals = value < 0.01 ? 6 : value < 1 ? 4 : 2
+  return `${symbol}${value.toFixed(decimals)}`
+}

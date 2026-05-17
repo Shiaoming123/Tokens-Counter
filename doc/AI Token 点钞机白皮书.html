@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多模型AI Token计数工具MVP开发方案与落地白皮书</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFFFF;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1.25rem; /* 20px */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        .highlight-gradient-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0), rgba(59, 130, 246, 0.05));
+        }
+        .highlight-gradient-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0), rgba(16, 185, 129, 0.05));
+        }
+        .highlight-gradient-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0), rgba(139, 92, 246, 0.05));
+        }
+        .highlight-gradient-amber {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0), rgba(245, 158, 11, 0.05));
+        }
+        .highlight-gradient-rose {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0), rgba(244, 63, 94, 0.05));
+        }
+        .progress-bar {
+            background-color: #E5E7EB;
+            border-radius: 0.5rem;
+            height: 0.75rem;
+            overflow: hidden;
+        }
+        .progress-value {
+            height: 100%;
+            border-radius: 0.5rem;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <!-- 标题区域 -->
+        <div class="card mb-6 md:col-span-4 p-8">
+            <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+            <div class="relative">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-calculator text-3xl text-blue-500"></i>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800">多模型AI Token计数工具MVP开发方案与落地白皮书</h1>
+                </div>
+                <p class="text-gray-600 text-lg">面向AI开发者和内容创作者的Token计算与成本优化解决方案</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- 项目背景与市场机会 -->
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-chart-line text-green-500"></i>
+                        项目背景与市场机会
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <div class="text-4xl font-bold text-green-600 mb-2">60-70%</div>
+                            <p class="text-gray-700">Token支出占AI推理成本的比例</p>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <div class="text-4xl font-bold text-blue-600 mb-2">43%</div>
+                            <p class="text-gray-700">嵌入Token计算器的教程用户平均停留时间高出比例</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-xl">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">68%</div>
+                            <p class="text-gray-700">用户会尝试输入业务文本进行测试的比例</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">核心应用场景</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-start gap-3 p-4 border border-gray-200 rounded-lg">
+                                <i class="fa-solid fa-code text-blue-500 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">开发者场景</h4>
+                                    <p class="text-gray-600 text-sm">API成本规划、Token预算管理、模型对比分析</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 border border-gray-200 rounded-lg">
+                                <i class="fa-solid fa-pen-to-square text-green-500 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">内容创作者场景</h4>
+                                    <p class="text-gray-600 text-sm">博客文章、社交媒体更新、营销文案的成本控制</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 border border-gray-200 rounded-lg">
+                                <i class="fa-solid fa-building text-purple-500 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">企业场景</h4>
+                                    <p class="text-gray-600 text-sm">AI Agent开发、知识库维护、多轮对话管理</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 产品定位与核心价值 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-star text-purple-500"></i>
+                        产品定位与核心价值
+                    </h2>
+                    <p class="text-gray-700 mb-6">面向AI开发者和内容创作者的多模型Token计数工具，核心价值体现在：</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">多模型支持</h3>
+                                <p class="text-gray-600 text-sm">集成OpenAI、Anthropic、Google、Meta等主流模型的分词器，支持超过8种流行LLM模型</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">实时精准计算</h3>
+                                <p class="text-gray-600 text-sm">基于官方分词器实现高精度Token计数，误差控制在可接受范围内</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">成本预估功能</h3>
+                                <p class="text-gray-600 text-sm">根据当前API定价提供输入/输出成本估算</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                                <i class="fa-solid fa-feather"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">轻量化设计</h3>
+                                <p class="text-gray-600 text-sm">采用纯HTML/CSS/JavaScript实现，无外部依赖，响应式设计适配全平台</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术可行性分析 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-amber"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-amber-500"></i>
+                        技术可行性分析
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">开源生态支持</h3>
+                            <p class="text-gray-600 text-sm">主流模型分词器基本开源，包括OpenAI的tiktoken、Meta的LLaMA Tokenizer、Google的SentencePiece等。这些工具均提供了成熟的Python、JavaScript等多语言实现。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">计算复杂度低</h3>
+                            <p class="text-gray-600 text-sm">Token计数本质是字符串匹配和子词切分，属于轻量级CPU任务，无需GPU加速。即使处理几十万字文本，单请求耗时通常在毫秒级。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">开发框架成熟</h3>
+                            <p class="text-gray-600 text-sm">现代前端框架如Vue.js、React、Svelte等均能快速实现MVP功能。根据技术选型分析，Vue.js最适合1人开发的MVP项目，学习曲线平缓，开发效率高。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心技术栈选择 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-layer-group text-blue-500"></i>
+                        核心技术栈选择
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-3">前端技术栈</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <i class="fa-brands fa-vuejs text-blue-600 text-xl mb-1"></i>
+                                    <p class="text-sm font-medium">Vue.js 3</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <i class="fa-solid fa-route text-blue-600 text-xl mb-1"></i>
+                                    <p class="text-sm font-medium">Vue Router</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <i class="fa-solid fa-cubes text-blue-600 text-xl mb-1"></i>
+                                    <p class="text-sm font-medium">Vuex</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <i class="fa-solid fa-circle-check text-blue-600 text-xl mb-1"></i>
+                                    <p class="text-sm font-medium">Element Plus</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-3">Token计算核心</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                    <span class="text-sm">tiktoken.js</span>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">OpenAI</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                    <span class="text-sm">llama-tokenizer-js</span>
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Meta</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                    <span class="text-sm">sentencepiece.js</span>
+                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Google</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP功能清单 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-list-check text-green-500"></i>
+                        MVP功能清单
+                    </h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-3 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">功能模块</th>
+                                    <th class="px-3 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">优先级</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">文本输入与文件上传</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">高</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">多模型选择器</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">高</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">实时Token计数</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">高</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">成本估算功能</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">高</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">多模型对比视图</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">中</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900">历史记录保存</td>
+                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">低</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 开发时间规划 -->
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-rose"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-calendar-days text-rose-500"></i>
+                        开发时间规划与里程碑设定
+                    </h2>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">第1周：基础功能开发</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">1</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">环境搭建、技术选型确认</h4>
+                                        <p class="text-sm text-gray-600">开发环境就绪、项目骨架完成</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">2</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">核心UI框架搭建</h4>
+                                        <p class="text-sm text-gray-600">基础页面结构、路由配置、状态管理</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">3</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Token计算引擎集成</h4>
+                                        <p class="text-sm text-gray-600">支持GPT系列模型的Token计数</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">4</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">多模型扩展</h4>
+                                        <p class="text-sm text-gray-600">集成LLaMA、Claude、Gemini分词器</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">5</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">成本计算与界面美化</h4>
+                                        <p class="text-sm text-gray-600">基于API定价的成本估算功能</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">6</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">响应式设计与测试</h4>
+                                        <p class="text-sm text-gray-600">全平台适配、功能测试、Bug修复</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">7</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">文档编写、部署准备</h4>
+                                        <p class="text-sm text-gray-600">README、使用说明、部署脚本</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">第2周：优化与发布</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-1">Day 8-9</h4>
+                                    <p class="text-sm text-gray-600">高级功能开发（对比视图、历史记录）</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-1">Day 10</h4>
+                                    <p class="text-sm text-gray-600">性能优化、代码审查、安全检查</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-1">Day 11</h4>
+                                    <p class="text-sm text-gray-600">用户测试、反馈收集、最终调整</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-1">Day 12</h4>
+                                    <p class="text-sm text-gray-600">正式发布、社交媒体推广</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预算分配 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-amber"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-sack-dollar text-amber-500"></i>
+                        预算分配与成本控制
+                    </h2>
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">营销推广</span>
+                            <span class="text-sm text-gray-600">500-800元</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-value bg-amber-500" style="width: 35%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">开发工具</span>
+                            <span class="text-sm text-gray-600">300-500元</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-value bg-amber-500" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">应急储备</span>
+                            <span class="text-sm text-gray-600">200-300元</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-value bg-amber-500" style="width: 15%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">测试费用</span>
+                            <span class="text-sm text-gray-600">200-300元</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-value bg-amber-500" style="width: 15%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">域名注册</span>
+                            <span class="text-sm text-gray-600">50-100元</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-value bg-amber-500" style="width: 5%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-amber-50 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">成本优化策略</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 充分利用Vercel、GitHub Pages等免费资源</li>
+                            <li>• 学生身份可申请阿里云、腾讯云学生优惠</li>
+                            <li>• 分阶段投入，先验证产品价值再扩大投入</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 收益预期 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-chart-pie text-green-500"></i>
+                        收益预期与投资回报
+                    </h2>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">短期目标（3个月）</h3>
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">1K-5K</div>
+                                <p class="text-xs text-gray-600">用户数</p>
+                            </div>
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">3-5%</div>
+                                <p class="text-xs text-gray-600">付费转化率</p>
+                            </div>
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">3K-5K</div>
+                                <p class="text-xs text-gray-600">月收入(元)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">中期目标（1年）</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">10K-50K</div>
+                                <p class="text-xs text-gray-600">用户数</p>
+                            </div>
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">5-8%</div>
+                                <p class="text-xs text-gray-600">付费转化率</p>
+                            </div>
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">20K-50K</div>
+                                <p class="text-xs text-gray-600">月收入(元)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-green-50 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">盈利模式设计</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 免费增值模式：基础功能免费，高级功能付费</li>
+                            <li>• 订阅制：专业版9.9元/月，企业版99元/月</li>
+                            <li>• API调用收费：按调用次数收费，1000次/元</li>
+                            <li>• 定制开发：为企业提供私有化部署和定制功能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 风险评估 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-red"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+                        合规性与风险评估
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">资质要求</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• ICP备案：个人身份可办理，费用约0元，周期20-30天</li>
+                                <li>• 经营性资质：产生收入时需注册个体工商户，费用300-600元</li>
+                                <li>• 数据安全：明确隐私政策，遵守GDPR和CCPA要求</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">知识产权保护</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• 软件著作权：费用约300元，周期3个月</li>
+                                <li>• 商标保护：约1000元/类，保护期10年</li>
+                                <li>• 专利申请：重点保护创新算法</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">竞争风险</h3>
+                            <p class="text-sm text-gray-600 mb-2">主要竞争对手包括OpenAI官方Tokenizer、tiktoken官方工具、Hugging Face Tokenizers等</p>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• 优势：用户体验优化、多模型集成、实时成本估算</li>
+                                <li>• 策略：专注非技术用户，提供简单易用的界面</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 推广策略 -->
+            <div class="card md:col-span-2 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-bullhorn text-blue-500"></i>
+                        商业化路径与推广策略
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-3">用户画像</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-600">60%</div>
+                                    <p class="text-xs text-gray-600">初级用户</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-600">30%</div>
+                                    <p class="text-xs text-gray-600">中级用户</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-600">10%</div>
+                                    <p class="text-xs text-gray-600">高级用户</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-3">推广渠道</h3>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-twitter text-blue-500"></i>
+                                    <span class="text-sm">Twitter、Reddit、Hacker News</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-pen-to-square text-blue-500"></i>
+                                    <span class="text-sm">技术博客、教程视频、案例研究</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-handshake text-blue-500"></i>
+                                    <span class="text-sm">社区合作、GitHub开源、技术会议</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-blue-500"></i>
+                                    <span class="text-sm">Google Ads、Facebook Ads、网红合作</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-3">增长策略</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• 病毒式传播：邀请好友奖励机制</li>
+                                <li>• SEO优化：针对关键词优化</li>
+                                <li>• 内容引流：发布高质量Token优化指南</li>
+                                <li>• 用户留存：定期更新、用户反馈响应、积分系统</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术验证与学习路径 -->
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-graduation-cap text-purple-500"></i>
+                        技术验证与学习路径
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">核心技术验证计划</h3>
+                            <div class="space-y-4">
+                                <div class="p-4 border border-gray-200 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-2">准确性验证</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• 基准测试：使用已知文本对比各模型的Token计数结果</li>
+                                        <li>• 官方对比：与OpenAI官方API返回的usage字段对比</li>
+                                        <li>• 多语言测试：验证中文、英文、日文等不同语言的准确性</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 border border-gray-200 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-2">性能测试</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• 响应时间：测试不同长度文本的计算耗时</li>
+                                        <li>• 并发能力：模拟多用户同时使用的场景</li>
+                                        <li>• 兼容性测试：在主流浏览器上测试</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">学习资源与技能提升</h3>
+                            <div class="space-y-4">
+                                <div class="p-4 border border-gray-200 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-2">前端技术提升</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Vue.js官方文档：https://vuejs.org/</li>
+                                        <li>• Vue 3实战教程：推荐《Vue.js 3 实战》系列课程</li>
+                                        <li>• 响应式设计：学习CSS Grid和Flexbox布局</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 border border-gray-200 rounded-lg">
+                                    <h4 class="font-medium text-gray-800 mb-2">Tokenization原理</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• 《Tokenizer你所需要知道的一切》</li>
+                                        <li>• OpenAI官方文档：了解tiktoken的工作原理</li>
+                                        <li>• Hugging Face文档：学习不同模型的分词器实现差异</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 实施建议与行动计划 -->
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-rocket text-green-500"></i>
+                        实施建议与行动计划
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">第一阶段：快速原型验证（1-2周）</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• 完成技术选型，搭建开发环境</li>
+                                <li>• 实现核心功能（文本输入、模型选择、Token计算）</li>
+                                <li>• 扩展多模型支持（LLaMA、Claude、Gemini等）</li>
+                                <li>• 全面测试各功能的准确性</li>
+                                <li>• 部署到Vercel或Netlify</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">第二阶段：用户验证与迭代（3-4周）</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• 邀请10-20名目标用户进行Beta测试</li>
+                                <li>• 收集用户反馈，识别核心痛点</li>
+                                <li>• 根据反馈优化产品功能</li>
+                                <li>• 建立用户微信群或Discord频道</li>
+                                <li>• 推出第一个正式版本</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">第三阶段：市场推广与商业化（2-3个月）</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• 在技术社区发布产品，获取首批用户</li>
+                                <li>• 优化SEO，确保在搜索引擎可见</li>
+                                <li>• 推出付费功能，测试用户付费意愿</li>
+                                <li>• 与KOL合作，扩大产品影响力</li>
+                                <li>• 实现正向现金流</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 p-6 bg-green-100 rounded-xl">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">成功关键因素</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                            <div class="text-center">
+                                <div class="bg-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">产品质量</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                    <i class="fa-solid fa-user-check text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">用户体验</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                    <i class="fa-solid fa-arrows-rotate text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">持续迭代</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                    <i class="fa-solid fa-bullhorn text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">精准营销</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                    <i class="fa-solid fa-sack-dollar text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">成本控制</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 结语 -->
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">结语</h2>
+                    <p class="text-gray-700 mb-6 max-w-3xl mx-auto">
+                        这个多模型AI Token计数工具项目具有巨大的市场潜力和可行性。通过1-2周的快速开发，您可以推出一个功能完善的MVP版本，初期投资仅需2000元。随着AI应用的普及，Token成本控制将成为越来越多人的刚需，这为项目的长期发展提供了坚实的市场基础。
+                    </p>
+                    <p class="text-gray-700 font-semibold text-lg">
+                        关键是要<span class="text-blue-600">快速行动</span>，在竞争对手之前占领市场。记住，完美是优秀的敌人，先推出能用的产品，再通过用户反馈不断优化。相信通过您的努力和坚持，这个项目一定能够取得成功！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 简单的动画效果
+    document.addEventListener('DOMContentLoaded', function() {
+        // 为进度条添加动画
+        const progressBars = document.querySelectorAll('.progress-value');
+        setTimeout(() => {
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }, 500);
+
+        // 为卡片添加进入动画
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    });
+</script>
+</html>

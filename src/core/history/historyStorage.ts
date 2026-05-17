@@ -27,7 +27,7 @@ export function createHistoryEntry(input: CountInput, options: CountOptions, res
   return {
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
-    textPreview: input.text.slice(0, 80) || '(无文本)',
+    textPreview: input.text.slice(0, 80) || '(no text)',
     imageCount: input.images.length,
     options,
     results,
@@ -36,7 +36,7 @@ export function createHistoryEntry(input: CountInput, options: CountOptions, res
 
 export function resultsToMarkdown(results: TokenCountResult[]) {
   const rows = [
-    '| 模型 | 文本 Tokens | 图片 Tokens | 总输入 Tokens | 预估输出 | 预估费用 | 准确度 | 方法 |',
+    '| Model | Text Tokens | Image Tokens | Total Input Tokens | Est. Output | Est. Cost | Accuracy | Method |',
     '| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |',
     ...results.map(
       (item) =>

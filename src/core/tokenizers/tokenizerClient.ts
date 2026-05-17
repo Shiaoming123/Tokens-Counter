@@ -1,4 +1,6 @@
 import type { TokenizerWorkerRequest, TokenizerWorkerResponse } from '../../workers/tokenizer.worker'
+import { countTextTokens, type SupportedEncoding } from './openaiTokenizer'
+import { models } from '../models/modelRegistry'
 
 let worker: Worker | undefined
 
@@ -7,6 +9,43 @@ export function countLocalTextTokens(text: string, modelIds: string[]) {
     return Promise.resolve<Record<string, number>>({})
   }
 
+  const tiktokenModels: { id: string; encoding: SupportedEncoding }[] = []
+  const workerModelIds: string[] = []
+
+  for (const id of modelIds) {
+    const model = models.find((m) => m.id === id)
+    if (model?.tokenizer?.type === 'tiktoken' && model.tokenizer.encoding) {
+      tiktokenModels.push({ id, encoding: model.tokenizer.encoding as SupportedEncoding })
+    } else {
+      workerModelIds.push(id)
+    }
+  }
+
+  const tiktokenPromise =
+    tiktokenModels.length > 0
+      ? countTiktokenBatch(text, tiktokenModels)
+      : Promise.resolve<Record<string, number>>({})
+
+  const workerPromise =
+    workerModelIds.length > 0
+      ? countWorkerBatch(text, workerModelIds)
+      : Promise.resolve<Record<string, number>>({})
+
+  return Promise.all([tiktokenPromise, workerPromise]).then(([a, b]) => ({ ...a, ...b }))
+}
+
+async function countTiktokenBatch(
+  text: string,
+  models: { id: string; encoding: SupportedEncoding }[],
+): Promise<Record<string, number>> {
+  const results: Record<string, number> = {}
+  for (const { id, encoding } of models) {
+    results[id] = await countTextTokens(text, encoding)
+  }
+  return results
+}
+
+function countWorkerBatch(text: string, modelIds: string[]) {
   worker ??= new Worker(new URL('../../workers/tokenizer.worker.ts', import.meta.url), { type: 'module' })
   const activeWorker = worker
   const requestId = crypto.randomUUID()

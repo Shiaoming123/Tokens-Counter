@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">AI Token Counter</title>
+  <defs>
+    <linearGradient id="card" x1="14" y1="10" x2="82" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".48" stop-color="#EDF6FF"/>
+      <stop offset="1" stop-color="#E6F0FF"/>
+    </linearGradient>
+    <linearGradient id="arc" x1="18" y1="14" x2="78" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A84FF"/>
+      <stop offset=".58" stop-color="#34C759"/>
+      <stop offset="1" stop-color="#64D2FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0A84FF" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect x="6" y="6" width="84" height="84" rx="24" fill="url(#card)" filter="url(#shadow)"/>
+  <rect x="7.5" y="7.5" width="81" height="81" rx="22.5" fill="none" stroke="#fff" stroke-opacity=".88" stroke-width="3"/>
+  <path d="M48 18a30 30 0 1 1-27.6 41.8" fill="none" stroke="url(#arc)" stroke-width="7.5" stroke-linecap="round"/>
+  <path d="M25 55h17M32 66h22M38 32h31M45 43h27" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="67" cy="63" r="11" fill="#0A84FF"/>
+  <path d="M62.8 63.2l3.1 3.1 6.2-7" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

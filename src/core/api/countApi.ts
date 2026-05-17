@@ -5,6 +5,10 @@ export interface OfficialCountRequest {
   input: CountInput
 }
 
+export async function countOpenaiOfficial(request: OfficialCountRequest) {
+  return postOfficial('/api/count/openai', request)
+}
+
 export async function countAnthropicOfficial(request: OfficialCountRequest) {
   return postOfficial('/api/count/anthropic', request)
 }

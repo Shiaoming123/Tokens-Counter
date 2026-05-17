@@ -1,7 +1,9 @@
 import modelsJson from '../../data/models.json'
 import pricingJson from '../../data/model-pricing.json'
 import licensesJson from '../../data/licenses.json'
+import { getProfilePricingByModelId } from '../pricing/pricingProfiles'
 import type { LicenseNotice, ModelConfig, ModelPricing } from '../../types/domain'
+import type { PricingProfileId } from '../../types/domain'
 
 type PricingMap = Record<string, ModelPricing>
 
@@ -18,8 +20,8 @@ export function getModelById(modelId: string) {
   return models.find((model) => model.id === modelId)
 }
 
-export function getPricingByModelId(modelId: string) {
-  return pricing[modelId]
+export function getPricingByModelId(modelId: string, profileId?: PricingProfileId) {
+  return getProfilePricingByModelId(modelId, profileId) ?? pricing[modelId]
 }
 
 export function getLicenseById(licenseId: string) {
@@ -31,5 +33,5 @@ export function getLatestPricingUpdate() {
     .map((item) => item.lastUpdated)
     .filter((date): date is string => Boolean(date))
 
-  return dates.sort().at(-1) ?? '未知'
+  return dates.sort().at(-1) ?? 'Unknown'
 }

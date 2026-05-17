@@ -1,4 +1,5 @@
 import { calculateCost } from '../cost/costCalculator'
+import { resolveModelPricing } from '../pricing/pricingProfiles'
 import { countApproxTokens } from '../tokenizers/approxTokenizer'
 import { countGeminiImageTokensEstimate } from '../vision/geminiImageTokens'
 import { countQwenVlImageTokensEstimate } from '../vision/qwenImageTokens'
@@ -42,27 +43,63 @@ export function buildLocalResult(
   }
 
   if (model.provider === 'mistral') {
-    warnings.push('Mistral v1 使用本地 fallback tokenizer，接入官方 tokenizer 前请视为近似。')
+    warnings.push('Mistral publishes official tokenization through mistral-common; this app currently uses a local tokenizer/approximation and does not apply the full Mistral message template.')
   }
 
   if (model.provider === 'deepseek') {
-    warnings.push('DeepSeek 官方提供离线 tokenizer 包；当前浏览器端先使用本地近似，后续可接入 deepseek_tokenizer.zip 或 Hugging Face tokenizer 文件。')
+    warnings.push(model.accuracy.text === 'local_exact'
+      ? 'DeepSeek text count uses the mapped Hugging Face tokenizer file; hosted aliases can still differ from API usage when the vendor changes the served model.'
+      : 'DeepSeek hosted alias is counted with a mapped/local tokenizer estimate; check API usage for the billable count.')
   }
 
   if (model.provider === 'alibaba') {
-    warnings.push('Qwen 开源模型使用 byte-level BPE/tiktoken 路线；当前浏览器端未加载模型专属 tokenizer 文件，计数标为近似。')
+    warnings.push(model.accuracy.text === 'local_exact'
+      ? 'Qwen open model text count uses the mapped Hugging Face tokenizer file; chat template/tool overhead is not fully modeled.'
+      : 'Qwen hosted model is counted with a family tokenizer estimate; official DashScope usage may differ.')
   }
 
   if (model.provider === 'zhipu') {
-    warnings.push('GLM 官方提供 /tokenizer 接口；当前前端未配置 Z.AI API Key，先显示本地近似。')
+    warnings.push('GLM officially provides /tokenizer endpoint; currently no Z.AI API Key configured, showing local approximation.')
   }
 
   if (model.provider === 'xiaomi') {
-    warnings.push('MiMo 可从官方平台、Hugging Face/ModelScope 获取模型与 tokenizer 资源；当前浏览器端未加载模型专属 tokenizer，计数标为近似。')
+    warnings.push(model.accuracy.text === 'local_exact'
+      ? 'MiMo open checkpoint text count uses the mapped Hugging Face tokenizer file.'
+      : 'MiMo hosted/newer model is counted with a local approximation until a matching tokenizer or official count endpoint is integrated.')
   }
 
   if (model.provider === 'meta') {
-    warnings.push('Llama tokenizer 和模型权重受 Meta Llama Community License 约束，商用前请核对具体模型许可证。')
+    warnings.push('Llama tokenizer files are model-license governed and may require gated access; this app marks local counts as estimates unless exact assets are available.')
+  }
+
+  if (model.provider === 'xai') {
+    warnings.push('xAI Grok series has no public tokenizer file, currently using local approximation.')
+  }
+
+  if (model.provider === 'cohere') {
+    warnings.push('Cohere provides an official Tokenize API, but this app has not integrated it yet; local counts are approximate.')
+  }
+
+  if (model.provider === 'baidu') {
+    warnings.push(model.accuracy.text === 'local_exact'
+      ? 'Baidu documents ERNIE tokenizer.json usage for local counts; complex chat/tools still require applying the model chat template.'
+      : 'Baidu ERNIE count is approximate until the matching tokenizer files or official calculator are configured.')
+  }
+
+  if (model.provider === 'bytedance') {
+    warnings.push('Volcano Ark provides a Token Calculator, but this app has not integrated it yet; Doubao local counts are approximate.')
+  }
+
+  if (model.provider === 'moonshot') {
+    warnings.push('Moonshot/Kimi provides an estimate-token-count API, but this app has not integrated it yet; local counts are approximate.')
+  }
+
+  if (model.provider === 'stepfun') {
+    warnings.push('StepFun provides a token/count API, but this app has not integrated it yet; local counts are approximate.')
+  }
+
+  if (model.provider === 'minimax') {
+    warnings.push('MiniMax returns billable usage through hosted APIs/plans; local tokenizer counts are approximate.')
   }
 
   return finalizeResult({
@@ -77,6 +114,7 @@ export function buildLocalResult(
     cachedInputTokens: options.cachedInputTokens,
     cacheCreationTokens: options.cacheCreationTokens,
     costMultiplier: options.costMultiplier,
+    pricingProfile: options.pricingProfile,
   })
 }
 
@@ -102,13 +140,14 @@ export function buildOfficialResult(
     method: official.method ?? 'official_count_api',
     warnings: [
       ...(official.warnings ?? []),
-      ...(input.images.length > 0 ? ['官方 API 返回总 input tokens，图片/文本拆分为本地辅助估算。'] : []),
+      ...(input.images.length > 0 ? ['Official API returns total input tokens, image/text split is locally estimated.'] : []),
     ],
     debug: estimatedImage.debug,
     overrideInputTokens: inputTokens,
     cachedInputTokens: options.cachedInputTokens,
     cacheCreationTokens: options.cacheCreationTokens,
     costMultiplier: options.costMultiplier,
+    pricingProfile: options.pricingProfile,
   })
 }
 
@@ -136,7 +175,7 @@ function countImagesForModel(model: ModelConfig, input: CountInput, options: Cou
   if (input.images.length === 0) return { tokens, debug, warnings }
 
   if (!model.supportsImage) {
-    warnings.push('该模型未声明支持图片输入，图片 tokens 记为 0。')
+    warnings.push('This model does not declare image input support, image tokens are counted as 0.')
     return { tokens, debug, warnings }
   }
 
@@ -160,7 +199,7 @@ function countImagesForModel(model: ModelConfig, input: CountInput, options: Cou
       const result = countGeminiImageTokensEstimate(image.width, image.height)
       tokens += result.tokens
       debug = result.debug
-      warnings.push('Gemini 图片 tokens 当前为本地规则估算；配置 GEMINI_API_KEY 可走官方 countTokens。')
+      warnings.push('Gemini image tokens are currently estimated by local rules; configure GEMINI_API_KEY to use official countTokens.')
     } else if (model.vision?.type === 'qwen_vl_tile') {
       const result = countQwenVlImageTokensEstimate(image.width, image.height, {
         minPixels: model.vision.baseTokens,
@@ -168,9 +207,9 @@ function countImagesForModel(model: ModelConfig, input: CountInput, options: Cou
       })
       tokens += result.tokens
       debug = result.debug
-      warnings.push('Qwen-VL 图片 tokens 基于百炼/OpenAI 兼容接口的像素预算规则估算；实际以 API usage 为准。')
+      warnings.push('Qwen-VL image tokens are estimated based on DashScope/OpenAI-compatible pixel budget rules; actual usage may vary.')
     } else if (model.vision?.type === 'official_only') {
-      warnings.push('该模型图片计数需要官方 API；无 API Key 时不做本地图片公式。')
+      warnings.push('This model requires official API for image counting; no local image estimation without API Key.')
     }
   }
 
@@ -190,6 +229,7 @@ function finalizeResult({
   cachedInputTokens,
   cacheCreationTokens,
   costMultiplier,
+  pricingProfile,
 }: {
   model: ModelConfig
   textTokens: number
@@ -203,15 +243,17 @@ function finalizeResult({
   cachedInputTokens: number
   cacheCreationTokens: number
   costMultiplier: number
+  pricingProfile: CountOptions['pricingProfile']
 }): TokenCountResult {
   const inputTokens = overrideInputTokens ?? textTokens + imageTokens
+  const pricing = resolveModelPricing(model, pricingProfile)
   const cost = calculateCost({
     inputTokens,
     estimatedOutputTokens,
-    inputPer1M: model.pricing.inputPer1M,
-    outputPer1M: model.pricing.outputPer1M,
-    cachedInputPer1M: model.pricing.cachedInputPer1M,
-    cacheCreationInputPer1M: model.pricing.cacheCreationInputPer1M,
+    inputPer1M: pricing.inputPer1M,
+    outputPer1M: pricing.outputPer1M,
+    cachedInputPer1M: pricing.cachedInputPer1M,
+    cacheCreationInputPer1M: pricing.cacheCreationInputPer1M,
     cachedInputTokens,
     cacheCreationTokens,
     costMultiplier,
@@ -227,7 +269,8 @@ function finalizeResult({
     estimatedOutputTokens,
     totalTokens: inputTokens + estimatedOutputTokens,
     ...cost,
-    currency: model.pricing.currency,
+    currency: pricing.currency,
+    pricing,
     cacheCreationTokens,
     costMultiplier,
     contextWindow: model.contextWindow,
@@ -237,6 +280,7 @@ function finalizeResult({
     licenseRef: model.licenseRef,
     warnings,
     debug,
+    status: 'complete' as const,
   }
 }
 

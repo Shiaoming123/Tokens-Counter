@@ -4,7 +4,7 @@ const supportedMimeTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'im
 
 export async function getImageMetadata(file: File): Promise<ImageMetadata> {
   if (!supportedMimeTypes.has(file.type)) {
-    throw new Error('仅支持 JPG、PNG、WEBP、GIF 图片')
+    throw new Error('Only JPG, PNG, WEBP, GIF images are supported')
   }
 
   const url = URL.createObjectURL(file)
@@ -14,7 +14,7 @@ export async function getImageMetadata(file: File): Promise<ImageMetadata> {
 
     await new Promise<void>((resolve, reject) => {
       image.onload = () => resolve()
-      image.onerror = () => reject(new Error('图片读取失败'))
+      image.onerror = () => reject(new Error('Failed to read image'))
     })
 
     return {
@@ -38,7 +38,7 @@ function fileToBase64(file: File) {
       const value = String(reader.result ?? '')
       resolve(value.includes(',') ? value.split(',')[1] : value)
     }
-    reader.onerror = () => reject(new Error('图片转码失败'))
+    reader.onerror = () => reject(new Error('Image encoding failed'))
     reader.readAsDataURL(file)
   })
 }
