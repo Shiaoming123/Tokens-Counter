@@ -1,6 +1,6 @@
-import type { TokenizerWorkerRequest, TokenizerWorkerResponse } from '../../workers/tokenizer.worker'
-import { countTextTokens, type SupportedEncoding } from './openaiTokenizer'
-import { models } from '../models/modelRegistry'
+import type { TokenizerWorkerRequest, TokenizerWorkerResponse } from '../../workers/tokenizer.worker.js'
+import { countTextTokens, type SupportedEncoding } from './openaiTokenizer.js'
+import { models } from '../models/modelRegistry.js'
 
 let worker: Worker | undefined
 

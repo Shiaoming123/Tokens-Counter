@@ -18,10 +18,10 @@ import {
   resolveRequestedModels,
   type ExternalEstimateOptions,
   type ExternalInputPayload,
-} from '../src/core/estimate/externalEstimateService'
-import { models as registryModels } from '../src/core/models/modelRegistry'
-import type { CountInput, ModelConfig, ModelPricing, TokenCountResult } from '../src/types/domain'
-import { env } from './env'
+} from '../src/core/estimate/externalEstimateService.js'
+import { models as registryModels } from '../src/core/models/modelRegistry.js'
+import type { CountInput, ModelConfig, ModelPricing, TokenCountResult } from '../src/types/domain.js'
+import { env } from './env.js'
 
 interface OfficialRequest {
   modelId: string
@@ -491,7 +491,9 @@ app.post('/api/v1/estimates', async (context) => {
   }
 
   const validation = validateEstimateBody(body.value)
-  if (!validation.ok) return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+  if (validation.ok === false) {
+    return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+  }
 
   const modelValidation = resolveRequestedModels(validation.value.models)
   if (modelValidation.resolvedModels.length === 0) {
@@ -541,7 +543,9 @@ app.post('/api/v1/tokens/count', async (context) => {
   if (!body.ok) return body.response
 
   const validation = validateEstimateBody(body.value)
-  if (!validation.ok) return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+  if (validation.ok === false) {
+    return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+  }
 
   const modelValidation = resolveRequestedModels(validation.value.models)
   if (modelValidation.resolvedModels.length === 0) {

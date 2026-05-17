@@ -36,3 +36,5 @@ private/
 # Local visual verification captures
 apple-theme*.png
 default-theme.png
+
+.vercel

@@ -1,4 +1,4 @@
-import type { ModelConfig, Provider } from '../../types/domain'
+import type { ModelConfig, Provider } from '../../types/domain.js'
 
 export const MODEL_ORDER_STORAGE_KEY = 'tokenCounter.modelOrder.v1'
 

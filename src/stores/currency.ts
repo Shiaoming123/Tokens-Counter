@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import type { CurrencyCode } from '../types/domain'
+import type { CurrencyCode } from '../types/domain.js'
 
 const STORAGE_KEY_RATES = 'tc-exchange-rates'
 const STORAGE_KEY_DISPLAY = 'tc-display-currencies'

@@ -1,4 +1,4 @@
-import type { ImageDetail, TokenDebug } from '../../types/domain'
+import type { ImageDetail, TokenDebug } from '../../types/domain.js'
 
 export interface OpenAITileConfig {
   baseTokens: number

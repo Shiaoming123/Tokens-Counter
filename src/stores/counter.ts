@@ -9,21 +9,21 @@ import {
   countOpenaiOfficial,
   countStepFunOfficial,
   countZaiOfficial,
-} from '../core/api/countApi'
+} from '../core/api/countApi.js'
 import {
   buildLocalResult,
   buildOfficialResult,
   buildUnsupportedOfficialResult,
-} from '../core/count/resultBuilder'
-import { createHistoryEntry } from '../core/history/historyStorage'
-import { getLatestPricingUpdate, models } from '../core/models/modelRegistry'
-import { countLocalTextTokens } from '../core/tokenizers/tokenizerClient'
-import { useHistoryStore } from './history'
-import { useLocaleStore } from './locale'
-import { useCurrencyStore } from './currency'
-import { convertToUSD } from '../core/cost/costCalculator'
-import { serializeToolsForCounting } from '../core/tools/toolTokenEstimator'
-import type { CountInput, CountOptions, DocumentMetadata, ImageMetadata, Message, ModelConfig, TokenCountResult, ToolDefinition } from '../types/domain'
+} from '../core/count/resultBuilder.js'
+import { createHistoryEntry } from '../core/history/historyStorage.js'
+import { getLatestPricingUpdate, models } from '../core/models/modelRegistry.js'
+import { countLocalTextTokens } from '../core/tokenizers/tokenizerClient.js'
+import { useHistoryStore } from './history.js'
+import { useLocaleStore } from './locale.js'
+import { useCurrencyStore } from './currency.js'
+import { convertToUSD } from '../core/cost/costCalculator.js'
+import { serializeToolsForCounting } from '../core/tools/toolTokenEstimator.js'
+import type { CountInput, CountOptions, DocumentMetadata, ImageMetadata, Message, ModelConfig, TokenCountResult, ToolDefinition } from '../types/domain.js'
 
 const DEFAULT_OPTIONS: CountOptions = {
   openaiDetail: 'high',

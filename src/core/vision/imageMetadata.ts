@@ -1,4 +1,4 @@
-import type { ImageMetadata } from '../../types/domain'
+import type { ImageMetadata } from '../../types/domain.js'
 
 const supportedMimeTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
 

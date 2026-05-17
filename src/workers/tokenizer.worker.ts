@@ -1,7 +1,7 @@
-import { countApproxTokens } from '../core/tokenizers/approxTokenizer'
-import { countHfTokens, loadHfTokenizer } from '../core/tokenizers/huggingfaceTokenizer'
-import { getHfRepoForModel, loadTokenizerConfig } from '../core/tokenizers/tokenizerLoader'
-import { models } from '../core/models/modelRegistry'
+import { countApproxTokens } from '../core/tokenizers/approxTokenizer.js'
+import { countHfTokens, loadHfTokenizer } from '../core/tokenizers/huggingfaceTokenizer.js'
+import { getHfRepoForModel, loadTokenizerConfig } from '../core/tokenizers/tokenizerLoader.js'
+import { models } from '../core/models/modelRegistry.js'
 
 export interface TokenizerWorkerRequest {
   requestId: string

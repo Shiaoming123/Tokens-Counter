@@ -1,4 +1,4 @@
-import type { CurrencyCode } from '../../types/domain'
+import type { CurrencyCode } from '../../types/domain.js'
 
 export interface CostInput {
   inputTokens: number

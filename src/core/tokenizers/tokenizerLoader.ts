@@ -1,4 +1,4 @@
-import type { HfTokenizerConfig } from './huggingfaceTokenizer'
+import type { HfTokenizerConfig } from './huggingfaceTokenizer.js'
 
 const TOKENIZER_CACHE = new Map<string, HfTokenizerConfig>()
 

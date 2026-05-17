@@ -1,4 +1,4 @@
-import type { CountInput, CountOptions, CurrencyCode, TokenCountResult } from '../../types/domain'
+import type { CountInput, CountOptions, CurrencyCode, TokenCountResult } from '../../types/domain.js'
 
 export interface HistoryEntry {
   id: string

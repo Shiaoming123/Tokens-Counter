@@ -43,6 +43,7 @@ export default tseslint.config(
       '.agents/**',
       '.claude/**',
       '.playwright-mcp/**',
+      '.vercel/**',
       'tmp/**',
     ],
   },

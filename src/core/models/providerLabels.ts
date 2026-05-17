@@ -1,4 +1,4 @@
-import type { Provider } from '../../types/domain'
+import type { Provider } from '../../types/domain.js'
 
 export const providerLabels: Record<Provider, string> = {
   openai: 'OpenAI',
