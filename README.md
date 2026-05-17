@@ -30,7 +30,7 @@ It is built for one practical question:
 
 AI Token Counter，也就是这个项目里的「Token 点钞机」，用于对比主流 AI 模型的文本、图片、PDF、工具调用 Token 数量和 API 费用。它会明确区分官方计数、本地精确 tokenizer、本地估算和不支持的能力，避免把闭源模型的第三方估算误标成官方结果。
 
-当前仓库准备公开开源。如果你准备正式设为 public，建议先补齐根目录 `LICENSE`，并决定是 MIT、Apache-2.0，还是更偏商业保护的双许可证 / open-core 策略。
+当前仓库采用 [MIT License](./LICENSE) 开源。第三方 tokenizer、模型、provider API 和价格来源仍遵循各自的许可证和服务条款。
 
 ## Contents
 
@@ -344,11 +344,7 @@ This project is designed to support both open-source adoption and future paid se
 
 ## License
 
-The repository does not currently include a root `LICENSE` file. Before making the repository public as open source, choose one:
-
-- **MIT**: simplest and adoption-friendly.
-- **Apache-2.0**: permissive with explicit patent language.
-- **Open-core / dual license**: keep the public tool open while reserving hosted/team/enterprise features for paid plans.
+This project is open-source under the [MIT License](./LICENSE).
 
 Third-party tokenizer, model, provider API, and pricing-source notices are tracked in [LICENSES.md](./LICENSES.md) and `src/data/licenses.json`.
 

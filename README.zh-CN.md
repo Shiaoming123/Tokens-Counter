@@ -324,11 +324,7 @@ npm run build
 - LLM 成本估算工作流咨询。
 ## 许可证
 
-当前仓库还没有根目录 `LICENSE` 文件。设为公开开源前建议选择：
-
-- **MIT**：最简单，最利于传播。
-- **Apache-2.0**：宽松许可证，并包含明确专利条款。
-- **Open-core / 双许可证**：公开基础工具，把 hosted/team/enterprise 能力保留给付费版本。
+本项目采用 [MIT License](./LICENSE) 开源。
 
 第三方 tokenizer、模型、provider API 和价格来源声明见 [LICENSES.md](./LICENSES.md) 和 `src/data/licenses.json`。
 
