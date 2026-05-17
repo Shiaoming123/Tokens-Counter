@@ -68,7 +68,12 @@ const pricingProfileOptions = computed(() =>
   getPricingProfileOptions().map((profile) => ({
     label: profile.id === 'ccswitch' ? localeStore.t('pricing.ccswitch') : localeStore.t('pricing.official'),
     value: profile.id,
+    source: profile.source,
   })),
+)
+
+const selectedPricingProfile = computed(() =>
+  pricingProfileOptions.value.find((profile) => profile.value === props.options.pricingProfile) ?? pricingProfileOptions.value[0],
 )
 
 // ── Text computed / helpers ────────────────────────────────────────
@@ -292,6 +297,22 @@ function formatBytes(bytes: number) {
     <div class="action-bar">
       <div class="settings-group">
         <label class="qs-item">
+          <span class="qs-label">{{ localeStore.t('pricing.profile') }}</span>
+          <ElSelect
+            :model-value="options.pricingProfile"
+            size="small"
+            style="min-width: 138px"
+            @update:model-value="updateOption('pricingProfile', $event as CountOptions['pricingProfile'])"
+          >
+            <ElOption
+              v-for="profile in pricingProfileOptions"
+              :key="profile.value"
+              :label="profile.label"
+              :value="profile.value"
+            />
+          </ElSelect>
+        </label>
+        <label class="qs-item">
           <span class="qs-label">{{ localeStore.t('settings.outputTokens') }}</span>
           <ElInputNumber
             :model-value="options.estimatedOutputTokens"
@@ -370,22 +391,28 @@ function formatBytes(bytes: number) {
             </button>
           </template>
           <div class="qs-popover">
-            <label class="qs-popover-item">
-              <span>{{ localeStore.t('pricing.profile') }}</span>
-              <ElSelect
-                :model-value="options.pricingProfile"
-                size="small"
-                @update:model-value="updateOption('pricingProfile', $event as CountOptions['pricingProfile'])"
-              >
-                <ElOption
-                  v-for="profile in pricingProfileOptions"
-                  :key="profile.value"
-                  :label="profile.label"
-                  :value="profile.value"
-                />
-              </ElSelect>
-              <small>{{ localeStore.t('pricing.profileHelp') }}</small>
-            </label>
+            <div class="pricing-breakdown">
+              <div>
+                <span>{{ localeStore.t('pricing.profile') }}</span>
+                <strong>{{ selectedPricingProfile?.label }}</strong>
+              </div>
+              <p>{{ localeStore.t('pricing.profileHelp') }}</p>
+              <dl>
+                <div>
+                  <dt>{{ localeStore.t('pricing.inputRate') }}</dt>
+                  <dd>{{ localeStore.t('pricing.inputRateHelp') }}</dd>
+                </div>
+                <div>
+                  <dt>{{ localeStore.t('pricing.outputRate') }}</dt>
+                  <dd>{{ localeStore.t('pricing.outputRateHelp') }}</dd>
+                </div>
+                <div>
+                  <dt>{{ localeStore.t('pricing.cacheRate') }}</dt>
+                  <dd>{{ localeStore.t('pricing.cacheRateHelp') }}</dd>
+                </div>
+              </dl>
+              <small>{{ selectedPricingProfile?.source }}</small>
+            </div>
             <label class="qs-popover-item">
               <span>{{ localeStore.t('settings.cacheHit') }}</span>
               <ElInputNumber
@@ -805,6 +832,54 @@ function formatBytes(bytes: number) {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.pricing-breakdown {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+}
+
+.pricing-breakdown > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pricing-breakdown span,
+.pricing-breakdown dt {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pricing-breakdown strong {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.pricing-breakdown p,
+.pricing-breakdown dd,
+.pricing-breakdown small {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.pricing-breakdown dl {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.pricing-breakdown dl > div {
+  display: grid;
+  gap: 2px;
 }
 
 .qs-popover-item {
