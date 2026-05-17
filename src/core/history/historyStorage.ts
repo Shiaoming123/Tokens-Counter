@@ -1,4 +1,4 @@
-import type { CountInput, CountOptions, TokenCountResult } from '../../types/domain'
+import type { CountInput, CountOptions, CurrencyCode, TokenCountResult } from '../../types/domain'
 
 export interface HistoryEntry {
   id: string
@@ -34,21 +34,56 @@ export function createHistoryEntry(input: CountInput, options: CountOptions, res
   }
 }
 
-export function resultsToMarkdown(results: TokenCountResult[]) {
+export function resultsToMarkdown(
+  results: TokenCountResult[],
+  options?: {
+    displayCurrencies?: CurrencyCode[]
+    exchangeRates?: Record<CurrencyCode, number>
+    formatCurrency?: (value: number, currency: CurrencyCode) => string
+  },
+) {
+  const currencies = options?.displayCurrencies?.length ? options.displayCurrencies : (['USD'] as CurrencyCode[])
+  const primary = currencies[0]
+
+  function costDisplay(item: TokenCountResult): string {
+    const usd = item.normalizedCostUSD ?? item.totalCost
+    const rates = options?.exchangeRates
+    const fmt = options?.formatCurrency
+    if (currencies.length === 1) {
+      const val = primary === 'USD' ? usd : usd * (rates?.[primary] ?? 1)
+      return fmt ? fmt(val, primary) : `${val.toFixed(6)} ${primary}`
+    }
+    return currencies
+      .map((c) => {
+        const val = c === 'USD' ? usd : c === 'CREDITS' ? usd * 1000 : usd * (rates?.[c] ?? 1)
+        return fmt ? fmt(val, c) : `${val.toFixed(6)} ${c}`
+      })
+      .join(' / ')
+  }
+
+  const costHeader = currencies.length === 1 ? `Est. Cost (${primary})` : `Est. Cost (${currencies.join(' / ')})`
   const rows = [
-    '| Model | Text Tokens | Image Tokens | Total Input Tokens | Est. Output | Est. Cost | Accuracy | Method |',
+    `| Model | Text Tokens | Image Tokens | Total Input Tokens | Est. Output | ${costHeader} | Accuracy | Method |`,
     '| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |',
     ...results.map(
       (item) =>
-        `| ${item.displayName} | ${item.textTokens} | ${item.imageTokens} | ${item.inputTokens} | ${item.estimatedOutputTokens} | ${item.totalCost.toFixed(6)} ${item.currency} | ${item.accuracy} | ${item.method} |`,
+        `| ${item.displayName} | ${item.textTokens} | ${item.imageTokens} | ${item.inputTokens} | ${item.estimatedOutputTokens} | ${costDisplay(item)} | ${item.accuracy} | ${item.method} |`,
     ),
   ]
 
   return rows.join('\n')
 }
 
-export function resultsToCsv(results: TokenCountResult[]) {
-  const header = [
+export function resultsToCsv(
+  results: TokenCountResult[],
+  options?: {
+    displayCurrencies?: CurrencyCode[]
+    exchangeRates?: Record<CurrencyCode, number>
+  },
+) {
+  const currencies = options?.displayCurrencies?.length ? options.displayCurrencies : (['USD'] as CurrencyCode[])
+
+  const baseHeader = [
     'model',
     'provider',
     'textTokens',
@@ -64,12 +99,23 @@ export function resultsToCsv(results: TokenCountResult[]) {
     'outputCost',
     'totalCost',
     'currency',
-    'accuracy',
-    'method',
   ]
 
-  const rows = results.map((item) =>
-    [
+  const currencyHeaders = currencies.map((c) => `cost_${c}`)
+  const tailHeader = ['accuracy', 'method']
+
+  const header = [...baseHeader, ...currencyHeaders, ...tailHeader]
+
+  const rows = results.map((item) => {
+    const usd = item.normalizedCostUSD ?? item.totalCost
+    const rates = options?.exchangeRates
+    const currencyValues = currencies.map((c) => {
+      if (c === 'USD') return usd
+      if (c === 'CREDITS') return usd * 1000
+      return usd * (rates?.[c] ?? 1)
+    })
+
+    return [
       item.displayName,
       item.provider,
       item.textTokens,
@@ -85,12 +131,13 @@ export function resultsToCsv(results: TokenCountResult[]) {
       item.outputCost,
       item.totalCost,
       item.currency,
+      ...currencyValues,
       item.accuracy,
       item.method,
     ]
       .map((value) => `"${String(value).replaceAll('"', '""')}"`)
-      .join(','),
-  )
+      .join(',')
+  })
 
   return [header.join(','), ...rows].join('\n')
 }

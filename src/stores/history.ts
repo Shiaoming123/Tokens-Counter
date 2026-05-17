@@ -8,6 +8,7 @@ import {
   type HistoryEntry,
 } from '../core/history/historyStorage'
 import type { TokenCountResult } from '../types/domain'
+import { useCurrencyStore } from './currency'
 
 const MAX_ENTRIES = 20
 
@@ -30,12 +31,22 @@ export const useHistoryStore = defineStore('history', () => {
 
   function copyMarkdown(results: TokenCountResult[]) {
     if (!results.length) return Promise.resolve('')
-    return resultsToMarkdown(results)
+    const currencyStore = useCurrencyStore()
+    return resultsToMarkdown(results, {
+      displayCurrencies: currencyStore.displayCurrencies,
+      exchangeRates: currencyStore.exchangeRates,
+      formatCurrency: currencyStore.formatCurrencyValue,
+    })
   }
 
   function exportCsv(results: TokenCountResult[]) {
     if (!results.length) return
-    const blob = new Blob([resultsToCsv(results)], { type: 'text/csv;charset=utf-8' })
+    const currencyStore = useCurrencyStore()
+    const csv = resultsToCsv(results, {
+      displayCurrencies: currencyStore.displayCurrencies,
+      exchangeRates: currencyStore.exchangeRates,
+    })
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
     const url = URL.createObjectURL(blob)
     const anchor = document.createElement('a')
     anchor.href = url
