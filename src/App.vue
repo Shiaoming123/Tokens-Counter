@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { siGithub } from 'simple-icons'
-import { RotateCcw, Trash2 } from 'lucide-vue-next'
+import { Info, RotateCcw, Trash2 } from 'lucide-vue-next'
 import { ElDialog, ElDrawer, ElMessage, ElSegmented } from 'element-plus'
 import InputArea from './components/InputArea.vue'
 import ModelSelector from './components/ModelSelector.vue'
@@ -76,6 +76,10 @@ function closeWelcomeDialog() {
   rememberWelcomeDialog()
   welcomeDialogOpen.value = false
 }
+
+function openWelcomeDialog() {
+  welcomeDialogOpen.value = true
+}
 </script>
 
 <template>
@@ -103,18 +107,29 @@ function closeWelcomeDialog() {
             {{ localeStore.t('nav.apiDocs') }}
           </button>
         </nav>
-        <a
-          class="header-icon-link"
-          :href="githubUrl"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="GitHub repository"
-          title="GitHub repository"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path :d="siGithub.path" />
-          </svg>
-        </a>
+        <div class="header-icon-group">
+          <a
+            class="header-icon-link"
+            :href="githubUrl"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub repository"
+            title="GitHub repository"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path :d="siGithub.path" />
+            </svg>
+          </a>
+          <button
+            class="header-icon-link header-info-button"
+            type="button"
+            :aria-label="localeStore.t('welcome.reopen')"
+            :title="localeStore.t('welcome.reopen')"
+            @click="openWelcomeDialog"
+          >
+            <Info :size="18" aria-hidden="true" />
+          </button>
+        </div>
         <div class="header-controls">
           <ElSegmented v-model="themeStore.theme" :options="themeOptions" size="small" />
           <ElSegmented v-model="localeStore.locale" :options="localeOptions" size="small" />
@@ -259,6 +274,7 @@ function closeWelcomeDialog() {
     <ElDialog
       v-model="welcomeDialogOpen"
       class="welcome-dialog"
+      modal-class="welcome-dialog-overlay"
       width="min(560px, calc(100vw - 32px))"
       align-center
       @closed="rememberWelcomeDialog"

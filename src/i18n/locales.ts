@@ -35,6 +35,7 @@ export const translations: Record<string, { en: string; zh: string }> = {
     zh: '有需要咨询的朋友欢迎来信；没有需要也可以发邮件告诉我这个项目帮到了你，那我也会高兴得三天睡不着觉。(≧▽≦)',
   },
   'welcome.close': { en: 'Got it, start using (^_^)', zh: '知道啦，开始使用 (^_^)' },
+  'welcome.reopen': { en: 'Show welcome guide again', zh: '再次查看欢迎说明' },
 
   // ── Hero ──────────────────────────────────────────────────────────
   'hero.title': { en: 'Estimate tokens & API cost', zh: '估算 Token 数量与 API 费用' },
