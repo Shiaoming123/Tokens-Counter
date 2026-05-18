@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { siGithub } from 'simple-icons'
 import { RotateCcw, Trash2 } from 'lucide-vue-next'
-import { ElDrawer, ElMessage, ElSegmented } from 'element-plus'
+import { ElDialog, ElDrawer, ElMessage, ElSegmented } from 'element-plus'
 import InputArea from './components/InputArea.vue'
 import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
@@ -23,6 +23,8 @@ const navigation = useNavigationStore()
 const themeStore = useThemeStore()
 const localeStore = useLocaleStore()
 const historyDrawerOpen = ref(false)
+const welcomeDialogOpen = ref(false)
+const welcomeSeenKey = 'token-counter-welcome-seen-v1'
 const githubUrl = import.meta.env.VITE_APP_GITHUB_URL || 'https://github.com/Shiaoming123/Tokens-Counter'
 
 const themeOptions = computed(() => [
@@ -39,6 +41,10 @@ const localeOptions = computed(() => [
 onMounted(() => {
   history.load()
   navigation.initListener()
+
+  if (window.localStorage.getItem(welcomeSeenKey) !== 'true') {
+    welcomeDialogOpen.value = true
+  }
 })
 
 async function handleCalculate() {
@@ -60,6 +66,15 @@ function exportCsv() {
 function restoreHistory(entry: HistoryEntry) {
   counter.options = { ...counter.options, ...entry.options }
   counter.results = entry.results
+}
+
+function rememberWelcomeDialog() {
+  window.localStorage.setItem(welcomeSeenKey, 'true')
+}
+
+function closeWelcomeDialog() {
+  rememberWelcomeDialog()
+  welcomeDialogOpen.value = false
 }
 </script>
 
@@ -240,5 +255,49 @@ function restoreHistory(entry: HistoryEntry) {
         </aside>
       </div>
     </div>
+
+    <ElDialog
+      v-model="welcomeDialogOpen"
+      class="welcome-dialog"
+      width="min(560px, calc(100vw - 32px))"
+      align-center
+      @closed="rememberWelcomeDialog"
+    >
+      <template #header>
+        <div class="welcome-title">
+          <span>{{ localeStore.t('welcome.title') }}</span>
+          <small>{{ localeStore.t('welcome.kaomoji') }}</small>
+        </div>
+      </template>
+
+      <div class="welcome-content">
+        <p>{{ localeStore.t('welcome.intro') }}</p>
+        <ol class="welcome-steps">
+          <li>{{ localeStore.t('welcome.stepModels') }}</li>
+          <li>{{ localeStore.t('welcome.stepInput') }}</li>
+          <li>{{ localeStore.t('welcome.stepEstimate') }}</li>
+        </ol>
+
+        <div class="welcome-divider" aria-hidden="true"></div>
+
+        <div class="welcome-link-block">
+          <strong>{{ localeStore.t('welcome.githubLabel') }}</strong>
+          <a :href="githubUrl" target="_blank" rel="noreferrer">{{ githubUrl }}</a>
+          <p>{{ localeStore.t('welcome.star') }}</p>
+        </div>
+
+        <div class="welcome-link-block">
+          <strong>{{ localeStore.t('welcome.emailLabel') }}</strong>
+          <a href="mailto:henshiaoming@gmail.com">henshiaoming@gmail.com</a>
+          <p>{{ localeStore.t('welcome.emailNote') }}</p>
+        </div>
+      </div>
+
+      <template #footer>
+        <button class="primary-action welcome-close" type="button" @click="closeWelcomeDialog">
+          {{ localeStore.t('welcome.close') }}
+        </button>
+      </template>
+    </ElDialog>
   </main>
 </template>

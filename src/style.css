@@ -842,6 +842,106 @@ main {
 
 .primary-action svg { color: #fff; }
 
+/* ---- Welcome Dialog ---- */
+
+.welcome-dialog {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-lg);
+}
+
+.welcome-dialog .el-dialog__header {
+  padding: 22px 24px 10px;
+  margin: 0;
+}
+
+.welcome-dialog .el-dialog__body {
+  padding: 0 24px 10px;
+}
+
+.welcome-dialog .el-dialog__footer {
+  padding: 8px 24px 24px;
+}
+
+.welcome-title {
+  display: grid;
+  gap: 4px;
+  padding-right: 32px;
+}
+
+.welcome-title span {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.welcome-title small {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.welcome-content {
+  display: grid;
+  gap: 14px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.welcome-content p {
+  margin: 0;
+}
+
+.welcome-steps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.welcome-steps li::marker {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.welcome-divider {
+  height: 1px;
+  margin: 2px 0;
+  background: var(--line);
+}
+
+.welcome-link-block {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.welcome-link-block strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.welcome-link-block a {
+  width: fit-content;
+  max-width: 100%;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.welcome-link-block a:hover {
+  text-decoration: underline;
+}
+
+.welcome-close {
+  height: 44px;
+}
+
 /* ---- Upload Row ---- */
 
 .upload-row {
@@ -1570,6 +1670,28 @@ main {
   .primary-action {
     min-height: 48px;
     font-size: 15px;
+  }
+
+  .welcome-dialog .el-dialog__header {
+    padding: 20px 18px 10px;
+  }
+
+  .welcome-dialog .el-dialog__body {
+    padding: 0 18px 8px;
+  }
+
+  .welcome-dialog .el-dialog__footer {
+    padding: 8px 18px 18px;
+  }
+
+  .welcome-title span {
+    font-size: 18px;
+  }
+
+  .welcome-content {
+    gap: 12px;
+    font-size: 13px;
+    line-height: 1.65;
   }
 
   .icon-button,
