@@ -48,7 +48,12 @@ export async function loadTokenizerConfig(repo: string): Promise<HfTokenizerConf
   if (cached) return cached
 
   const [org, repoName] = repo.split('/')
-  const response = await fetch(`/api/tokenizer/${org}/${repoName}`)
+  const tokenizerUrl =
+    typeof window === 'undefined'
+      ? `https://huggingface.co/${repo}/resolve/main/tokenizer.json`
+      : `/api/tokenizer/${org}/${repoName}`
+
+  const response = await fetch(tokenizerUrl)
   if (!response.ok) {
     throw new Error(`Failed to load tokenizer for ${repo}: ${response.status}`)
   }
