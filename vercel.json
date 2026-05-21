@@ -7,6 +7,10 @@
     {
       "source": "/api-docs",
       "destination": "/index.html"
+    },
+    {
+      "source": "/early-access",
+      "destination": "/index.html"
     }
   ]
 }
