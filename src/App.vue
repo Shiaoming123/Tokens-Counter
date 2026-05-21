@@ -8,6 +8,7 @@ import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
 import LicenseNotice from './components/LicenseNotice.vue'
 import ApiDocsPage from './components/ApiDocsPage.vue'
+import EarlyAccessPage from './components/EarlyAccessPage.vue'
 import { formatCost } from './core/cost/costCalculator'
 import { licenses, models } from './core/models/modelRegistry'
 import { useCounterStore } from './stores/counter'
@@ -106,6 +107,12 @@ function openWelcomeDialog() {
           >
             {{ localeStore.t('nav.apiDocs') }}
           </button>
+          <button
+            :class="{ active: navigation.route === '/early-access' }"
+            @click="navigation.navigate('/early-access')"
+          >
+            Early Access
+          </button>
         </nav>
         <div class="header-icon-group">
           <a
@@ -139,6 +146,7 @@ function openWelcomeDialog() {
 
     <LicenseNotice v-if="navigation.route === '/licenses'" :licenses="licenses" />
     <ApiDocsPage v-else-if="navigation.route === '/api-docs'" />
+    <EarlyAccessPage v-else-if="navigation.route === '/early-access'" @navigate="navigation.navigate" />
 
     <div v-else class="workspace">
       <section class="hero">

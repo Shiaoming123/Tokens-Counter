@@ -14,6 +14,7 @@ Current implementation notes:
 - Rate-limit headers are backed by an in-memory per-key/IP limiter. Production deployments should persist quotas in shared storage when running multiple instances.
 - A machine-readable OpenAPI 3.1 schema is published at [`docs/openapi.json`](./openapi.json).
 - Cost estimates support `official` and `ccswitch` pricing profiles, with input/output/cache prices split in the response.
+- Usage summaries and `X-TokenCounter-*` response headers are request telemetry for the current response. They are not a promise that persisted usage records, paid billing, or durable customer quota accounting are enabled.
 
 ## Conventions
 
@@ -25,6 +26,10 @@ Current implementation notes:
   - `X-RateLimit-Limit`: total allowed requests in the current window.
   - `X-RateLimit-Remaining`: requests remaining in the current window.
   - `X-RateLimit-Reset`: Unix timestamp in seconds when the current window resets.
+- Successful counting and estimate responses include request usage headers derived from the response `usage` object:
+  - `X-TokenCounter-Model-Count`: number of models successfully counted.
+  - `X-TokenCounter-Input-Tokens`: aggregate input tokens across successful model results.
+  - `X-TokenCounter-Official-Calls`: number of provider official count calls made for this request.
 - Timestamps are ISO 8601 strings unless otherwise noted.
 - Model identifiers use the service registry IDs, such as `gpt-4o`, `claude-sonnet-4.5`, or `glm-4.5`.
 
@@ -80,6 +85,21 @@ Standard error codes:
 | `payload_too_large` | 413 | Request body, text, messages, or image payloads exceed configured limits. |
 | `official_count_failed` | 502 | Upstream official count API failed and no acceptable fallback was requested or available. |
 | `internal_error` | 500 | Unexpected server error. |
+
+### Payload Limits
+
+Preview deployments enforce configurable payload ceilings before any provider official count call is attempted. Defaults are:
+
+| Limit | Default | Applies to |
+| --- | ---: | --- |
+| `TOKEN_COUNTER_MAX_BODY_BYTES` | 262144 | Raw JSON request body. |
+| `TOKEN_COUNTER_MAX_MODELS_PER_REQUEST` | 20 | Length of `models`. |
+| `TOKEN_COUNTER_MAX_TEXT_BYTES` | 131072 | Combined `input.text` and message content bytes. |
+| `TOKEN_COUNTER_MAX_MESSAGES` | 100 | Length of `input.messages`. |
+| `TOKEN_COUNTER_MAX_IMAGES` | 8 | Length of `input.images`. |
+| `TOKEN_COUNTER_MAX_IMAGE_BYTES` | 2097152 | Combined decoded bytes estimated from inline image base64. |
+
+When a limit is exceeded, the API returns `413 payload_too_large` with `error.param` pointing to the rejected field and safe numeric details such as `maximum_bytes`, `actual_bytes`, `maximum_text_bytes`, or `actual_image_bytes`. The service should reject these requests before forwarding text, messages, or image payloads to provider APIs.
 
 ## Shared Types
 
@@ -138,11 +158,50 @@ Standard error codes:
     "text": "local_tokenizer",
     "image": "vision_formula"
   },
-  "warnings": []
+  "warnings": [],
+  "trust": {
+    "count_accuracy": "local_estimate",
+    "count_method": "local_tokenizer",
+    "pricing_source": "manual",
+    "pricing_last_updated": "2026-05-15",
+    "pricing_verified": true,
+    "billable_usage_note": "Provider invoice usage remains the source of truth; local estimates and pricing profiles are for planning and comparison."
+  }
 }
 ```
 
 Accuracy labels should reuse existing engine labels where possible: `official_estimate`, `local_exact`, `local_estimate`, `unsupported`, and `unavailable`.
+
+### TrustMetadata
+
+Every count result includes `trust` metadata so clients can display caveats without parsing warning text:
+
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `count_accuracy` | string | Overall accuracy label, for example `official_estimate`, `local_exact`, or `local_estimate`. |
+| `count_method` | string | Counting path used, for example `official_count_api`, `local_tokenizer`, or `vision_formula`. |
+| `pricing_source` | string or null | Pricing data source label. |
+| `pricing_last_updated` | string or null | Last update date known for the pricing metadata. |
+| `pricing_verified` | boolean | True when pricing metadata has both a source and update date. |
+| `billable_usage_note` | string | Reminder that provider invoices remain the source of truth for billable usage. |
+
+Trust metadata is descriptive. It does not certify provider billing, paid-plan entitlement, persistent quota, or durable usage ledger state.
+
+### UsageSummary
+
+Estimate and count responses include a per-request usage summary:
+
+```json
+{
+  "request_count": 1,
+  "model_count": 2,
+  "input_tokens": 1036,
+  "official_count_calls": 0,
+  "estimated_cost": 0.02618
+}
+```
+
+`usage` is scoped to the current API response. It is useful for client-side dashboards, logging, and retry accounting, but it is not a persisted billing or quota record unless a deployment separately documents that capability.
 
 ### CostEstimate
 
@@ -286,9 +345,9 @@ Creates a token and cost estimate for one or more models. Implementations may co
 | `options.cache_write_tokens` | integer | no | Tokens expected to be billed at cache write rate. Defaults to `0`. |
 | `options.cost_multiplier` | number | no | Explicit multiplier for proxy markup, discounts, or credit conversion. Defaults to `1`. |
 | `options.pricing_profile` | string | no | Pricing table to use for cost estimation. Supported values: `official`, `ccswitch`. Defaults to `official`. |
-| `options.prefer_official_count` | boolean | no | Prefer provider official count APIs when configured and supported. Defaults to service policy. |
-| `options.allow_fallback` | boolean | no | Allow local estimate when official counting fails or is unavailable. Defaults to `true`. |
-| `options.redact` | boolean | no | Redact prompt and image payloads from request logs and persisted records. Defaults to service policy, recommended `true` for sensitive workloads. |
+| `options.prefer_official_count` | boolean | no | Prefer provider official count APIs when configured and supported. This can send request text, messages, images, and tool-shaped content to the provider selected by each model. Defaults to service policy. |
+| `options.allow_fallback` | boolean | no | Allow local estimate when official counting fails or is unavailable. Defaults to `true`. When `prefer_official_count` or `use_official_api` is true and `allow_fallback` is false, official-count failure or unavailability returns `502 official_count_failed` instead of silently using local estimates. |
+| `options.redact` | boolean | no | Redact prompt and image payloads from request logs and persisted records. Defaults to service policy, recommended `true` for sensitive workloads. Redaction does not prevent provider official count APIs from receiving content when official counting is requested. |
 | `project_id` | string | no | Future project scope. |
 | `workspace_id` | string | no | Future workspace scope. |
 
@@ -314,6 +373,13 @@ Supported compatibility aliases:
     "image_count": 1,
     "redacted": false
   },
+  "usage": {
+    "request_count": 1,
+    "model_count": 1,
+    "input_tokens": 518,
+    "official_count_calls": 0,
+    "estimated_cost": 0.01309
+  },
   "results": [
     {
       "model": "gpt-4o",
@@ -334,6 +400,15 @@ Supported compatibility aliases:
         "count_methods": {
           "text": "local_tokenizer",
           "image": "vision_formula"
+        },
+        "warnings": [],
+        "trust": {
+          "count_accuracy": "local_estimate",
+          "count_method": "local_tokenizer",
+          "pricing_source": "manual",
+          "pricing_last_updated": "2026-05-15",
+          "pricing_verified": true,
+          "billable_usage_note": "Provider invoice usage remains the source of truth; local estimates and pricing profiles are for planning and comparison."
         }
       },
       "cost": {
@@ -353,7 +428,15 @@ Supported compatibility aliases:
         },
         "multiplier": 1
       },
-      "warnings": []
+      "warnings": [],
+      "trust": {
+        "count_accuracy": "local_estimate",
+        "count_method": "local_tokenizer",
+        "pricing_source": "manual",
+        "pricing_last_updated": "2026-05-15",
+        "pricing_verified": true,
+        "billable_usage_note": "Provider invoice usage remains the source of truth; local estimates and pricing profiles are for planning and comparison."
+      }
     }
   ]
 }
@@ -438,6 +521,13 @@ Fields match `POST /api/v1/estimates`, except cost-only options are ignored.
   "object": "token_count",
   "created_at": "2026-05-17T06:46:00.000Z",
   "request_id": "req_01JZ9YMJ9AM4E8XVRJR50P8HCK",
+  "usage": {
+    "request_count": 1,
+    "model_count": 1,
+    "input_tokens": 178,
+    "official_count_calls": 0,
+    "estimated_cost": 0
+  },
   "results": [
     {
       "model": "gpt-4o",
@@ -457,7 +547,15 @@ Fields match `POST /api/v1/estimates`, except cost-only options are ignored.
         "text": "local_tokenizer",
         "image": "unsupported"
       },
-      "warnings": []
+      "warnings": [],
+      "trust": {
+        "count_accuracy": "local_exact",
+        "count_method": "local_tokenizer",
+        "pricing_source": "manual",
+        "pricing_last_updated": "2026-05-15",
+        "pricing_verified": true,
+        "billable_usage_note": "Provider invoice usage remains the source of truth; local estimates and pricing profiles are for planning and comparison."
+      }
     }
   ]
 }
@@ -530,13 +628,58 @@ X-RateLimit-Reset: 1778997600
 }
 ```
 
+### Payload Too Large Example
+
+```http
+HTTP/1.1 413 Payload Too Large
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+  "error": {
+    "code": "payload_too_large",
+    "message": "input text exceeds the maximum allowed bytes",
+    "param": "input",
+    "request_id": "req_01JZ9YV61G7Y1CJQY1NE1Q4KSP",
+    "details": {
+      "maximum_text_bytes": 131072,
+      "actual_text_bytes": 196608
+    }
+  }
+}
+```
+
+### Official Count Failure Example
+
+```http
+HTTP/1.1 502 Bad Gateway
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+  "error": {
+    "code": "official_count_failed",
+    "message": "External API official counting is not available yet; allow fallback or use local estimates.",
+    "param": "options.allow_fallback",
+    "request_id": "req_01JZ9YW7B07R8N8DPZB0KJQEFM",
+    "details": {
+      "prefer_official_count": true,
+      "allow_fallback": false
+    }
+  }
+}
+```
+
 ## Security and Privacy Notes
 
 - Enforce payload limits for total JSON body size, text bytes, message count, image count, base64 image bytes, and per-image dimensions. Return `payload_too_large` before forwarding content to provider APIs.
 - Do not log sensitive prompt text, chat messages, image bytes, or raw base64 by default. Logs should keep request IDs, API key IDs, model IDs, byte counts, token counts, status codes, latency, and safe error codes.
 - Support `options.redact`; when true, omit or hash prompt content in any persisted estimate records, traces, or analytics events.
 - API keys should be hashed at rest, scoped to optional projects/workspaces, rotatable without downtime, and revocable immediately.
-- Provider official counting can send user content to third-party APIs. `prefer_official_count` should be explicit in externally documented examples, and responses should include warnings when upstream official APIs were used.
+- Provider official counting can send user content to third-party APIs. When `prefer_official_count` or `use_official_api` is enabled, the service may forward prompt text, chat messages, image metadata, inline image base64, and other countable content to the provider endpoint for each selected model. `options.redact` only controls local logging/persistence behavior; it is not a provider-call privacy boundary.
+- `prefer_official_count` should be explicit in externally documented examples, and responses should include warnings when upstream official APIs were used.
 - CORS for external API keys should be restrictive. Browser clients should use short-lived project-scoped keys or a backend proxy instead of embedding long-lived secret keys.
 
 ## Implementation Notes

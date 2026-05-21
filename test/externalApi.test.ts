@@ -63,14 +63,33 @@ describe('external token API', () => {
           text_tokens: expect.any(Number),
           expected_output_tokens: 100,
           total_tokens: expect.any(Number),
+          trust: expect.objectContaining({
+            count_method: expect.any(String),
+            billable_usage_note: expect.any(String),
+          }),
         }),
         cost: expect.objectContaining({
           currency: 'USD',
           total: expect.any(Number),
           pricing: expect.any(Object),
         }),
+        trust: expect.objectContaining({
+          pricing_verified: expect.any(Boolean),
+        }),
       }),
     )
+    expect(body.usage).toEqual(
+      expect.objectContaining({
+        request_count: 1,
+        model_count: 1,
+        input_tokens: expect.any(Number),
+        official_count_calls: expect.any(Number),
+        estimated_cost: expect.any(Number),
+      }),
+    )
+    expect(response.headers.get('X-TokenCounter-Model-Count')).toBe('1')
+    expect(response.headers.get('X-TokenCounter-Input-Tokens')).toBe(String(body.usage.input_tokens))
+    expect(response.headers.get('X-TokenCounter-Official-Calls')).toBe(String(body.usage.official_count_calls))
   })
 
   it('replays matching estimate requests with the same Idempotency-Key', async () => {
@@ -171,9 +190,134 @@ describe('external token API', () => {
         image_tokens: 0,
         total_tokens: expect.any(Number),
         warnings: expect.any(Array),
+        trust: expect.objectContaining({
+          count_method: expect.any(String),
+          billable_usage_note: expect.any(String),
+        }),
       }),
     )
+    expect(body.usage).toEqual(
+      expect.objectContaining({
+        request_count: 1,
+        model_count: 1,
+        input_tokens: expect.any(Number),
+        official_count_calls: expect.any(Number),
+        estimated_cost: expect.any(Number),
+      }),
+    )
+    expect(response.headers.get('X-TokenCounter-Model-Count')).toBe('1')
+    expect(response.headers.get('X-TokenCounter-Input-Tokens')).toBe(String(body.usage.input_tokens))
+    expect(response.headers.get('X-TokenCounter-Official-Calls')).toBe(String(body.usage.official_count_calls))
     expect(body.results[0].cost).toBeUndefined()
+  })
+
+  it('rejects requests with too many models as payload too large', async () => {
+    const response = await request('/api/v1/estimates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        models: Array.from({ length: 21 }, (_, index) => `model-${index}`),
+        input: { text: 'hello' },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(413)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'payload_too_large',
+        param: 'models',
+        details: expect.objectContaining({ maximum: 20 }),
+      }),
+    )
+  })
+
+  it('rejects oversized declared content length as payload too large', async () => {
+    const response = await request('/api/v1/tokens/count', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': '262145',
+      },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'small body' },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(413)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'payload_too_large',
+        param: 'body',
+        details: expect.objectContaining({ maximum_bytes: 262144 }),
+      }),
+    )
+  })
+
+  it('rejects oversized request bodies as payload too large', async () => {
+    const response = await request('/api/v1/estimates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'x'.repeat(262145) },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(413)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'payload_too_large',
+        param: 'body',
+        details: expect.objectContaining({ maximum_bytes: 262144 }),
+      }),
+    )
+  })
+
+  it('rejects official-only estimates when fallback is disabled', async () => {
+    const response = await request('/api/v1/estimates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'official only please' },
+        options: { use_official_api: true, allow_fallback: false },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(502)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'official_count_failed',
+        param: 'options.allow_fallback',
+        details: expect.objectContaining({ prefer_official_count: true, allow_fallback: false }),
+      }),
+    )
+  })
+
+  it('rejects official-only token counts when fallback is disabled', async () => {
+    const response = await request('/api/v1/tokens/count', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        models: ['gpt-4o'],
+        input: { text: 'official only please' },
+        options: { prefer_official_count: true, allow_fallback: false },
+      }),
+    })
+    const body = await response.json()
+
+    expect(response.status).toBe(502)
+    expect(body.error).toEqual(
+      expect.objectContaining({
+        code: 'official_count_failed',
+        param: 'options.allow_fallback',
+      }),
+    )
   })
 
   it('returns a standard error for an invalid model', async () => {

@@ -48,6 +48,8 @@ type ValidationResult =
       message: string
       param?: string
       details?: Record<string, unknown>
+      status?: ContentfulStatusCode
+      code?: string
     }
 
 interface RateLimitState {
@@ -62,6 +64,14 @@ interface IdempotencyRecord {
   response: unknown
   status: ContentfulStatusCode
   createdAt: number
+}
+
+interface ValidationFailure {
+  message: string
+  param?: string
+  details?: Record<string, unknown>
+  status?: ContentfulStatusCode
+  code?: string
 }
 
 const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>()
@@ -178,8 +188,41 @@ function externalError(
 }
 
 async function readExternalJson(context: Context, requestId: string) {
+  const contentLength = Number(context.req.header('Content-Length') ?? 0)
+  if (Number.isFinite(contentLength) && contentLength > env.TOKEN_COUNTER_MAX_BODY_BYTES) {
+    return {
+      ok: false as const,
+      response: externalError(
+        context,
+        413,
+        'payload_too_large',
+        'Request body is too large.',
+        requestId,
+        'body',
+        { maximum_bytes: env.TOKEN_COUNTER_MAX_BODY_BYTES },
+      ),
+    }
+  }
+
   try {
-    return { ok: true as const, value: (await context.req.json()) as ExternalRequestBody }
+    const rawBody = await context.req.text()
+    const bodyBytes = new TextEncoder().encode(rawBody).byteLength
+    if (bodyBytes > env.TOKEN_COUNTER_MAX_BODY_BYTES) {
+      return {
+        ok: false as const,
+        response: externalError(
+          context,
+          413,
+          'payload_too_large',
+          'Request body is too large.',
+          requestId,
+          'body',
+          { maximum_bytes: env.TOKEN_COUNTER_MAX_BODY_BYTES, actual_bytes: bodyBytes },
+        ),
+      }
+    }
+
+    return { ok: true as const, value: JSON.parse(rawBody) as ExternalRequestBody }
   } catch {
     return {
       ok: false as const,
@@ -188,13 +231,32 @@ async function readExternalJson(context: Context, requestId: string) {
   }
 }
 
-function validateEstimateBody(body: ExternalRequestBody): ValidationResult {
+function validateEstimateBody(body: unknown): ValidationResult {
+  if (!isRecord(body)) {
+    return {
+      ok: false,
+      message: 'Request body must be a JSON object',
+      param: 'body',
+    }
+  }
+
   if (!Array.isArray(body.models) || body.models.length === 0) {
     return {
       ok: false,
       message: 'models must contain at least one model id',
       param: 'models',
       details: { minimum: 1 },
+    }
+  }
+
+  if (body.models.length > env.TOKEN_COUNTER_MAX_MODELS_PER_REQUEST) {
+    return {
+      ok: false,
+      message: 'models exceeds the maximum allowed per request',
+      param: 'models',
+      details: { maximum: env.TOKEN_COUNTER_MAX_MODELS_PER_REQUEST },
+      status: 413,
+      code: 'payload_too_large',
     }
   }
 
@@ -223,6 +285,14 @@ function validateEstimateBody(body: ExternalRequestBody): ValidationResult {
     }
   }
 
+  const limits = validateExternalPayloadLimits(input)
+  if (limits) {
+    return {
+      ok: false,
+      ...limits,
+    }
+  }
+
   return {
     ok: true,
     value: {
@@ -241,6 +311,69 @@ function hasCountableInput(input: ExternalInputPayload) {
   const hasImages = Array.isArray(input.images) && input.images.length > 0
 
   return hasText || hasMessages || hasImages
+}
+
+function validateExternalPayloadLimits(input: ExternalInputPayload): ValidationFailure | undefined {
+  const textBytes = new TextEncoder().encode(input.text ?? '').byteLength
+  const messageBytes = Array.isArray(input.messages)
+    ? input.messages.reduce((sum, message) => sum + new TextEncoder().encode(message?.content ?? '').byteLength, 0)
+    : 0
+
+  if (textBytes + messageBytes > env.TOKEN_COUNTER_MAX_TEXT_BYTES) {
+    return {
+      message: 'input text exceeds the maximum allowed bytes',
+      param: 'input',
+      details: {
+        maximum_text_bytes: env.TOKEN_COUNTER_MAX_TEXT_BYTES,
+        actual_text_bytes: textBytes + messageBytes,
+      },
+      status: 413,
+      code: 'payload_too_large',
+    }
+  }
+
+  if (Array.isArray(input.messages) && input.messages.length > env.TOKEN_COUNTER_MAX_MESSAGES) {
+    return {
+      message: 'messages exceeds the maximum allowed per request',
+      param: 'input.messages',
+      details: { maximum: env.TOKEN_COUNTER_MAX_MESSAGES },
+      status: 413,
+      code: 'payload_too_large',
+    }
+  }
+
+  if (Array.isArray(input.images) && input.images.length > env.TOKEN_COUNTER_MAX_IMAGES) {
+    return {
+      message: 'images exceeds the maximum allowed per request',
+      param: 'input.images',
+      details: { maximum: env.TOKEN_COUNTER_MAX_IMAGES },
+      status: 413,
+      code: 'payload_too_large',
+    }
+  }
+
+  const imageBytes = Array.isArray(input.images)
+    ? input.images.reduce((sum, image) => sum + estimateBase64Bytes(image?.base64), 0)
+    : 0
+  if (imageBytes > env.TOKEN_COUNTER_MAX_IMAGE_BYTES) {
+    return {
+      message: 'image payload exceeds the maximum allowed bytes',
+      param: 'input.images',
+      details: {
+        maximum_image_bytes: env.TOKEN_COUNTER_MAX_IMAGE_BYTES,
+        actual_image_bytes: imageBytes,
+      },
+      status: 413,
+      code: 'payload_too_large',
+    }
+  }
+
+  return undefined
+}
+
+function estimateBase64Bytes(value: unknown) {
+  if (typeof value !== 'string') return 0
+  return Math.ceil((value.length * 3) / 4)
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -337,6 +470,7 @@ function toApiCountResult(result: TokenCountResult) {
       image: result.imageTokens > 0 ? result.method : 'unsupported',
     },
     warnings: result.warnings,
+    trust: toApiTrustMetadata(result),
   }
 }
 
@@ -363,6 +497,7 @@ function toApiEstimateResult(result: TokenCountResult) {
         image: result.imageTokens > 0 ? result.method : 'unsupported',
       },
       warnings: result.warnings,
+      trust: toApiTrustMetadata(result),
     },
     cost: {
       currency: result.currency,
@@ -375,6 +510,20 @@ function toApiEstimateResult(result: TokenCountResult) {
       multiplier: result.costMultiplier,
     },
     warnings: result.warnings,
+    trust: toApiTrustMetadata(result),
+  }
+}
+
+function toApiTrustMetadata(result: TokenCountResult) {
+  const pricingInfo = result.pricing
+  return {
+    count_accuracy: result.accuracy,
+    count_method: result.method,
+    pricing_source: pricingInfo?.source ?? null,
+    pricing_last_updated: pricingInfo?.lastUpdated ?? null,
+    pricing_verified: Boolean(pricingInfo?.source && pricingInfo?.lastUpdated),
+    billable_usage_note:
+      'Provider invoice usage remains the source of truth; local estimates and pricing profiles are for planning and comparison.',
   }
 }
 
@@ -392,6 +541,38 @@ function toApiEstimateSummary(results: TokenCountResult[]) {
     models_compared: completeResults.length,
     currency: cheapest?.currency ?? null,
   }
+}
+
+function toApiUsageSummary(results: TokenCountResult[]) {
+  const completeResults = results.filter((result) => result.status !== 'error')
+  return {
+    request_count: 1,
+    model_count: completeResults.length,
+    input_tokens: completeResults.reduce((sum, result) => sum + result.inputTokens, 0),
+    official_count_calls: completeResults.filter((result) => result.method === 'official_count_api').length,
+    estimated_cost: completeResults.reduce((sum, result) => sum + result.totalCost, 0),
+  }
+}
+
+function applyUsageHeaders(context: Context, usage: ReturnType<typeof toApiUsageSummary>) {
+  context.header('X-TokenCounter-Model-Count', String(usage.model_count))
+  context.header('X-TokenCounter-Input-Tokens', String(usage.input_tokens))
+  context.header('X-TokenCounter-Official-Calls', String(usage.official_count_calls))
+}
+
+function rejectUnavailableOfficialOnly(context: Context, requestId: string, options?: ExternalEstimateOptions) {
+  const prefersOfficial = options?.prefer_official_count ?? options?.use_official_api ?? false
+  if (!prefersOfficial || options?.allow_fallback !== false) return undefined
+
+  return externalError(
+    context,
+    502,
+    'official_count_failed',
+    'External API official counting is not available yet; allow fallback or use local estimates.',
+    requestId,
+    'options.allow_fallback',
+    { prefer_official_count: true, allow_fallback: false },
+  )
 }
 
 const app = new Hono()
@@ -492,8 +673,19 @@ app.post('/api/v1/estimates', async (context) => {
 
   const validation = validateEstimateBody(body.value)
   if (validation.ok === false) {
-    return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+    return externalError(
+      context,
+      validation.status ?? 400,
+      validation.code ?? 'invalid_request',
+      validation.message,
+      requestId,
+      validation.param,
+      validation.details,
+    )
   }
+
+  const officialOnlyError = rejectUnavailableOfficialOnly(context, requestId, validation.value.options)
+  if (officialOnlyError) return officialOnlyError
 
   const modelValidation = resolveRequestedModels(validation.value.models)
   if (modelValidation.resolvedModels.length === 0) {
@@ -507,6 +699,8 @@ app.post('/api/v1/estimates', async (context) => {
     input: validation.value.input,
     options: validation.value.options,
   })
+  const usage = toApiUsageSummary(serviceResult.results)
+  applyUsageHeaders(context, usage)
 
   const responseBody = {
     id: `est_${requestId.slice(4)}`,
@@ -520,6 +714,7 @@ app.post('/api/v1/estimates', async (context) => {
       redacted: serviceResult.inputSummary.redacted,
     },
     summary: toApiEstimateSummary(serviceResult.results),
+    usage,
     results: serviceResult.results.map(toApiEstimateResult),
     ...(serviceResult.failures.length ? { failures: serviceResult.failures } : {}),
   }
@@ -544,8 +739,19 @@ app.post('/api/v1/tokens/count', async (context) => {
 
   const validation = validateEstimateBody(body.value)
   if (validation.ok === false) {
-    return externalError(context, 400, 'invalid_request', validation.message, requestId, validation.param, validation.details)
+    return externalError(
+      context,
+      validation.status ?? 400,
+      validation.code ?? 'invalid_request',
+      validation.message,
+      requestId,
+      validation.param,
+      validation.details,
+    )
   }
+
+  const officialOnlyError = rejectUnavailableOfficialOnly(context, requestId, validation.value.options)
+  if (officialOnlyError) return officialOnlyError
 
   const modelValidation = resolveRequestedModels(validation.value.models)
   if (modelValidation.resolvedModels.length === 0) {
@@ -559,11 +765,14 @@ app.post('/api/v1/tokens/count', async (context) => {
     input: validation.value.input,
     options: validation.value.options,
   })
+  const usage = toApiUsageSummary(serviceResult.results)
+  applyUsageHeaders(context, usage)
 
   return context.json({
     object: 'token_count',
     created_at: new Date().toISOString(),
     request_id: requestId,
+    usage,
     results: serviceResult.results.map(toApiCountResult),
     ...(serviceResult.failures.length ? { failures: serviceResult.failures } : {}),
   })
