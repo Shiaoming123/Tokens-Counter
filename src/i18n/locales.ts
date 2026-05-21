@@ -4,6 +4,7 @@ export const translations: Record<string, { en: string; zh: string }> = {
   'nav.workbench': { en: 'Workbench', zh: '工作台' },
   'nav.licenses': { en: 'Licenses', zh: '许可证' },
   'nav.apiDocs': { en: 'API Docs', zh: 'API 文档' },
+  'nav.earlyAccess': { en: 'Early Access', zh: '抢先试用' },
 
   // ── Welcome Dialog ────────────────────────────────────────────────
   'welcome.title': { en: 'Thanks for supporting AI Token Counter', zh: '感谢支持 AI Token Counter' },

@@ -9,7 +9,7 @@ const storageKey = 'ai-token-counter-locale'
 function loadLocale(): Locale {
   const saved = localStorage.getItem(storageKey)
   if (saved === 'en' || saved === 'zh') return saved
-  return 'en'
+  return navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en'
 }
 
 export const useLocaleStore = defineStore('locale', () => {

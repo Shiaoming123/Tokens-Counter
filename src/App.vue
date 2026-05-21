@@ -111,7 +111,7 @@ function openWelcomeDialog() {
             :class="{ active: navigation.route === '/early-access' }"
             @click="navigation.navigate('/early-access')"
           >
-            Early Access
+            {{ localeStore.t('nav.earlyAccess') }}
           </button>
         </nav>
         <div class="header-icon-group">

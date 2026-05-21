@@ -333,10 +333,20 @@
 }
 
 .early-contact a,
+.early-email-button,
 .early-inline-link {
   color: var(--accent);
   font-weight: 700;
   text-decoration: none;
+}
+
+.early-email-button,
+.early-inline-link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
 }
 
 .early-visual {
@@ -519,6 +529,83 @@
   gap: 6px;
 }
 
+.email-request-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.email-request-content {
+  display: grid;
+  gap: 14px;
+  color: var(--text-secondary);
+}
+
+.email-request-content p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.email-request-field {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+}
+
+.email-request-field span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.email-request-field strong {
+  min-width: 0;
+  color: var(--text);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.email-request-field button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.email-request-body {
+  width: 100%;
+  min-height: 190px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.email-request-dialog .el-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
 .early-faq-list {
   display: grid;
   gap: 12px;
@@ -618,6 +705,20 @@
 
   .early-mail-link,
   .early-doc-button {
+    justify-content: center;
+  }
+
+  .email-request-field {
+    grid-template-columns: 1fr;
+  }
+
+  .email-request-field button {
+    justify-content: center;
+  }
+
+  .email-request-dialog .el-dialog__footer .ghost-button,
+  .email-request-dialog .el-dialog__footer .primary-action {
+    width: 100%;
     justify-content: center;
   }
 }
