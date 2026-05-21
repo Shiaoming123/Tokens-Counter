@@ -28,12 +28,15 @@
   <circle cx="1024" cy="130" r="164" fill="#E9F5FF" opacity=".75"/>
   <circle cx="190" cy="522" r="140" fill="#EAF8EF" opacity=".7"/>
 
-  <g transform="translate(503 54)" filter="url(#softBlue)">
-    <rect width="194" height="88" rx="30" fill="#FFFFFF"/>
-    <path d="M67 25a31 31 0 1 1-28 43" fill="none" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
-    <path d="M43 65h23m-9 15h35m-20-44h54m-34 14h48" stroke="#111827" stroke-width="5.5" stroke-linecap="round"/>
-    <circle cx="145" cy="67" r="14" fill="#0A84FF"/>
-    <path d="M138 67l5 5 10-13" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#softBlue)">
+    <rect x="506" y="42" width="188" height="94" rx="32" fill="#FFFFFF"/>
+    <rect x="508" y="44" width="184" height="90" rx="30" fill="none" stroke="#FFFFFF" stroke-opacity=".86" stroke-width="4"/>
+    <g>
+      <path d="M600 62a31 31 0 1 1-28.5 43.4" fill="none" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M561 103h43M572 118h47M583 75h51M592 89h44" stroke="#111827" stroke-width="5.5" stroke-linecap="round"/>
+      <circle cx="630" cy="105" r="13" fill="#0A84FF"/>
+      <path d="M624.5 105.4l3.8 3.6 7.3-8.7" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <text x="600" y="196" text-anchor="middle" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Arial,sans-serif" font-size="66" font-weight="760">AI Token Counter</text>
