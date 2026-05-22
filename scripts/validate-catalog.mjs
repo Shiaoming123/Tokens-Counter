@@ -25,7 +25,9 @@ for (const model of models) {
     errors.push(`${model.id} references missing licenseRef: ${model.licenseRef}`)
   }
 
+  const effectivePricing = pricing[model.id] ?? model.pricing
   validatePricing(model.pricing, `${model.id}.pricing`)
+  validatePricing(effectivePricing, `${model.id}.effectivePricing`)
 
   if (model.supportsImage && model.imageCountMethod === 'unsupported') {
     errors.push(`${model.id} supports images but imageCountMethod is unsupported.`)
@@ -39,8 +41,8 @@ for (const model of models) {
     errors.push(`${model.id} is local_exact but uses approx tokenizer.`)
   }
 
-  if (!model.pricing.source && !model.pricing.lastUpdated) {
-    warnings.push(`${model.id} pricing has no source or lastUpdated.`)
+  if (!effectivePricing.source && !effectivePricing.lastUpdated) {
+    warnings.push(`${model.id} effective pricing has no source or lastUpdated.`)
   }
 }
 
