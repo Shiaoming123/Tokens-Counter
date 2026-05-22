@@ -11,6 +11,7 @@
   <img alt="API" src="https://img.shields.io/badge/API-v1%20preview-ff5b11" />
   <img alt="Models" src="https://img.shields.io/badge/catalog-177%20models-0A84FF" />
   <img alt="Tests" src="https://img.shields.io/badge/tests-87%20passing-30a46c" />
+  <a href="https://github.com/Shiaoming123/Tokens-Counter/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shiaoming123/Tokens-Counter/actions/workflows/ci.yml/badge.svg" /></a>
 </p>
 
 <p align="center">
@@ -26,6 +27,8 @@
   ·
   <a href="https://tokens-counter.vercel.app/early-access"><strong>Request Early Access API Key</strong></a>
   ·
+  <a href="https://tokens-counter.vercel.app/trust"><strong>Trust Center</strong></a>
+  路
   <a href="#external-api"><strong>API Quickstart</strong></a>
   ·
   <a href="#trust-boundary"><strong>Trust Boundary</strong></a>
@@ -51,6 +54,8 @@ Hosted API keys are currently issued manually through [Early Access](https://tok
 Early Access keys use conservative limits while API key management, persistent quota, and billing are hardened.
 
 ## Trust Boundary
+
+For the hosted product view, see the [Trust Center](https://tokens-counter.vercel.app/trust).
 
 - Local browser estimates stay local unless you enable official provider counting.
 - Official counting can send prompts, messages, images, PDFs, or tool schemas to the selected provider API through your server-side keys.

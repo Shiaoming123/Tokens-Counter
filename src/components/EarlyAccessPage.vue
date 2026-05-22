@@ -17,6 +17,7 @@ const content = computed(() => {
         'AI Token Counter 帮助开发者在真实 LLM 输入中对比 Token 用量、预估 API 成本、模型能力和计数可信度，覆盖提示词、对话、图片、PDF 和工具 schema。',
       request: '邮件申请',
       apiDocs: 'API 文档',
+      trust: '可信边界',
       contactPrefix: '请把使用场景、预计调用量、需要的模型/供应商、是否包含敏感输入发到',
       proofLabel: '产品可信点',
       proofPoints: [
@@ -150,6 +151,7 @@ const content = computed(() => {
       'AI Token Counter helps builders compare token usage, estimated API cost, model capability, and counting confidence across real LLM inputs: prompts, chat messages, images, PDFs, and tool schemas.',
     request: 'Request by email',
     apiDocs: 'API Docs',
+    trust: 'Trust Center',
     contactPrefix: 'Send use case, expected volume, required providers, and sensitivity notes to',
     proofLabel: 'Product proof points',
     proofPoints: [
@@ -314,6 +316,10 @@ function openMailClient() {
           <button class="ghost-button early-doc-button" type="button" @click="$emit('navigate', '/api-docs')">
             {{ content.apiDocs }}
             <ArrowRight :size="16" aria-hidden="true" />
+          </button>
+          <button class="ghost-button early-doc-button" type="button" @click="$emit('navigate', '/trust')">
+            {{ content.trust }}
+            <ShieldCheck :size="16" aria-hidden="true" />
           </button>
         </div>
         <p class="early-contact">

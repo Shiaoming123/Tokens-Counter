@@ -104,6 +104,8 @@ For the first Early Access users, a simple manual policy is acceptable:
 - keep default rate limits conservative,
 - review server logs only for metadata, not raw user content.
 
+Use `docs/early-access-api-key-ledger-template.md` as the commit-safe intake, key-label, and feedback template. Keep the live secret-bearing copy outside git or under a private ignored workspace, and never commit real API keys.
+
 Before opening the API to unknown public users, add persistent key storage, quota checks, shared rate limits, and usage metering.
 
 ## Data Handling Policy
