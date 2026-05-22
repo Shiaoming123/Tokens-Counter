@@ -8,6 +8,12 @@ Launch mode: run an Early Access program first. Collect requests by email at `he
 
 Compliance note: sections marked `[Legal / manual review required]` are operational risk notes, not legal advice. Review current law, platform rules, privacy requirements, employment obligations, and advertising claims with a qualified person before public launch.
 
+Execution assets:
+
+- First-wave copy and channel sequence: `docs/launch-kit.md`
+- Early Access limitations to disclose: `docs/known-limitations.md`
+- API key and feedback ledger template: `docs/early-access-api-key-ledger-template.md`
+
 ## Goals
 
 ### Primary goals
