@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { siGithub } from 'simple-icons'
-import { RotateCcw, Trash2 } from 'lucide-vue-next'
-import { ElDrawer, ElMessage, ElSegmented } from 'element-plus'
+import { Info, RotateCcw, Trash2 } from 'lucide-vue-next'
+import { ElDialog, ElDrawer, ElMessage, ElSegmented } from 'element-plus'
 import InputArea from './components/InputArea.vue'
 import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
 import LicenseNotice from './components/LicenseNotice.vue'
 import ApiDocsPage from './components/ApiDocsPage.vue'
+import EarlyAccessPage from './components/EarlyAccessPage.vue'
 import { formatCost } from './core/cost/costCalculator'
 import { licenses, models } from './core/models/modelRegistry'
 import { useCounterStore } from './stores/counter'
@@ -23,6 +24,8 @@ const navigation = useNavigationStore()
 const themeStore = useThemeStore()
 const localeStore = useLocaleStore()
 const historyDrawerOpen = ref(false)
+const welcomeDialogOpen = ref(false)
+const welcomeSeenKey = 'token-counter-welcome-seen-v1'
 const githubUrl = import.meta.env.VITE_APP_GITHUB_URL || 'https://github.com/Shiaoming123/Tokens-Counter'
 
 const themeOptions = computed(() => [
@@ -39,6 +42,10 @@ const localeOptions = computed(() => [
 onMounted(() => {
   history.load()
   navigation.initListener()
+
+  if (window.localStorage.getItem(welcomeSeenKey) !== 'true') {
+    welcomeDialogOpen.value = true
+  }
 })
 
 async function handleCalculate() {
@@ -60,6 +67,19 @@ function exportCsv() {
 function restoreHistory(entry: HistoryEntry) {
   counter.options = { ...counter.options, ...entry.options }
   counter.results = entry.results
+}
+
+function rememberWelcomeDialog() {
+  window.localStorage.setItem(welcomeSeenKey, 'true')
+}
+
+function closeWelcomeDialog() {
+  rememberWelcomeDialog()
+  welcomeDialogOpen.value = false
+}
+
+function openWelcomeDialog() {
+  welcomeDialogOpen.value = true
 }
 </script>
 
@@ -87,19 +107,36 @@ function restoreHistory(entry: HistoryEntry) {
           >
             {{ localeStore.t('nav.apiDocs') }}
           </button>
+          <button
+            :class="{ active: navigation.route === '/early-access' }"
+            @click="navigation.navigate('/early-access')"
+          >
+            {{ localeStore.t('nav.earlyAccess') }}
+          </button>
         </nav>
-        <a
-          class="header-icon-link"
-          :href="githubUrl"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="GitHub repository"
-          title="GitHub repository"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path :d="siGithub.path" />
-          </svg>
-        </a>
+        <div class="header-icon-group">
+          <a
+            class="header-icon-link"
+            :href="githubUrl"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub repository"
+            title="GitHub repository"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path :d="siGithub.path" />
+            </svg>
+          </a>
+          <button
+            class="header-icon-link header-info-button"
+            type="button"
+            :aria-label="localeStore.t('welcome.reopen')"
+            :title="localeStore.t('welcome.reopen')"
+            @click="openWelcomeDialog"
+          >
+            <Info :size="18" aria-hidden="true" />
+          </button>
+        </div>
         <div class="header-controls">
           <ElSegmented v-model="themeStore.theme" :options="themeOptions" size="small" />
           <ElSegmented v-model="localeStore.locale" :options="localeOptions" size="small" />
@@ -109,6 +146,7 @@ function restoreHistory(entry: HistoryEntry) {
 
     <LicenseNotice v-if="navigation.route === '/licenses'" :licenses="licenses" />
     <ApiDocsPage v-else-if="navigation.route === '/api-docs'" />
+    <EarlyAccessPage v-else-if="navigation.route === '/early-access'" @navigate="navigation.navigate" />
 
     <div v-else class="workspace">
       <section class="hero">
@@ -240,5 +278,50 @@ function restoreHistory(entry: HistoryEntry) {
         </aside>
       </div>
     </div>
+
+    <ElDialog
+      v-model="welcomeDialogOpen"
+      class="welcome-dialog"
+      modal-class="welcome-dialog-overlay"
+      width="min(560px, calc(100vw - 32px))"
+      align-center
+      @closed="rememberWelcomeDialog"
+    >
+      <template #header>
+        <div class="welcome-title">
+          <span>{{ localeStore.t('welcome.title') }}</span>
+          <small>{{ localeStore.t('welcome.kaomoji') }}</small>
+        </div>
+      </template>
+
+      <div class="welcome-content">
+        <p>{{ localeStore.t('welcome.intro') }}</p>
+        <ol class="welcome-steps">
+          <li>{{ localeStore.t('welcome.stepModels') }}</li>
+          <li>{{ localeStore.t('welcome.stepInput') }}</li>
+          <li>{{ localeStore.t('welcome.stepEstimate') }}</li>
+        </ol>
+
+        <div class="welcome-divider" aria-hidden="true"></div>
+
+        <div class="welcome-link-block">
+          <strong>{{ localeStore.t('welcome.githubLabel') }}</strong>
+          <a :href="githubUrl" target="_blank" rel="noreferrer">{{ githubUrl }}</a>
+          <p>{{ localeStore.t('welcome.star') }}</p>
+        </div>
+
+        <div class="welcome-link-block">
+          <strong>{{ localeStore.t('welcome.emailLabel') }}</strong>
+          <a href="mailto:henshiaoming@gmail.com">henshiaoming@gmail.com</a>
+          <p>{{ localeStore.t('welcome.emailNote') }}</p>
+        </div>
+      </div>
+
+      <template #footer>
+        <button class="primary-action welcome-close" type="button" @click="closeWelcomeDialog">
+          {{ localeStore.t('welcome.close') }}
+        </button>
+      </template>
+    </ElDialog>
   </main>
 </template>

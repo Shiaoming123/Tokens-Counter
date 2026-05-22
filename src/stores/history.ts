@@ -6,9 +6,9 @@ import {
   resultsToCsv,
   resultsToMarkdown,
   type HistoryEntry,
-} from '../core/history/historyStorage'
-import type { TokenCountResult } from '../types/domain'
-import { useCurrencyStore } from './currency'
+} from '../core/history/historyStorage.js'
+import type { TokenCountResult } from '../types/domain.js'
+import { useCurrencyStore } from './currency.js'
 
 const MAX_ENTRIES = 20
 

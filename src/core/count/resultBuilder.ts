@@ -1,9 +1,9 @@
-import { calculateCost } from '../cost/costCalculator'
-import { resolveModelPricing } from '../pricing/pricingProfiles'
-import { countApproxTokens } from '../tokenizers/approxTokenizer'
-import { countGeminiImageTokensEstimate } from '../vision/geminiImageTokens'
-import { countQwenVlImageTokensEstimate } from '../vision/qwenImageTokens'
-import { countOpenAIPatchImageTokens, countOpenAITileImageTokens } from '../vision/openaiImageTokens'
+import { calculateCost } from '../cost/costCalculator.js'
+import { resolveModelPricing } from '../pricing/pricingProfiles.js'
+import { countApproxTokens } from '../tokenizers/approxTokenizer.js'
+import { countGeminiImageTokensEstimate } from '../vision/geminiImageTokens.js'
+import { countQwenVlImageTokensEstimate } from '../vision/qwenImageTokens.js'
+import { countOpenAIPatchImageTokens, countOpenAITileImageTokens } from '../vision/openaiImageTokens.js'
 import type {
   AccuracyLevel,
   CountInput,
@@ -12,7 +12,7 @@ import type {
   TokenCountMethod,
   TokenCountResult,
   TokenDebug,
-} from '../../types/domain'
+} from '../../types/domain.js'
 
 export interface OfficialCountPayload {
   inputTokens?: number

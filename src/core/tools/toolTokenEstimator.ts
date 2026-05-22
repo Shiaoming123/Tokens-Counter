@@ -1,4 +1,4 @@
-import type { ToolDefinition } from '../../types/domain'
+import type { ToolDefinition } from '../../types/domain.js'
 
 export function serializeToolForCounting(tool: ToolDefinition): string {
   return JSON.stringify({

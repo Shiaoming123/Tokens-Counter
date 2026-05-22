@@ -1,5 +1,5 @@
-import pricingProfilesJson from '../../data/pricing-profiles.json'
-import type { ModelConfig, ModelPricing, PricingProfileId } from '../../types/domain'
+import pricingProfilesJson from '../../data/pricing-profiles.json' with { type: 'json' }
+import type { ModelConfig, ModelPricing, PricingProfileId } from '../../types/domain.js'
 
 type PricingProfileConfig = {
   label: string

@@ -1,4 +1,4 @@
-import type { TokenDebug } from '../../types/domain'
+import type { TokenDebug } from '../../types/domain.js'
 
 export function countGeminiImageTokensEstimate(width: number, height: number) {
   if (width <= 384 && height <= 384) {

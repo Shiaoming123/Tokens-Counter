@@ -1,4 +1,4 @@
-import type { DocumentMetadata } from '../../types/domain'
+import type { DocumentMetadata } from '../../types/domain.js'
 
 let pdfjsPromise: typeof import('pdfjs-dist') | undefined
 

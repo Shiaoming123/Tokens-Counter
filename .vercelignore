@@ -1,0 +1,10 @@
+node_modules
+dist
+tmp
+private
+.agents
+.claude
+.playwright-mcp
+*.log
+apple-theme*.png
+default-theme.png

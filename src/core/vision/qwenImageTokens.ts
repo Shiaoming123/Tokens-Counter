@@ -1,4 +1,4 @@
-import type { TokenDebug } from '../../types/domain'
+import type { TokenDebug } from '../../types/domain.js'
 
 const patchArea = 32 * 32
 

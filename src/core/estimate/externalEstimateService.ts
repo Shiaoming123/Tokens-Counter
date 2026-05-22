@@ -1,7 +1,7 @@
-import { buildLocalResult } from '../count/resultBuilder'
-import { models } from '../models/modelRegistry'
-import { countLocalTextTokens } from '../tokenizers/tokenizerClient'
-import type { CountInput, CountOptions, ImageDetail, ImageMetadata, Message, ModelConfig, TokenCountResult } from '../../types/domain'
+import { buildLocalResult } from '../count/resultBuilder.js'
+import { models } from '../models/modelRegistry.js'
+import { countLocalTextTokens } from '../tokenizers/tokenizerClient.js'
+import type { CountInput, CountOptions, ImageDetail, ImageMetadata, Message, ModelConfig, TokenCountResult } from '../../types/domain.js'
 
 export interface ExternalInputPayload {
   text?: string

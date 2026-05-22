@@ -1,4 +1,4 @@
-import type { AccuracyLevel } from '../../types/domain'
+import type { AccuracyLevel } from '../../types/domain.js'
 
 export const accuracyLabels: Record<AccuracyLevel, string> = {
   official_exact: 'Official Exact',

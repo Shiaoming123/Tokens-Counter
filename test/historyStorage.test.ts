@@ -1,9 +1,8 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
   createHistoryEntry,
   resultsToCsv,
   resultsToMarkdown,
-  type HistoryEntry,
 } from '../src/core/history/historyStorage'
 import type { CountInput, CountOptions, TokenCountResult } from '../src/types/domain'
 

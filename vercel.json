@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/licenses",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/api-docs",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/early-access",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import type { CountInput, TokenCountResult } from '../../types/domain'
+import type { CountInput, TokenCountResult } from '../../types/domain.js'
 
 export interface OfficialCountRequest {
   modelId: string

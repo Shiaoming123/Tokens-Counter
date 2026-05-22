@@ -4,6 +4,39 @@ export const translations: Record<string, { en: string; zh: string }> = {
   'nav.workbench': { en: 'Workbench', zh: '工作台' },
   'nav.licenses': { en: 'Licenses', zh: '许可证' },
   'nav.apiDocs': { en: 'API Docs', zh: 'API 文档' },
+  'nav.earlyAccess': { en: 'Early Access', zh: '抢先试用' },
+
+  // ── Welcome Dialog ────────────────────────────────────────────────
+  'welcome.title': { en: 'Thanks for supporting AI Token Counter', zh: '感谢支持 AI Token Counter' },
+  'welcome.kaomoji': { en: '(^_^)', zh: '(^_^)' },
+  'welcome.intro': {
+    en: 'This project helps you estimate token usage and API cost across different AI models for text, images, PDFs, and tool calls.',
+    zh: '这个项目可以帮你估算不同 AI 模型在文本、图片、PDF 和工具调用里的 Token 数量与 API 费用。',
+  },
+  'welcome.stepModels': {
+    en: 'Choose the models you want to compare from the model list.',
+    zh: '先在模型列表里选择你想对比的模型。',
+  },
+  'welcome.stepInput': {
+    en: 'Paste text, add multi-turn messages, upload images or PDFs, or define tools.',
+    zh: '然后粘贴文本、填写多轮对话、上传图片或 PDF，也可以定义工具调用。',
+  },
+  'welcome.stepEstimate': {
+    en: 'Click Estimate cost to see token counts, cost estimates, and accuracy labels. (｀・ω・´)',
+    zh: '点击估算费用，就能看到 Token 数、费用预估和精度标签。(｀・ω・´)',
+  },
+  'welcome.githubLabel': { en: 'GitHub repository', zh: 'GitHub 仓库' },
+  'welcome.star': {
+    en: 'Stars are very welcome if this little project helps you. (^人^)',
+    zh: '欢迎大家来点 Star，给这个小项目一点鼓励。(^人^)',
+  },
+  'welcome.emailLabel': { en: 'Personal email', zh: '个人邮箱' },
+  'welcome.emailNote': {
+    en: 'If you need help, feel free to write. If you do not need help, you can still email me to say this project helped you, and I will be so happy I cannot sleep for three days. (≧▽≦)',
+    zh: '有需要咨询的朋友欢迎来信；没有需要也可以发邮件告诉我这个项目帮到了你，那我也会高兴得三天睡不着觉。(≧▽≦)',
+  },
+  'welcome.close': { en: 'Got it, start using (^_^)', zh: '知道啦，开始使用 (^_^)' },
+  'welcome.reopen': { en: 'Show welcome guide again', zh: '再次查看欢迎说明' },
 
   // ── Hero ──────────────────────────────────────────────────────────
   'hero.title': { en: 'Estimate tokens & API cost', zh: '估算 Token 数量与 API 费用' },

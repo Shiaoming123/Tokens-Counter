@@ -51,6 +51,7 @@ const showFullComparison = ref(false)
 // Drawer resize
 const drawerWidth = ref(loadDrawerWidth())
 const isMobile = ref(window.innerWidth < 768)
+const comparisonDrawerSize = computed(() => (isMobile.value ? '100%' : drawerWidth.value))
 
 function loadDrawerWidth(): number {
   const saved = localStorage.getItem('comparison-drawer-width')
@@ -61,6 +62,7 @@ let resizeStartX = 0
 let resizeStartWidth = 0
 
 function startDrawerResize(e: PointerEvent) {
+  if (isMobile.value) return
   resizeStartX = e.clientX
   resizeStartWidth = drawerWidth.value
   document.addEventListener('pointermove', onDrawerResize)
@@ -238,7 +240,7 @@ function formatCostInCurrency(result: TokenCountResult, currency: CurrencyCode):
     <ElDrawer
       v-model="showFullComparison"
       direction="rtl"
-      :size="drawerWidth"
+      :size="comparisonDrawerSize"
       :class="{ 'comparison-drawer': true, 'drawer-fullscreen': isMobile }"
       modal-class="comparison-drawer-overlay"
       append-to-body
@@ -283,7 +285,7 @@ function formatCostInCurrency(result: TokenCountResult, currency: CurrencyCode):
           </div>
         </div>
       </template>
-      <div class="drawer-drag-handle" @pointerdown="startDrawerResize" />
+      <div v-if="!isMobile" class="drawer-drag-handle" @pointerdown="startDrawerResize" />
       <div class="drawer-sticky-header">
         <div class="drawer-summary">
           <span class="drawer-stat">
@@ -299,8 +301,49 @@ function formatCostInCurrency(result: TokenCountResult, currency: CurrencyCode):
         </div>
       </div>
 
+      <!-- Mobile card view -->
+      <div v-if="isMobile" class="drawer-mobile-list">
+        <div v-if="!results.length" class="empty-zone">{{ localeStore.t('results.noResultsDrawer') }}</div>
+        <article
+          v-for="result in results"
+          v-else
+          :key="result.modelId"
+          class="drawer-mobile-card"
+          :class="{ 'drawer-mobile-card-cheapest': result === cheapestResult }"
+        >
+          <div class="drawer-mobile-card-head">
+            <ProviderLogo :provider="result.provider" :size="24" />
+            <div class="drawer-mobile-model">
+              <strong>{{ result.displayName }}</strong>
+              <span>{{ result.provider }}</span>
+            </div>
+            <AccuracyBadge :level="result.accuracy" short />
+          </div>
+          <div class="drawer-mobile-costs">
+            <span v-for="currency in currencyStore.displayCurrencies" :key="currency">
+              <em>{{ currency }}</em>
+              <strong>{{ formatCostInCurrency(result, currency) }}</strong>
+            </span>
+          </div>
+          <div class="drawer-mobile-metrics">
+            <span>
+              <em>{{ localeStore.t('col.input') }}</em>
+              <strong>{{ result.inputTokens?.toLocaleString() }}</strong>
+            </span>
+            <span>
+              <em>{{ localeStore.t('col.out') }}</em>
+              <strong>{{ result.estimatedOutputTokens?.toLocaleString() }}</strong>
+            </span>
+            <span>
+              <em>{{ localeStore.t('col.method') }}</em>
+              <strong>{{ shortMethod(result.method) }}</strong>
+            </span>
+          </div>
+        </article>
+      </div>
+
       <!-- Table view for wider screens -->
-      <div class="drawer-table-wrapper">
+      <div v-else class="drawer-table-wrapper">
         <ElTable :data="results" :row-class-name="rowClassName" stripe size="small" :row-style="{ height: '44px' }" :cell-style="{ padding: '6px 0' }" :empty-text="localeStore.t('results.noResultsDrawer')">
           <ElTableColumn :label="localeStore.t('col.model')" min-width="140" sortable :sort-method="sortByName">
             <template #default="{ row }">
@@ -515,6 +558,103 @@ function formatCostInCurrency(result: TokenCountResult, currency: CurrencyCode):
   overflow-x: auto;
 }
 
+.drawer-mobile-list {
+  display: grid;
+  gap: 10px;
+}
+
+.drawer-mobile-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+}
+
+.drawer-mobile-card-cheapest {
+  border-color: rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.drawer-mobile-card-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.drawer-mobile-model {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+}
+
+.drawer-mobile-model strong,
+.drawer-mobile-model span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-mobile-model strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.drawer-mobile-model span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.drawer-mobile-costs,
+.drawer-mobile-metrics {
+  display: grid;
+  gap: 6px;
+}
+
+.drawer-mobile-costs {
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+}
+
+.drawer-mobile-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.drawer-mobile-costs span,
+.drawer-mobile-metrics span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+  padding: 8px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-elevated);
+}
+
+.drawer-mobile-costs em,
+.drawer-mobile-metrics em {
+  color: var(--muted);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.drawer-mobile-costs strong,
+.drawer-mobile-metrics strong {
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-mobile-costs strong {
+  color: var(--accent);
+  font-size: 15px;
+}
+
 .drawer-notes {
   margin-top: 16px;
   padding: 12px;
@@ -562,10 +702,6 @@ function formatCostInCurrency(result: TokenCountResult, currency: CurrencyCode):
 .cost-cell {
   font-weight: 600;
   color: var(--accent);
-}
-
-:deep(.drawer-fullscreen .el-drawer) {
-  width: 100vw !important;
 }
 
 .model-cell {

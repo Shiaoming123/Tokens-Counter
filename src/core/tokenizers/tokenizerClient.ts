@@ -1,14 +1,10 @@
-import type { TokenizerWorkerRequest, TokenizerWorkerResponse } from '../../workers/tokenizer.worker'
-import { countTextTokens, type SupportedEncoding } from './openaiTokenizer'
-import { models } from '../models/modelRegistry'
+import type { TokenizerWorkerRequest, TokenizerWorkerResponse } from '../../workers/tokenizer.worker.js'
+import { countTextTokens, type SupportedEncoding } from './openaiTokenizer.js'
+import { models } from '../models/modelRegistry.js'
 
 let worker: Worker | undefined
 
 export function countLocalTextTokens(text: string, modelIds: string[]) {
-  if (typeof Worker === 'undefined') {
-    return Promise.resolve<Record<string, number>>({})
-  }
-
   const tiktokenModels: { id: string; encoding: SupportedEncoding }[] = []
   const workerModelIds: string[] = []
 
@@ -28,7 +24,9 @@ export function countLocalTextTokens(text: string, modelIds: string[]) {
 
   const workerPromise =
     workerModelIds.length > 0
-      ? countWorkerBatch(text, workerModelIds)
+      ? typeof Worker === 'undefined'
+        ? countServerHfBatch(text, workerModelIds)
+        : countWorkerBatch(text, workerModelIds)
       : Promise.resolve<Record<string, number>>({})
 
   return Promise.all([tiktokenPromise, workerPromise]).then(([a, b]) => ({ ...a, ...b }))
@@ -71,4 +69,26 @@ function countWorkerBatch(text: string, modelIds: string[]) {
     const message: TokenizerWorkerRequest = { requestId, text, modelIds }
     activeWorker.postMessage(message)
   })
+}
+
+async function countServerHfBatch(text: string, modelIds: string[]) {
+  const [{ getHfRepoForModel, loadTokenizerConfig }, { countHfTokens, loadHfTokenizer }] =
+    await Promise.all([
+      import('./tokenizerLoader.js'),
+      import('./huggingfaceTokenizer.js'),
+    ])
+
+  const results: Record<string, number> = {}
+  await Promise.all(
+    modelIds.map(async (modelId) => {
+      const repo = getHfRepoForModel(modelId)
+      if (!repo) return
+
+      const config = await loadTokenizerConfig(repo)
+      const tokenizer = await loadHfTokenizer(config)
+      results[modelId] = countHfTokens(text, tokenizer)
+    }),
+  )
+
+  return results
 }

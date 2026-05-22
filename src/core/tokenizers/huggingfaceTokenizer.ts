@@ -12,7 +12,7 @@ export interface HfTokenizerConfig {
   model: {
     type: string
     vocab: Record<string, number>
-    merges?: string[]
+    merges?: Array<string | [string, string]>
     byte_fallback?: boolean
     fuse_unk?: boolean
   }
@@ -151,10 +151,11 @@ function isSentencePiece(config: HfTokenizerConfig): boolean {
 // BPE algorithm
 // ---------------------------------------------------------------------------
 
-function buildMergeRankMap(merges: string[]): Map<string, number> {
+function buildMergeRankMap(merges: Array<string | [string, string]>): Map<string, number> {
   const map = new Map<string, number>()
   for (let i = 0; i < merges.length; i++) {
-    map.set(merges[i], i)
+    const merge = merges[i]
+    map.set(Array.isArray(merge) ? `${merge[0]} ${merge[1]}` : merge, i)
   }
   return map
 }
