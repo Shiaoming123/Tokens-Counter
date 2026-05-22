@@ -124,8 +124,8 @@ const productionNotes = computed(() => [
     title: localeStore.locale === 'zh' ? '限流与配额' : 'Rate limits and quotas',
     body:
       localeStore.locale === 'zh'
-        ? '当前实现会返回 rate-limit headers；公开服务前应替换为按 key/IP 强制执行的窗口、并发和用量配额。'
-        : 'The current implementation returns rate-limit headers. Before public launch, enforce per-key/IP windows, concurrency limits, and quotas.',
+        ? '当前实现已按 key/IP 执行内存级窗口限流并返回 rate-limit headers；多实例或付费场景前，应替换为共享存储配额、并发限制和用量账本。'
+        : 'The current implementation enforces in-memory per-key/IP windows and returns rate-limit headers. Before multi-instance or paid use, add shared quotas, concurrency limits, and a usage ledger.',
   },
   {
     title: localeStore.locale === 'zh' ? '隐私与日志' : 'Privacy and logs',
@@ -152,7 +152,7 @@ const copy = computed(() => {
       baseUrl: 'Base path',
       contentType: 'Content-Type',
       status: '当前状态',
-      statusText: 'v1 可同步返回结果；生产环境仍需启用强制限流、密钥表、配额和 OpenAPI schema。',
+      statusText: 'v1 可同步返回结果，已支持 bearer key、窗口限流、幂等键和 OpenAPI schema；持久化密钥表、共享配额和用量账本仍需补齐。',
       getKey: '申请 API Key',
       getKeyText: 'Hosted API Key 目前通过 Early Access 人工发放，适合内部工具、成本审计和 API 集成试用。',
       endpoints: '端点',
@@ -163,7 +163,7 @@ const copy = computed(() => {
       authTitle: '认证',
       authText: '所有外部 API 请求使用 Authorization: Bearer <api_key>。当前服务仅在配置 TOKEN_COUNTER_API_KEY 时强制校验；公开环境应始终开启。',
       headersTitle: '响应头',
-      headersText: '所有 /api/v1 响应会包含窗口型 rate limit headers。当前实现为静态预览值，生产环境应改为真实剩余额度。',
+      headersText: '所有 /api/v1 响应会包含窗口型 rate limit headers，当前剩余额度来自内存级按 key/IP 限流。多实例部署前应接入共享存储。',
       examples: '调用示例',
       schema: 'Request / Response Schema',
       inputPayload: 'InputPayload 至少包含 text、messages 或 images 之一。POST /api/v1/estimates 会额外返回 cost 和 summary；POST /api/v1/tokens/count 只返回 count 字段。',
@@ -180,7 +180,7 @@ const copy = computed(() => {
     baseUrl: 'Base path',
     contentType: 'Content-Type',
     status: 'Current status',
-    statusText: 'v1 returns synchronous results. Public production use still needs enforced limits, key storage, quotas, and an OpenAPI schema.',
+    statusText: 'v1 returns synchronous results with bearer keys, window limits, idempotency, and an OpenAPI schema. Persistent key storage, shared quotas, and a usage ledger are still pending.',
     getKey: 'Request API Key',
     getKeyText: 'Hosted API keys are issued manually through Early Access for internal tools, cost audits, and API integration pilots.',
     endpoints: 'Endpoints',
@@ -191,7 +191,7 @@ const copy = computed(() => {
     authTitle: 'Authentication',
     authText: 'External API requests use Authorization: Bearer <api_key>. The current server enforces this only when TOKEN_COUNTER_API_KEY is configured; public environments should always require it.',
     headersTitle: 'Response headers',
-    headersText: 'Every /api/v1 response includes window-style rate limit headers. The current implementation returns preview static values; production should return real remaining quota.',
+    headersText: 'Every /api/v1 response includes window-style rate-limit headers backed by the in-memory per-key/IP limiter. Multi-instance deployments should move the quota state to shared storage.',
     examples: 'Live request examples',
     schema: 'Request / Response Schema',
     inputPayload: 'InputPayload must include at least one of text, messages, or images. POST /api/v1/estimates adds cost and summary; POST /api/v1/tokens/count returns count data only.',
