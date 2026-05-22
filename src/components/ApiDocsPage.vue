@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { AlertTriangle, Braces, Gauge, KeyRound, Server, ShieldCheck, Terminal } from 'lucide-vue-next'
+import { AlertTriangle, ArrowRight, Braces, Gauge, KeyRound, Server, ShieldCheck, Terminal } from 'lucide-vue-next'
 import { useLocaleStore } from '../stores/locale'
 
 const localeStore = useLocaleStore()
@@ -153,6 +153,8 @@ const copy = computed(() => {
       contentType: 'Content-Type',
       status: '当前状态',
       statusText: 'v1 可同步返回结果；生产环境仍需启用强制限流、密钥表、配额和 OpenAPI schema。',
+      getKey: '申请 API Key',
+      getKeyText: 'Hosted API Key 目前通过 Early Access 人工发放，适合内部工具、成本审计和 API 集成试用。',
       endpoints: '端点',
       method: '方法',
       path: '路径',
@@ -179,6 +181,8 @@ const copy = computed(() => {
     contentType: 'Content-Type',
     status: 'Current status',
     statusText: 'v1 returns synchronous results. Public production use still needs enforced limits, key storage, quotas, and an OpenAPI schema.',
+    getKey: 'Request API Key',
+    getKeyText: 'Hosted API keys are issued manually through Early Access for internal tools, cost audits, and API integration pilots.',
     endpoints: 'Endpoints',
     method: 'Method',
     path: 'Path',
@@ -270,6 +274,12 @@ const responseSchema = `{
         <p class="eyebrow">{{ copy.eyebrow }}</p>
         <h1>{{ copy.title }}</h1>
         <p>{{ copy.subtitle }}</p>
+        <div class="api-docs-actions">
+          <a class="primary-action" href="/early-access">
+            {{ copy.getKey }}
+            <ArrowRight :size="16" aria-hidden="true" />
+          </a>
+        </div>
       </div>
       <div class="api-docs-meta" aria-label="API metadata">
         <span>{{ copy.baseUrl }} <strong>/api/v1</strong></span>
@@ -291,6 +301,7 @@ const responseSchema = `{
         <div>
           <h2>{{ copy.authTitle }}</h2>
           <p>{{ copy.authText }}</p>
+          <p>{{ copy.getKeyText }}</p>
           <code>Authorization: Bearer tc_live_...</code>
         </div>
       </article>
@@ -472,6 +483,21 @@ const responseSchema = `{
   color: var(--muted);
   font-size: 17px;
   line-height: 1.55;
+}
+
+.api-docs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.api-docs-actions .primary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 .api-docs-meta {
@@ -711,6 +737,15 @@ const responseSchema = `{
 @media (max-width: 640px) {
   .api-docs-layout {
     padding: 28px 16px 52px;
+  }
+
+  .api-docs-actions,
+  .api-docs-actions .primary-action {
+    width: 100%;
+  }
+
+  .api-docs-actions .primary-action {
+    justify-content: center;
   }
 }
 </style>
