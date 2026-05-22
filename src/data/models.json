@@ -2379,6 +2379,64 @@
     "licenseRef": "qwen-tokenizer"
   },
   {
+    "id": "qwen3.7-max",
+    "displayName": "Qwen3.7 Max",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 12,
+      "outputPer1M": 36,
+      "cachedInputPer1M": 1.2,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-22",
+      "source": "Alibaba Cloud Model Studio pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3.7-max-2026-05-20",
+    "displayName": "Qwen3.7 Max 2026-05-20",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 12,
+      "outputPer1M": 36,
+      "cachedInputPer1M": 1.2,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-22",
+      "source": "Alibaba Cloud Model Studio pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
     "id": "qwen3.5-plus",
     "displayName": "Qwen3.5 Plus",
     "provider": "alibaba",
@@ -3753,6 +3811,38 @@
       "currency": "USD",
       "lastUpdated": "2026-05-17",
       "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3.5-flash",
+    "displayName": "Gemini 3.5 Flash",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1048576,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 1.5,
+      "outputPer1M": 9,
+      "cachedInputPer1M": 0.15,
+      "currency": "USD",
+      "lastUpdated": "2026-05-19",
+      "source": "Google Gemini Developer API pricing"
     },
     "accuracy": {
       "text": "official_estimate",

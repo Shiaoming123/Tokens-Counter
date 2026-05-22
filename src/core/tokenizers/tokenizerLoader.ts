@@ -22,6 +22,8 @@ const MODEL_TO_HF_REPO: Record<string, string> = {
   'qwen3-coder-next': 'Qwen/Qwen3-Coder-30B-A3B-Instruct',
   'qwen3-coder-plus': 'Qwen/Qwen3-Coder-30B-A3B-Instruct',
   'qwen3.6-plus': 'Qwen/Qwen3-32B',
+  'qwen3.7-max': 'Qwen/Qwen3-32B',
+  'qwen3.7-max-2026-05-20': 'Qwen/Qwen3-32B',
   'qwq-32b': 'Qwen/QwQ-32B',
   'mimo-v2.5-pro': 'XiaomiMiMo/MiMo-7B-RL',
   'mimo-v2.5': 'XiaomiMiMo/MiMo-7B-RL',

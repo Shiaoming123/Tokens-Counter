@@ -60,6 +60,22 @@
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
   },
+  "qwen3.7-max": {
+    "inputPer1M": 12,
+    "outputPer1M": 36,
+    "cachedInputPer1M": 1.2,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-22",
+    "source": "Alibaba Cloud Model Studio pricing"
+  },
+  "qwen3.7-max-2026-05-20": {
+    "inputPer1M": 12,
+    "outputPer1M": 36,
+    "cachedInputPer1M": 1.2,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-22",
+    "source": "Alibaba Cloud Model Studio pricing"
+  },
   "qwen-vl-plus": {
     "inputPer1M": 0.8,
     "outputPer1M": 2,
@@ -411,6 +427,14 @@
     "currency": "USD",
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
+  },
+  "gemini-3.5-flash": {
+    "inputPer1M": 1.5,
+    "outputPer1M": 9,
+    "cachedInputPer1M": 0.15,
+    "currency": "USD",
+    "lastUpdated": "2026-05-19",
+    "source": "Google Gemini Developer API pricing"
   },
   "grok-4.3": {
     "inputPer1M": 1.25,
