@@ -1,0 +1,51 @@
+name: Model or provider request
+description: Request a model, provider, tokenizer, pricing source, or official count integration.
+title: "[Model]: "
+labels: ["model-catalog", "request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This project tracks model support with explicit accuracy and pricing provenance. Please include public source links where possible.
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      placeholder: OpenAI, Anthropic, Gemini, DeepSeek, Qwen, etc.
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model ID or family
+      placeholder: provider-model-id
+    validations:
+      required: true
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Request type
+      options:
+        - Add model metadata
+        - Add or update pricing
+        - Add tokenizer mapping
+        - Add official count API
+        - Fix accuracy label
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Public sources
+      description: Link official model docs, pricing pages, tokenizer files, API docs, or release notes.
+      placeholder: |
+        - https://...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Mention aliases, context window, modality support, cache pricing, regional pricing, or known caveats.
+

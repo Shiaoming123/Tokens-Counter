@@ -1,0 +1,46 @@
+name: Early Access feedback
+description: Share product feedback from a real workflow or trial.
+title: "[Feedback]: "
+labels: ["feedback", "early-access"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for public product feedback. For private API key requests, use the Early Access page instead.
+
+        Please remove API keys, private prompts, customer data, and provider account details before posting.
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow
+      options:
+        - Prompt cost comparison
+        - Model selection
+        - Tokenizer accuracy audit
+        - Image / PDF / multimodal estimate
+        - Tool-call / function schema estimate
+        - Public API integration
+        - Pricing profile / proxy billing
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: What were you trying to do?
+      description: Describe the task and where AI Token Counter helped or failed.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Result
+      description: What was useful, confusing, missing, or inaccurate?
+    validations:
+      required: true
+  - type: textarea
+    id: next
+    attributes:
+      label: What would make you use it again?
+      description: Name the smallest improvement that would make this valuable in your workflow.
+

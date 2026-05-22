@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Request Early Access / API key
+    url: https://tokens-counter.vercel.app/early-access
+    about: Use the hosted Early Access page for private API key requests. Do not post email addresses, API keys, prompts, or customer data in public issues.
+  - name: Security or privacy concern
+    url: mailto:henshiaoming@gmail.com
+    about: Email privately for leaked keys, vulnerabilities, privacy concerns, or abuse reports.
+
