@@ -45,7 +45,9 @@ Never commit the actual `key` value. Use a private ledger for the full secret an
 Suggested statuses:
 
 - `pending`: approved but not delivered yet.
-- `active`: delivered and allowed to call the API.
+- `available`: generated and ready to issue, but not assigned yet.
+- `used`: delivered, deployed, or assigned to a real user.
+- `active`: delivered and allowed to call the API when using a richer key store.
 - `paused`: temporarily disabled while investigating usage, billing, or support issues.
 - `revoked`: no longer valid and should not be re-enabled.
 - `expired`: intentionally ended after the Early Access window.
@@ -99,4 +101,3 @@ follow_up:
   - update docs/runbook
   - tighten delivery or storage process
 ```
-

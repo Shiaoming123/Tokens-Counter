@@ -28,7 +28,9 @@
   <a href="https://tokens-counter.vercel.app/early-access"><strong>Request Early Access API Key</strong></a>
   ·
   <a href="https://tokens-counter.vercel.app/trust"><strong>Trust Center</strong></a>
-  路
+  ·
+  <a href="https://tokens-counter.vercel.app/case-studies"><strong>Case Studies</strong></a>
+  ·
   <a href="#external-api"><strong>API Quickstart</strong></a>
   ·
   <a href="#trust-boundary"><strong>Trust Boundary</strong></a>
@@ -253,7 +255,7 @@ The public API surface is versioned under `/api/v1`.
 
 ```bash
 export BASE_URL="https://tokens-counter.vercel.app"
-export TOKEN_COUNTER_API_KEY="tc_live_your_key"
+export TOKEN_COUNTER_API_KEY=<your-api-key>
 
 curl "$BASE_URL/api/v1/models" \
   -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY"

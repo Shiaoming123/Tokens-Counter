@@ -38,13 +38,10 @@ These variables should be set before sharing the API with anyone outside your ow
 | `TOKEN_COUNTER_MAX_IMAGES` | `8` | Conservative multimodal beta limit. |
 | `TOKEN_COUNTER_MAX_IMAGE_BYTES` | `2097152` | 2 MB inline image payload limit. |
 
-Generate an API key locally:
+Generate an API key locally through the project CLI:
 
 ```powershell
-$rng = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
-$bytes = New-Object byte[] 32
-$rng.GetBytes($bytes)
-'tc_live_' + ([System.BitConverter]::ToString($bytes)).Replace('-', '').ToLowerInvariant()
+npm run keys -- generate --label ea-YYYYMMDD-01 --issued-to "requester-label" --channel email --show-secret
 ```
 
 Recommended key naming convention for manual notes:
@@ -54,6 +51,27 @@ tc_live_<date>_<short-user-label>_<random>
 ```
 
 Do not publish API keys in GitHub, README, screenshots, or frontend code.
+
+Useful local key operations:
+
+```powershell
+# List keys without printing secrets.
+npm run keys -- list
+
+# Show only currently available keys.
+npm run keys -- list --status available
+
+# Mark an available key as deployed or assigned.
+npm run keys -- use ea-YYYYMMDD-01 --issued-to "vercel-production-primary"
+
+# Print the comma-separated env value for active/used keys.
+npm run keys -- export-env
+
+# Revoke a leaked or retired key.
+npm run keys -- revoke --label ea-YYYYMMDD-01 --reason "leaked in screenshot"
+```
+
+The default ledger path is `private/early-access-api-keys.csv`, which is ignored by git. The CLI stores the raw key there for local operations, but normal list output hides secrets and shows only a fingerprint.
 
 ## Optional Provider Count API Keys
 
@@ -103,10 +121,11 @@ Then add provider keys one by one only after testing that each official path beh
 
 1. User emails `henshiaoming@gmail.com`.
 2. Ask for use case, expected volume, required models, and whether sensitive content is involved.
-3. Generate a key.
+3. Generate a key with `npm run keys -- generate --label <label> --show-secret`.
 4. Add it to `TOKEN_COUNTER_API_KEYS`.
 5. Redeploy Vercel.
-6. Reply with API docs, key, usage limit, and disclaimer.
+6. Mark it with `npm run keys -- use <label> --issued-to <requester>`.
+7. Reply with API docs, key, usage limit, and disclaimer.
 
 Example welcome email:
 

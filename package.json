@@ -32,6 +32,8 @@
     "start": "tsx server/index.ts",
     "test": "vitest run",
     "validate:catalog": "node scripts/validate-catalog.mjs",
+    "keys": "node scripts/manage-early-access-keys.mjs",
+    "ea:keys": "node scripts/manage-early-access-keys.mjs",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "check": "npm run lint && npm run format"

@@ -19,6 +19,7 @@ Do not launch Product Hunt, Hacker News, or broad Reddit promotion in the first 
 - Demo: https://tokens-counter.vercel.app
 - Early Access: https://tokens-counter.vercel.app/early-access
 - Trust Center: https://tokens-counter.vercel.app/trust
+- Case Studies: https://tokens-counter.vercel.app/case-studies
 - API Docs: https://tokens-counter.vercel.app/api-docs
 - GitHub: https://github.com/Shiaoming123/Tokens-Counter
 
@@ -177,4 +178,3 @@ Send these after a user tries the product:
 - No paid plan promise unless payment, tax, refund, and support path are reviewed.
 - Link to Trust Center whenever API keys or official counting are mentioned.
 - Do not ask for upvotes, stars, or artificial engagement.
-

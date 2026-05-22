@@ -8,6 +8,7 @@ import ModelSelector from './components/ModelSelector.vue'
 import ResultTable from './components/ResultTable.vue'
 import LicenseNotice from './components/LicenseNotice.vue'
 import ApiDocsPage from './components/ApiDocsPage.vue'
+import CaseStudiesPage from './components/CaseStudiesPage.vue'
 import EarlyAccessPage from './components/EarlyAccessPage.vue'
 import TrustCenterPage from './components/TrustCenterPage.vue'
 import { formatCost } from './core/cost/costCalculator'
@@ -115,6 +116,12 @@ function openWelcomeDialog() {
             {{ localeStore.t('nav.trust') }}
           </button>
           <button
+            :class="{ active: navigation.route === '/case-studies' }"
+            @click="navigation.navigate('/case-studies')"
+          >
+            {{ localeStore.t('nav.caseStudies') }}
+          </button>
+          <button
             :class="{ active: navigation.route === '/early-access' }"
             @click="navigation.navigate('/early-access')"
           >
@@ -154,6 +161,7 @@ function openWelcomeDialog() {
     <LicenseNotice v-if="navigation.route === '/licenses'" :licenses="licenses" />
     <ApiDocsPage v-else-if="navigation.route === '/api-docs'" />
     <TrustCenterPage v-else-if="navigation.route === '/trust'" />
+    <CaseStudiesPage v-else-if="navigation.route === '/case-studies'" @navigate="navigation.navigate" />
     <EarlyAccessPage v-else-if="navigation.route === '/early-access'" @navigate="navigation.navigate" />
 
     <div v-else class="workspace">
