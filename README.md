@@ -8,8 +8,9 @@
   <a href="https://github.com/Shiaoming123/Tokens-Counter"><img alt="Repository" src="https://img.shields.io/badge/GitHub-Tokens--Counter-111827?logo=github" /></a>
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white" />
-  <img alt="API" src="https://img.shields.io/badge/API-Hono-ff5b11" />
-  <img alt="Tests" src="https://img.shields.io/badge/tests-78%20passing-30a46c" />
+  <img alt="API" src="https://img.shields.io/badge/API-v1%20preview-ff5b11" />
+  <img alt="Models" src="https://img.shields.io/badge/catalog-177%20models-0A84FF" />
+  <img alt="Tests" src="https://img.shields.io/badge/tests-87%20passing-30a46c" />
 </p>
 
 <p align="center">
@@ -20,11 +21,42 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://tokens-counter.vercel.app"><strong>Try Web Demo</strong></a>
+  ·
+  <a href="https://tokens-counter.vercel.app/early-access"><strong>Request Early Access API Key</strong></a>
+  ·
+  <a href="#external-api"><strong>API Quickstart</strong></a>
+  ·
+  <a href="#trust-boundary"><strong>Trust Boundary</strong></a>
+</p>
+
 AI Token Counter is a model-aware token and API cost estimation workbench for teams comparing LLM prompts, multimodal inputs, PDFs, tool definitions, model pricing, and tokenizer accuracy across providers.
 
 It is built for one practical question:
 
 > "If I send this input to different AI models, how many tokens will it use, how much might it cost, and how trustworthy is the estimate?"
+
+## Early Access
+
+The hosted workbench is available now: [tokens-counter.vercel.app](https://tokens-counter.vercel.app).
+
+Hosted API keys are currently issued manually through [Early Access](https://tokens-counter.vercel.app/early-access). This is the right path if you want to:
+
+- add token and cost estimates to an internal tool,
+- compare provider and proxy pricing before shipping an AI workflow,
+- audit prompt, PDF, image, or tool-schema overhead across models,
+- test the API contract before requesting custom pricing profiles or private deployment support.
+
+Early Access keys use conservative limits while API key management, persistent quota, and billing are hardened.
+
+## Trust Boundary
+
+- Local browser estimates stay local unless you enable official provider counting.
+- Official counting can send prompts, messages, images, PDFs, or tool schemas to the selected provider API through your server-side keys.
+- Token and cost estimates are planning data, not provider invoices.
+- Closed-source models, multimodal inputs, tool calls, caching, and provider optimizations can change final billable usage.
+- Public hosted API access requires a bearer key and rate limits; do not embed long-lived keys in browser code.
 
 ## 中文简介
 
@@ -35,6 +67,8 @@ AI Token Counter，也就是这个项目里的「Token 点钞机」，用于对�
 ## Contents
 
 - [Highlights](#highlights)
+- [Early Access](#early-access)
+- [Trust Boundary](#trust-boundary)
 - [Screenshots](#screenshots)
 - [When To Use It](#when-to-use-it)
 - [Accuracy Model](#accuracy-model)
@@ -213,6 +247,9 @@ npm start
 The public API surface is versioned under `/api/v1`.
 
 ```bash
+export BASE_URL="https://tokens-counter.vercel.app"
+export TOKEN_COUNTER_API_KEY="tc_live_your_key"
+
 curl "$BASE_URL/api/v1/models" \
   -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY"
 ```
@@ -224,7 +261,6 @@ curl "$BASE_URL/api/v1/estimates" \
   -d '{
     "models": ["gpt-4o", "claude-sonnet-4.5", "gemini-2.5-flash"],
     "input": {
-      "type": "text",
       "text": "Compare the API cost of this prompt."
     },
     "options": {
@@ -233,6 +269,8 @@ curl "$BASE_URL/api/v1/estimates" \
     }
   }'
 ```
+
+Successful responses include per-result `usage`, `cost`, `accuracy`, `method`, and `trust` metadata. Missing or invalid bearer keys return `401`; rate-limited requests return `429`.
 
 Endpoints:
 

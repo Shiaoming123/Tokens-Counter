@@ -2,8 +2,27 @@
   "name": "tokens-counter",
   "private": true,
   "version": "0.0.0",
+  "description": "Model-aware token and API cost estimation workbench for modern AI models.",
+  "homepage": "https://tokens-counter.vercel.app",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shiaoming123/Tokens-Counter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shiaoming123/Tokens-Counter/issues"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "tokenizer",
+    "token-count",
+    "cost-estimation",
+    "openai",
+    "anthropic",
+    "gemini"
+  ],
   "scripts": {
     "dev": "concurrently -k -n api,web -c cyan,green \"npm run dev:api\" \"npm run dev:web\"",
     "dev:web": "vite",

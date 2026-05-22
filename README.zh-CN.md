@@ -8,8 +8,9 @@
   <a href="https://github.com/Shiaoming123/Tokens-Counter"><img alt="Repository" src="https://img.shields.io/badge/GitHub-Tokens--Counter-111827?logo=github" /></a>
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white" />
-  <img alt="API" src="https://img.shields.io/badge/API-Hono-ff5b11" />
-  <img alt="Tests" src="https://img.shields.io/badge/tests-78%20passing-30a46c" />
+  <img alt="API" src="https://img.shields.io/badge/API-v1%20preview-ff5b11" />
+  <img alt="Models" src="https://img.shields.io/badge/catalog-177%20models-0A84FF" />
+  <img alt="Tests" src="https://img.shields.io/badge/tests-87%20passing-30a46c" />
 </p>
 
 <p align="center">
@@ -20,15 +21,48 @@
   <strong>简体中文</strong>
 </p>
 
+<p align="center">
+  <a href="https://tokens-counter.vercel.app"><strong>在线体验</strong></a>
+  ·
+  <a href="https://tokens-counter.vercel.app/early-access"><strong>申请 API Key</strong></a>
+  ·
+  <a href="#外部-api"><strong>API 示例</strong></a>
+  ·
+  <a href="#可信边界"><strong>可信边界</strong></a>
+</p>
+
 AI Token Counter，也就是这个项目里的「Token 点钞机」，是一个面向多模型 Token 计算和 API 成本估算的工作台。它可以把文本、图片、PDF、工具调用、模型价格、分词器准确度和许可证提示放在同一个页面里对比。
 
 它解决的核心问题很简单：
 
 > 如果我把这段输入发给不同 AI 模型，会消耗多少 Token，大概多少钱，这个估算到底有多可信？
 
+## API 内测
+
+在线工作台已经可以使用：[tokens-counter.vercel.app](https://tokens-counter.vercel.app)。
+
+Hosted API Key 目前通过 [Early Access](https://tokens-counter.vercel.app/early-access) 人工发放。适合以下场景：
+
+- 把 Token 和成本估算接入内部工具；
+- 在 AI 工作流上线前对比供应商价格和代理价格；
+- 审查 prompt、PDF、图片或 tool schema 带来的隐藏开销；
+- 在定制价格表或私有部署前先验证 API 契约。
+
+内测阶段会采用保守额度，先把真实使用场景、key 管理、持久额度和计费策略跑清楚。
+
+## 可信边界
+
+- 默认本地估算不会上传输入内容。
+- 启用官方计数时，请求可能会通过服务端 key 发送到对应 provider API。
+- Token 和费用估算用于规划、对比和审查，不替代 provider 账单。
+- 闭源模型、多模态输入、工具调用、缓存和 provider 内部优化都可能改变最终 billable usage。
+- Hosted API 需要 bearer key 和限流；不要把长期 API key 嵌入浏览器前端。
+
 ## 目录
 
 - [功能亮点](#功能亮点)
+- [API 内测](#api-内测)
+- [可信边界](#可信边界)
 - [截图](#截图)
 - [适合场景](#适合场景)
 - [准确度模型](#准确度模型)
@@ -194,6 +228,9 @@ npm start
 外部 API 使用 `/api/v1` 作为版本前缀。
 
 ```bash
+export BASE_URL="https://tokens-counter.vercel.app"
+export TOKEN_COUNTER_API_KEY="tc_live_your_key"
+
 curl "$BASE_URL/api/v1/models" \
   -H "Authorization: Bearer $TOKEN_COUNTER_API_KEY"
 ```
@@ -205,7 +242,6 @@ curl "$BASE_URL/api/v1/estimates" \
   -d '{
     "models": ["gpt-4o", "claude-sonnet-4.5", "gemini-2.5-flash"],
     "input": {
-      "type": "text",
       "text": "Compare the API cost of this prompt."
     },
     "options": {
@@ -214,6 +250,8 @@ curl "$BASE_URL/api/v1/estimates" \
     }
   }'
 ```
+
+成功响应会包含每个模型的 `usage`、`cost`、`accuracy`、`method` 和 `trust` 元数据。缺少或错误的 bearer key 返回 `401`，触发限流会返回 `429`。
 
 端点：
 
