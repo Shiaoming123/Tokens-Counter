@@ -1410,5 +1410,71 @@
     "currency": "USD",
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
+  },
+  "claude-opus-4-8": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "cacheCreationInputPer1M": 6.25,
+    "currency": "USD",
+    "lastUpdated": "2026-05-31",
+    "source": "Anthropic official pricing"
+  },
+  "gemini-3.1-flash-lite": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 1.5,
+    "cachedInputPer1M": 0.025,
+    "currency": "USD",
+    "lastUpdated": "2026-05-31",
+    "source": "Google Gemini API official pricing"
+  },
+  "mistral-medium-3-5": {
+    "inputPer1M": 1.5,
+    "outputPer1M": 7.5,
+    "currency": "USD",
+    "lastUpdated": "2026-05-31",
+    "source": "Mistral official model card"
+  },
+  "grok-build-0.1": {
+    "inputPer1M": 1,
+    "outputPer1M": 2,
+    "currency": "USD",
+    "lastUpdated": "2026-05-31",
+    "source": "xAI official models page"
+  },
+  "command-a-plus-05-2026": {
+    "inputPer1M": 0,
+    "outputPer1M": 0,
+    "currency": "USD",
+    "lastUpdated": "2026-05-31",
+    "source": "Cohere Command A+ docs: free until rate limits; production via Model Vault"
+  },
+  "ernie-5.1": {
+    "inputPer1M": 4,
+    "outputPer1M": 18,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-31",
+    "source": "Baidu Qianfan official pricing, <=32k input tier"
+  },
+  "ernie-5.0": {
+    "inputPer1M": 6,
+    "outputPer1M": 24,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-31",
+    "source": "Baidu Qianfan official pricing, <=32k input tier"
+  },
+  "ernie-5.0-thinking-preview": {
+    "inputPer1M": 6,
+    "outputPer1M": 24,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-31",
+    "source": "Baidu Qianfan official pricing, <=32k input tier"
+  },
+  "ernie-5.0-thinking-latest": {
+    "inputPer1M": 6,
+    "outputPer1M": 24,
+    "currency": "CNY",
+    "lastUpdated": "2026-05-31",
+    "source": "Baidu Qianfan official pricing, <=32k input tier"
   }
 }

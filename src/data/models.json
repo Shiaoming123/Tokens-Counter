@@ -3347,6 +3347,36 @@
     "licenseRef": "anthropic-api"
   },
   {
+    "id": "claude-opus-4-8",
+    "displayName": "Claude Opus 4.8",
+    "provider": "anthropic",
+    "family": "Claude",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsPdf": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "cachedInputPer1M": 0.5,
+      "cacheCreationInputPer1M": 6.25,
+      "currency": "USD",
+      "lastUpdated": "2026-05-31",
+      "source": "Anthropic official pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
     "id": "claude-opus-4.5",
     "displayName": "Claude Opus 4.5",
     "provider": "anthropic",
@@ -3789,6 +3819,36 @@
     "licenseRef": "google-genai-api"
   },
   {
+    "id": "gemini-3.1-flash-lite",
+    "displayName": "Gemini 3.1 Flash-Lite",
+    "provider": "google",
+    "family": "Gemini",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1048576,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.25,
+      "outputPer1M": 1.5,
+      "cachedInputPer1M": 0.025,
+      "currency": "USD",
+      "lastUpdated": "2026-05-31",
+      "source": "Google Gemini API official pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
     "id": "gemini-3.1-pro-preview",
     "displayName": "Gemini 3.1 Pro Preview",
     "provider": "google",
@@ -4066,6 +4126,34 @@
       "currency": "USD",
       "lastUpdated": "2026-05-17",
       "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
+  },
+  {
+    "id": "mistral-medium-3-5",
+    "displayName": "Mistral Medium 3.5",
+    "provider": "mistral",
+    "family": "Mistral Medium",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 1.5,
+      "outputPer1M": 7.5,
+      "currency": "USD",
+      "lastUpdated": "2026-05-31",
+      "source": "Mistral official model card"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -4435,6 +4523,34 @@
     "licenseRef": "xai-api"
   },
   {
+    "id": "grok-build-0.1",
+    "displayName": "Grok Build 0.1",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 256000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 2,
+      "currency": "USD",
+      "lastUpdated": "2026-05-31",
+      "source": "xAI official models page"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
     "id": "grok-code-fast-1",
     "displayName": "Grok Code Fast",
     "provider": "xai",
@@ -4483,6 +4599,33 @@
       "currency": "USD",
       "lastUpdated": "2026-05-17",
       "source": "CC Switch v9 seed pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "cohere-api"
+  },
+  {
+    "id": "command-a-plus-05-2026",
+    "displayName": "Cohere Command A+",
+    "provider": "cohere",
+    "family": "Command",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0,
+      "outputPer1M": 0,
+      "currency": "USD",
+      "lastUpdated": "2026-05-31",
+      "source": "Cohere Command A+ docs: free until rate limits; production via Model Vault"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -4558,6 +4701,114 @@
     },
     "accuracy": {
       "text": "local_exact",
+      "image": "unsupported"
+    },
+    "licenseRef": "baidu-api"
+  },
+  {
+    "id": "ernie-5.1",
+    "displayName": "ERNIE 5.1",
+    "provider": "baidu",
+    "family": "ERNIE",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 4,
+      "outputPer1M": 18,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-31",
+      "source": "Baidu Qianfan official pricing, <=32k input tier"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "baidu-api"
+  },
+  {
+    "id": "ernie-5.0",
+    "displayName": "ERNIE 5.0",
+    "provider": "baidu",
+    "family": "ERNIE",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 6,
+      "outputPer1M": 24,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-31",
+      "source": "Baidu Qianfan official pricing, <=32k input tier"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "baidu-api"
+  },
+  {
+    "id": "ernie-5.0-thinking-preview",
+    "displayName": "ERNIE 5.0 Thinking Preview",
+    "provider": "baidu",
+    "family": "ERNIE",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 6,
+      "outputPer1M": 24,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-31",
+      "source": "Baidu Qianfan official pricing, <=32k input tier"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "baidu-api"
+  },
+  {
+    "id": "ernie-5.0-thinking-latest",
+    "displayName": "ERNIE 5.0 Thinking Latest",
+    "provider": "baidu",
+    "family": "ERNIE",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 128000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 6,
+      "outputPer1M": 24,
+      "currency": "CNY",
+      "lastUpdated": "2026-05-31",
+      "source": "Baidu Qianfan official pricing, <=32k input tier"
+    },
+    "accuracy": {
+      "text": "local_estimate",
       "image": "unsupported"
     },
     "licenseRef": "baidu-api"
