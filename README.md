@@ -9,7 +9,7 @@
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white" />
   <img alt="API" src="https://img.shields.io/badge/API-v1%20preview-ff5b11" />
-  <img alt="Models" src="https://img.shields.io/badge/catalog-177%20models-0A84FF" />
+  <img alt="Models" src="https://img.shields.io/badge/catalog-198%20models-0A84FF" />
   <img alt="Tests" src="https://img.shields.io/badge/tests-87%20passing-30a46c" />
   <a href="https://github.com/Shiaoming123/Tokens-Counter/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shiaoming123/Tokens-Counter/actions/workflows/ci.yml/badge.svg" /></a>
 </p>
@@ -93,7 +93,7 @@ AI Token Counter，也就是这个项目里的「Token 点钞机」，用于对�
 
 ## Highlights
 
-- **177 model catalog entries** across OpenAI, Anthropic, Google, DeepSeek, Qwen, GLM/Z.AI, Mistral, Meta Llama, xAI, Cohere, Baidu ERNIE, Doubao, Moonshot/Kimi, StepFun, MiniMax, and Xiaomi MiMo.
+- **198 model catalog entries** across OpenAI, Anthropic, Google, DeepSeek, Qwen, GLM/Z.AI, Mistral, Meta Llama, xAI, Cohere, Baidu ERNIE, Doubao, Moonshot/Kimi, StepFun, MiniMax, and Xiaomi MiMo.
 - **Text, image, PDF, and tool-call inputs** in one workspace.
 - **Accuracy labels for every result**: official exact, official estimate, local exact, local estimate, or unsupported.
 - **Provider-aware image handling**: when images are uploaded, models without vision capability are disabled in the selector.
@@ -146,21 +146,21 @@ See [Tokenizer Mapping And License Audit](./docs/tokenizer-research-2026-05-17.m
 | Provider | Model entries | Counting approach |
 | --- | ---: | --- |
 | OpenAI | 60 | `js-tiktoken`, official count API fallback, image formulas |
-| Anthropic Claude | 23 | official `count_tokens` API |
-| Google Gemini | 9 | official `countTokens` API plus local image fallback |
+| Anthropic Claude | 24 | official `count_tokens` API |
+| Google Gemini | 11 | official `countTokens` API plus local image fallback |
 | DeepSeek | 9 | mapped Hugging Face tokenizer assets where available |
-| Alibaba Qwen | 14 | mapped Qwen tokenizer assets for open models; hosted aliases marked conservatively |
-| Z.AI / GLM | 9 | official tokenizer API path |
-| Xiaomi MiMo | 5 | mapped open checkpoint tokenizer where available |
-| Mistral | 10 | local estimate until `mistral-common` integration |
+| Alibaba Qwen | 19 | mapped Qwen tokenizer assets for open models; hosted aliases marked conservatively |
+| Z.AI / GLM | 10 | official tokenizer API path |
+| Xiaomi MiMo | 6 | mapped open checkpoint tokenizer where available |
+| Mistral | 11 | local estimate until `mistral-common` integration |
 | Meta Llama | 4 | local estimate with model-license warnings |
-| xAI Grok | 9 | local estimate until official tokenize API integration |
-| Cohere | 3 | local estimate until official tokenize API integration |
-| Baidu ERNIE | 1 | mapped ERNIE tokenizer asset |
+| xAI Grok | 10 | local estimate until official tokenize API integration |
+| Cohere | 4 | official tokenize API for supported models; local fallback elsewhere |
+| Baidu ERNIE | 5 | mapped ERNIE tokenizer asset |
 | ByteDance / Doubao | 6 | local estimate until official calculator integration |
-| Moonshot / Kimi | 7 | local estimate until official estimate API integration |
-| StepFun | 1 | local estimate until official token-count API integration |
-| MiniMax | 7 | local estimate |
+| Moonshot / Kimi | 9 | local estimate until official estimate API integration |
+| StepFun | 2 | official token-count API for supported models |
+| MiniMax | 8 | local estimate; official image count where required |
 
 ## Tech Stack
 
@@ -357,7 +357,7 @@ The registry test fails if a `local_exact` Hugging Face-style tokenizer does not
 
 ## Roadmap
 
-- Integrate official count APIs for Cohere, xAI, Moonshot/Kimi, StepFun, and Volcano Ark.
+- Expand official count APIs for xAI, Moonshot/Kimi, Volcano Ark, and provider-specific multimodal payloads.
 - Replace generic Mistral fallback with `mistral-common`.
 - Add chat-template-aware counting for structured messages and tools.
 - Add account/API-key management, real rate limits, and usage analytics.

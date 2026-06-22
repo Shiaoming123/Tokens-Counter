@@ -9,7 +9,7 @@
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white" />
   <img alt="API" src="https://img.shields.io/badge/API-v1%20preview-ff5b11" />
-  <img alt="Models" src="https://img.shields.io/badge/catalog-177%20models-0A84FF" />
+  <img alt="Models" src="https://img.shields.io/badge/catalog-198%20models-0A84FF" />
   <img alt="Tests" src="https://img.shields.io/badge/tests-87%20passing-30a46c" />
 </p>
 
@@ -80,7 +80,7 @@ Hosted API Key 目前通过 [Early Access](https://tokens-counter.vercel.app/ear
 
 ## 功能亮点
 
-- **177 个模型目录条目**，覆盖 OpenAI、Anthropic、Google、DeepSeek、Qwen、GLM/Z.AI、Mistral、Meta Llama、xAI、Cohere、Baidu ERNIE、Doubao、Moonshot/Kimi、StepFun、MiniMax 和 Xiaomi MiMo。
+- **198 个模型目录条目**，覆盖 OpenAI、Anthropic、Google、DeepSeek、Qwen、GLM/Z.AI、Mistral、Meta Llama、xAI、Cohere、Baidu ERNIE、Doubao、Moonshot/Kimi、StepFun、MiniMax 和 Xiaomi MiMo。
 - **文本、图片、PDF、工具调用** 都可以放进同一个工作台估算。
 - **每条结果都显示准确度**：官方精确、官方估算、本地精确、本地估算或不支持。
 - **按模型能力处理图片输入**：上传图片后，左侧不支持视觉输入的模型会自动置灰，无法选择。
@@ -131,21 +131,21 @@ Token 计算不是一个统一问题。项目里明确区分以下几类：
 | 厂商 | 模型条目 | 当前计数方式 |
 | --- | ---: | --- |
 | OpenAI | 60 | `js-tiktoken`、官方计数 API fallback、图片公式 |
-| Anthropic Claude | 23 | 官方 `count_tokens` API |
-| Google Gemini | 9 | 官方 `countTokens` API 和本地图片 fallback |
+| Anthropic Claude | 24 | 官方 `count_tokens` API |
+| Google Gemini | 11 | 官方 `countTokens` API 和本地图片 fallback |
 | DeepSeek | 9 | 可用时映射 Hugging Face tokenizer 资源 |
-| Alibaba Qwen | 14 | 开源模型映射 Qwen tokenizer；托管别名保守标注 |
-| Z.AI / GLM | 9 | 官方 tokenizer API |
-| Xiaomi MiMo | 5 | 可用时映射开源 checkpoint tokenizer |
-| Mistral | 10 | 接入 `mistral-common` 前先标为本地估算 |
+| Alibaba Qwen | 19 | 开源模型映射 Qwen tokenizer；托管别名保守标注 |
+| Z.AI / GLM | 10 | 官方 tokenizer API |
+| Xiaomi MiMo | 6 | 可用时映射开源 checkpoint tokenizer |
+| Mistral | 11 | 接入 `mistral-common` 前先标为本地估算 |
 | Meta Llama | 4 | 本地估算，并提示模型许可证风险 |
-| xAI Grok | 9 | 接入官方 tokenize API 前先本地估算 |
-| Cohere | 3 | 接入官方 tokenize API 前先本地估算 |
-| Baidu ERNIE | 1 | 映射 ERNIE tokenizer 资源 |
+| xAI Grok | 10 | 接入官方 tokenize API 前先本地估算 |
+| Cohere | 4 | 接入官方 tokenize API 前先本地估算 |
+| Baidu ERNIE | 5 | 映射 ERNIE tokenizer 资源 |
 | ByteDance / Doubao | 6 | 接入官方 calculator 前先本地估算 |
-| Moonshot / Kimi | 7 | 接入官方 estimate API 前先本地估算 |
-| StepFun | 1 | 接入官方 token-count API 前先本地估算 |
-| MiniMax | 7 | 本地估算 |
+| Moonshot / Kimi | 9 | 接入官方 estimate API 前先本地估算 |
+| StepFun | 2 | 支持模型使用官方 token-count API |
+| MiniMax | 8 | 本地估算；必要时使用官方图片计数 |
 
 ## 快速开始
 
@@ -331,7 +331,7 @@ registry 测试会阻止没有明确 tokenizer repo 映射的 `local_exact` 声�
 
 ## 路线图
 
-- 接入 Cohere、xAI、Moonshot/Kimi、StepFun、Volcano Ark 的官方计数 API。
+- 扩展 xAI、Moonshot/Kimi、Volcano Ark 以及多模态 payload 的官方计数 API。
 - 用 `mistral-common` 替换 Mistral 的通用 fallback。
 - 为结构化 messages 和 tools 添加 chat-template-aware 计数。
 - 添加账号/API key 管理、真实限流和 usage analytics。

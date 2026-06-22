@@ -10,7 +10,7 @@ describe('model registry', () => {
     expect(model?.displayName).toBe('GPT-5.5')
     expect(model?.provider).toBe('openai')
     expect(model?.supportsImage).toBe(true)
-    expect(model?.contextWindow).toBe(1_050_000)
+    expect(model?.contextWindow).toBe(1_000_000)
     expect(pricing).toMatchObject({
       inputPer1M: 5,
       cachedInputPer1M: 0.5,

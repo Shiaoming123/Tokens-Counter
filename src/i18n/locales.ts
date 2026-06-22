@@ -66,6 +66,13 @@ export const translations: Record<string, { en: string; zh: string }> = {
   'settings.costMultiplier': { en: 'Cost Multiplier', zh: '费用倍数' },
   'settings.costMultiplierHelp': { en: 'Scale factor applied to final cost', zh: '应用于最终费用的缩放因子' },
   'settings.moreSettings': { en: 'More settings', zh: '更多设置' },
+  'settings.apiKeysTitle': { en: 'Search API key', zh: '搜索 API Key' },
+  'settings.tavilyApiHelp': {
+    en: 'Tavily is configured server-side through .env. The browser only shows whether the key exists.',
+    zh: 'Tavily 通过服务端 .env 配置。浏览器这里只显示 key 是否存在，不展示真实密钥。',
+  },
+  'settings.configured': { en: 'Configured', zh: '已配置' },
+  'settings.notConfigured': { en: 'Not set', zh: '未配置' },
   'pricing.profile': { en: 'Pricing Rule', zh: '计费规则' },
   'pricing.official': { en: 'Official / catalog', zh: '官方 / 目录价' },
   'pricing.ccswitch': { en: 'CC Switch preset', zh: 'CC Switch 预设价' },

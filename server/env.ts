@@ -11,6 +11,7 @@ interface EnvConfig {
   readonly MOONSHOT_API_KEY?: string
   readonly STEPFUN_API_KEY?: string
   readonly XAI_API_KEY?: string
+  readonly TAVILY_API_KEY?: string
   readonly TOKEN_COUNTER_API_KEY?: string
   readonly TOKEN_COUNTER_API_KEYS?: string
   readonly TOKEN_COUNTER_RATE_LIMIT_MAX: number
@@ -36,6 +37,7 @@ function validateEnv(): EnvConfig {
     'MOONSHOT_API_KEY',
     'STEPFUN_API_KEY',
     'XAI_API_KEY',
+    'TAVILY_API_KEY',
   ] as const
   for (const key of optionalKeys) {
     if (!process.env[key]) {
@@ -54,6 +56,7 @@ function validateEnv(): EnvConfig {
     MOONSHOT_API_KEY: process.env.MOONSHOT_API_KEY,
     STEPFUN_API_KEY: process.env.STEPFUN_API_KEY,
     XAI_API_KEY: process.env.XAI_API_KEY,
+    TAVILY_API_KEY: process.env.TAVILY_API_KEY,
     TOKEN_COUNTER_API_KEY: process.env.TOKEN_COUNTER_API_KEY,
     TOKEN_COUNTER_API_KEYS: process.env.TOKEN_COUNTER_API_KEYS,
     TOKEN_COUNTER_RATE_LIMIT_MAX: Number(process.env.TOKEN_COUNTER_RATE_LIMIT_MAX ?? 120),

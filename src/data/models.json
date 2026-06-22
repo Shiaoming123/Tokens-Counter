@@ -1533,7 +1533,7 @@
     "family": "GPT-5.5",
     "supportsText": true,
     "supportsImage": true,
-    "contextWindow": 1050000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "vision_formula",
     "tokenizer": {
@@ -1554,7 +1554,9 @@
       "inputPer1M": 5,
       "outputPer1M": 30,
       "cachedInputPer1M": 0.5,
-      "currency": "USD"
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "OpenAI API pricing, standard rates for context lengths under 270K"
     },
     "accuracy": {
       "text": "local_exact",
@@ -1880,19 +1882,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "deepseek"
     },
     "pricing": {
-      "inputPer1M": 0.27,
-      "outputPer1M": 1.1,
-      "cachedInputPer1M": 0.07,
+      "inputPer1M": 0.14,
+      "outputPer1M": 0.28,
+      "cachedInputPer1M": 0.0028,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-06-22",
+      "source": "DeepSeek official pricing; compatibility alias maps to deepseek-v4-flash until 2026-07-24 retirement"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -1933,19 +1935,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "deepseek"
     },
     "pricing": {
-      "inputPer1M": 0.55,
-      "outputPer1M": 2.19,
-      "cachedInputPer1M": 0.14,
+      "inputPer1M": 0.14,
+      "outputPer1M": 0.28,
+      "cachedInputPer1M": 0.0028,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-06-22",
+      "source": "DeepSeek official pricing; compatibility alias maps to deepseek-v4-flash until 2026-07-24 retirement"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -2079,7 +2081,9 @@
       "inputPer1M": 0.14,
       "outputPer1M": 0.28,
       "cachedInputPer1M": 0.0028,
-      "currency": "USD"
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "DeepSeek official pricing"
     },
     "accuracy": {
       "text": "local_exact",
@@ -2104,7 +2108,9 @@
       "inputPer1M": 0.435,
       "outputPer1M": 0.87,
       "cachedInputPer1M": 0.003625,
-      "currency": "USD"
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "DeepSeek official pricing"
     },
     "accuracy": {
       "text": "local_exact",
@@ -2437,6 +2443,96 @@
     "licenseRef": "qwen-tokenizer"
   },
   {
+    "id": "qwen3.7-max-2026-06-08",
+    "displayName": "Qwen3.7 Max 2026-06-08",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 12,
+      "outputPer1M": 36,
+      "cachedInputPer1M": 1.2,
+      "currency": "CNY",
+      "lastUpdated": "2026-06-22",
+      "source": "Alibaba Cloud Model Studio pricing; 2026-06-08 snapshot adds vision modality"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "local_estimate"
+    },
+    "licenseRef": "qwen-tokenizer",
+    "vision": {
+      "type": "qwen_vl_tile",
+      "baseTokens": 4096,
+      "patchBudget": 16777216
+    }
+  },
+  {
+    "id": "qwen3.7-plus",
+    "displayName": "Qwen3.7 Plus",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 8,
+      "currency": "CNY",
+      "lastUpdated": "2026-06-22",
+      "source": "Alibaba Cloud Model Studio tiered pricing; stores 0-256K tier, 256K-1M tier is CNY 6 input / 24 output per 1M"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "qwen3.7-plus-2026-05-26",
+    "displayName": "Qwen3.7 Plus 2026-05-26",
+    "provider": "alibaba",
+    "family": "Qwen",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 8,
+      "currency": "CNY",
+      "lastUpdated": "2026-06-22",
+      "source": "Alibaba Cloud Model Studio tiered pricing; stores 0-256K tier, 256K-1M tier is CNY 6 input / 24 output per 1M"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
     "id": "qwen3.5-plus",
     "displayName": "Qwen3.5 Plus",
     "provider": "alibaba",
@@ -2704,19 +2800,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 200000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "glm"
     },
     "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 8,
-      "cachedInputPer1M": 0.4,
-      "currency": "CNY",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch preset pricing"
+      "inputPer1M": 0.6,
+      "outputPer1M": 2.2,
+      "cachedInputPer1M": 0.11,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Z.AI official pricing"
     },
     "accuracy": {
       "text": "official_estimate",
@@ -2732,18 +2828,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 200000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "glm"
     },
     "pricing": {
-      "inputPer1M": 0.72,
-      "outputPer1M": 2.3,
+      "inputPer1M": 1,
+      "outputPer1M": 3.2,
+      "cachedInputPer1M": 0.2,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-06-22",
+      "source": "Z.AI official pricing"
     },
     "accuracy": {
       "text": "official_estimate",
@@ -2759,18 +2856,47 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 200000,
     "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "glm"
     },
     "pricing": {
-      "inputPer1M": 0.95,
-      "outputPer1M": 3.15,
+      "inputPer1M": 1.4,
+      "outputPer1M": 4.4,
+      "cachedInputPer1M": 0.26,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-06-22",
+      "source": "Z.AI official pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "zai-tokenizer-api"
+  },
+  {
+    "id": "glm-5.2",
+    "displayName": "GLM-5.2",
+    "provider": "zhipu",
+    "family": "GLM",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "glm"
+    },
+    "pricing": {
+      "inputPer1M": 1.4,
+      "outputPer1M": 4.4,
+      "cachedInputPer1M": 0.26,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Z.AI official pricing"
     },
     "accuracy": {
       "text": "official_estimate",
@@ -2817,11 +2943,12 @@
       "type": "mimo"
     },
     "pricing": {
-      "inputPer1M": 0,
-      "outputPer1M": 0,
-      "currency": "CNY",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch preset pricing"
+      "inputPer1M": 0.09,
+      "outputPer1M": 0.29,
+      "cachedInputPer1M": 0.009,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Xiaomi MiMo V2 Flash compatibility pricing; V2 Flash was auto-forwarded on 2026-06-18 and V2 family retires 2026-06-30"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -2863,22 +2990,26 @@
     "family": "MiMo",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "mimo"
     },
     "pricing": {
-      "inputPer1M": 1,
-      "outputPer1M": 1,
-      "currency": "CREDITS"
+      "inputPer1M": 0.14,
+      "outputPer1M": 0.28,
+      "cachedInputPer1M": 0.0028,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Xiaomi MiMo V2.5 official pricing update"
     },
     "accuracy": {
       "text": "local_estimate",
       "image": "unsupported"
     },
-    "licenseRef": "xiaomi-mimo"
+    "licenseRef": "xiaomi-mimo",
+    "supportsTools": true
   },
   {
     "id": "mimo-v2.5-pro",
@@ -2887,22 +3018,54 @@
     "family": "MiMo",
     "supportsText": true,
     "supportsImage": false,
-    "contextWindow": 64000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "mimo"
     },
     "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 2,
-      "currency": "CREDITS"
+      "inputPer1M": 0.435,
+      "outputPer1M": 0.87,
+      "cachedInputPer1M": 0.0036,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Xiaomi MiMo V2.5 official pricing update"
     },
     "accuracy": {
       "text": "local_estimate",
       "image": "unsupported"
     },
-    "licenseRef": "xiaomi-mimo"
+    "licenseRef": "xiaomi-mimo",
+    "supportsTools": true
+  },
+  {
+    "id": "mimo-v2.5-pro-ultraspeed",
+    "displayName": "Xiaomi MiMo-V2.5-Pro-UltraSpeed",
+    "provider": "xiaomi",
+    "family": "MiMo",
+    "supportsText": true,
+    "supportsImage": false,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mimo"
+    },
+    "pricing": {
+      "inputPer1M": 1.305,
+      "outputPer1M": 2.61,
+      "cachedInputPer1M": 0.0108,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Xiaomi MiMo V2.5 Pro UltraSpeed early-access official pricing update"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xiaomi-mimo",
+    "supportsTools": true
   },
   {
     "id": "claude-3-5-haiku",
@@ -4514,7 +4677,10 @@
     "pricing": {
       "inputPer1M": 1.25,
       "outputPer1M": 2.5,
-      "currency": "USD"
+      "cachedInputPer1M": 0.2,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "xAI official models and pricing page"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -4615,11 +4781,8 @@
     "supportsImage": false,
     "supportsTools": true,
     "contextWindow": 128000,
-    "textCountMethod": "local_tokenizer",
+    "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": {
-      "type": "approx"
-    },
     "pricing": {
       "inputPer1M": 0,
       "outputPer1M": 0,
@@ -4628,7 +4791,7 @@
       "source": "Cohere Command A+ docs: free until rate limits; production via Model Vault"
     },
     "accuracy": {
-      "text": "local_estimate",
+      "text": "official_estimate",
       "image": "unsupported"
     },
     "licenseRef": "cohere-api"
@@ -5143,6 +5306,62 @@
     "licenseRef": "moonshot-api"
   },
   {
+    "id": "kimi-k2.7-code",
+    "displayName": "Kimi K2.7 Code",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 262144,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.95,
+      "outputPer1M": 4,
+      "cachedInputPer1M": 0.19,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Moonshot Kimi K2.7 Code official pricing; thinking always on"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
+    "id": "kimi-k2.7-code-highspeed",
+    "displayName": "Kimi K2.7 Code Highspeed",
+    "provider": "moonshot",
+    "family": "Kimi",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "contextWindow": 262144,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 0.95,
+      "outputPer1M": 4,
+      "cachedInputPer1M": 0.19,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "Moonshot Kimi K2.7 Code Highspeed official pricing; same token rates as K2.7 Code when no separate rate is listed"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "moonshot-api"
+  },
+  {
     "id": "moonshot-v1-128k",
     "displayName": "Moonshot v1 128K",
     "provider": "moonshot",
@@ -5175,24 +5394,49 @@
     "supportsImage": false,
     "supportsTools": true,
     "contextWindow": 128000,
-    "textCountMethod": "local_tokenizer",
+    "textCountMethod": "official_count_api",
     "imageCountMethod": "unsupported",
-    "tokenizer": {
-      "type": "approx"
-    },
     "pricing": {
-      "inputPer1M": 0.1,
-      "outputPer1M": 0.3,
-      "cachedInputPer1M": 0.02,
-      "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch preset pricing"
+      "inputPer1M": 0.7,
+      "outputPer1M": 2.1,
+      "cachedInputPer1M": 0.14,
+      "currency": "CNY",
+      "lastUpdated": "2026-06-22",
+      "source": "StepFun official pricing"
     },
     "accuracy": {
-      "text": "local_estimate",
+      "text": "official_estimate",
       "image": "unsupported"
     },
     "licenseRef": "stepfun-api"
+  },
+  {
+    "id": "step-3.7-flash",
+    "displayName": "Step 3.7 Flash",
+    "provider": "stepfun",
+    "family": "Step",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 256000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "pricing": {
+      "inputPer1M": 1.35,
+      "outputPer1M": 8.1,
+      "cachedInputPer1M": 0.27,
+      "currency": "CNY",
+      "lastUpdated": "2026-06-22",
+      "source": "StepFun official pricing"
+    },
+    "accuracy": {
+      "text": "official_estimate",
+      "image": "official_estimate"
+    },
+    "licenseRef": "stepfun-api",
+    "vision": {
+      "type": "official_only"
+    }
   },
   {
     "id": "minimax-m2",
@@ -5230,7 +5474,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 200000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5258,7 +5502,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 200000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5286,7 +5530,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5314,7 +5558,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5342,7 +5586,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5371,7 +5615,7 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 204800,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
@@ -5389,6 +5633,37 @@
     "accuracy": {
       "text": "local_estimate",
       "image": "unsupported"
+    },
+    "licenseRef": "minimax-api"
+  },
+  {
+    "id": "minimax-m3",
+    "displayName": "MiniMax M3",
+    "provider": "minimax",
+    "family": "MiniMax",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "official_count_api",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "vision": {
+      "type": "official_only"
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 1.2,
+      "cachedInputPer1M": 0.06,
+      "currency": "USD",
+      "lastUpdated": "2026-06-22",
+      "source": "MiniMax official pay-as-you-go pricing; stores discounted standard <=512K tier, >512K tier is USD 0.60 input / 2.40 output / 0.12 cache read per 1M"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "official_estimate"
     },
     "licenseRef": "minimax-api"
   }

@@ -42,3 +42,19 @@ This audit separates token counting into three accuracy tiers:
 - Replace generic Mistral Hugging Face parsing with `mistral-common` for message/tool/image-accurate counts.
 - Add chat template application for Qwen, DeepSeek V3.2, ERNIE, and other open models when counting structured messages/tools.
 - Add a provider-facing accuracy matrix in the UI so users can see why a result is exact, official estimate, or local estimate.
+
+## 2026-06-22 Official Source Refresh
+
+This refresh updates the active catalog with provider-confirmed model and pricing changes that fit the current flat schema.
+
+- OpenAI `gpt-5.5` context is recorded as 1M tokens, with official pricing for standard processing under 270K context. The server still falls back to usage from a minimal Chat Completions request when official counting is enabled; integrating the newer input-token counting endpoint remains a follow-up.
+- DeepSeek V4 Flash/Pro now use official cache-hit, cache-miss input, and output rates. `deepseek-chat` and `deepseek-reasoner` are retained as compatibility aliases that route to V4 Flash until the official 2026-07-24 retirement date.
+- Alibaba Model Studio adds `qwen3.7-max-2026-06-08`, `qwen3.7-plus`, and `qwen3.7-plus-2026-05-26`. `qwen3.7-plus` has tiered pricing; the current flat catalog stores the 0-256K tier and notes the 256K-1M tier in the pricing source.
+- Z.AI adds `glm-5.2`; GLM-4.7/5/5.1 pricing is updated to the official Z.AI table. GLM official token counting remains through `/api/paas/v4/tokenizer`.
+- Moonshot adds `kimi-k2.7-code` and `kimi-k2.7-code-highspeed`, using the official K2.7 Code token rates and local fallback counting until the estimate API is configured.
+- StepFun `step-3.5-flash` is upgraded to official-count capable, and `step-3.7-flash` is added with official CNY pricing.
+- Xiaomi MiMo V2.5 and V2.5 Pro now use the official 1M context and USD cache-hit/cache-miss/output rates. V2 Flash is retained with a source note about the 2026-06-18 auto-forward and 2026-06-30 V2-family retirement.
+- MiniMax M2.1/M2.5/M2.7 context windows are updated to 204,800 tokens, and `minimax-m3` is added as a 1M-context multimodal model. M3 has input-length pricing tiers; the current flat catalog stores the discounted standard <=512K tier and records the >512K tier in `pricing.source`. Image token counting is marked official-only because no standalone MiniMax image token formula is integrated.
+- Cohere Command A+ is marked official-count capable for text via Cohere's tokenizer API, while local fallback remains approximate.
+
+Current schema gaps: model deprecation, aliases, max output tokens, regional pricing, processing tiers, and input-length pricing tiers are not first-class fields. Until the schema grows, these rules are documented in `pricing.source` and should not be treated as automatically computed behavior.

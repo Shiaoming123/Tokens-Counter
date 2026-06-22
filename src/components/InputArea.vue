@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Calculator, FileText, ImagePlus, RefreshCw, Settings, Trash2, Upload, Wrench } from 'lucide-vue-next'
 import {
   ElAlert,
@@ -24,6 +24,23 @@ import type { CountOptions, Message, ImageMetadata, DocumentMetadata, ToolDefini
 
 const localeStore = useLocaleStore()
 const currencyStore = useCurrencyStore()
+
+interface ProviderConfigStatus {
+  providers?: Record<string, { configured: boolean; env: string }>
+}
+
+const providerConfig = ref<ProviderConfigStatus | null>(null)
+
+onMounted(async () => {
+  try {
+    const response = await fetch('/api/config/providers')
+    if (response.ok) {
+      providerConfig.value = (await response.json()) as ProviderConfigStatus
+    }
+  } catch {
+    providerConfig.value = null
+  }
+})
 
 // ── Active tab state ──────────────────────────────────────────────
 const activeTab = ref('text')
@@ -440,6 +457,25 @@ function formatBytes(bytes: number) {
                 @update:model-value="updateOption('cacheCreationTokens', $event ?? 0)"
               />
             </label>
+            <div class="api-key-config">
+              <div class="api-key-config-head">
+                <span>{{ localeStore.t('settings.apiKeysTitle') }}</span>
+                <strong
+                  :class="{
+                    configured: providerConfig?.providers?.tavily?.configured,
+                    missing: providerConfig && !providerConfig.providers?.tavily?.configured,
+                  }"
+                >
+                  {{
+                    providerConfig?.providers?.tavily?.configured
+                      ? localeStore.t('settings.configured')
+                      : localeStore.t('settings.notConfigured')
+                  }}
+                </strong>
+              </div>
+              <p>{{ localeStore.t('settings.tavilyApiHelp') }}</p>
+              <code>TAVILY_API_KEY</code>
+            </div>
           </div>
         </ElPopover>
       </div>
@@ -912,6 +948,64 @@ function formatBytes(bytes: number) {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.4;
+}
+
+.api-key-config {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-elevated);
+}
+
+.api-key-config-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.api-key-config-head span {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.api-key-config-head strong {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  background: color-mix(in srgb, var(--muted), transparent 86%);
+  color: var(--muted);
+}
+
+.api-key-config-head strong.configured {
+  background: color-mix(in srgb, #22c55e, transparent 84%);
+  color: #16a34a;
+}
+
+.api-key-config-head strong.missing {
+  background: color-mix(in srgb, #f59e0b, transparent 84%);
+  color: #d97706;
+}
+
+.api-key-config p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.api-key-config code {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 7px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: 11px;
 }
 
 /* ── Tab label icon+text ────────────────────────────────────────── */

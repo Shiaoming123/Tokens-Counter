@@ -27,24 +27,24 @@
     "outputPer1M": 30,
     "cachedInputPer1M": 0.5,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "OpenAI API pricing, standard rates for context lengths under 270K"
   },
   "deepseek-v4-flash": {
     "inputPer1M": 0.14,
     "outputPer1M": 0.28,
-    "cachedInputPer1M": 0.028,
+    "cachedInputPer1M": 0.0028,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "DeepSeek official pricing"
   },
   "deepseek-v4-pro": {
-    "inputPer1M": 1.68,
-    "outputPer1M": 3.36,
-    "cachedInputPer1M": 0.14,
+    "inputPer1M": 0.435,
+    "outputPer1M": 0.87,
+    "cachedInputPer1M": 0.003625,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "DeepSeek official pricing"
   },
   "qwen-plus": {
     "inputPer1M": 0.8,
@@ -108,18 +108,20 @@
     "source": "Z.AI official pricing"
   },
   "mimo-v2.5-pro": {
-    "inputPer1M": 2,
-    "outputPer1M": 2,
-    "currency": "CREDITS",
-    "lastUpdated": "2026-05-15",
-    "source": "Xiaomi MiMo token plan, credits per token estimate"
+    "inputPer1M": 0.435,
+    "outputPer1M": 0.87,
+    "cachedInputPer1M": 0.0036,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Xiaomi MiMo V2.5 official pricing update"
   },
   "mimo-v2.5": {
-    "inputPer1M": 1,
-    "outputPer1M": 1,
-    "currency": "CREDITS",
-    "lastUpdated": "2026-05-15",
-    "source": "Xiaomi MiMo token plan, credits per token estimate"
+    "inputPer1M": 0.14,
+    "outputPer1M": 0.28,
+    "cachedInputPer1M": 0.0028,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Xiaomi MiMo V2.5 official pricing update"
   },
   "mimo-7b-rl": {
     "inputPer1M": 0,
@@ -439,9 +441,10 @@
   "grok-4.3": {
     "inputPer1M": 1.25,
     "outputPer1M": 2.5,
+    "cachedInputPer1M": 0.2,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "xAI official pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "xAI official models and pricing page"
   },
   "claude-opus-4-5": {
     "inputPer1M": 5,
@@ -547,12 +550,12 @@
     "source": "CC Switch v9 seed pricing"
   },
   "step-3.5-flash": {
-    "inputPer1M": 0.1,
-    "outputPer1M": 0.3,
-    "cachedInputPer1M": 0.02,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "inputPer1M": 0.7,
+    "outputPer1M": 2.1,
+    "cachedInputPer1M": 0.14,
+    "currency": "CNY",
+    "lastUpdated": "2026-06-22",
+    "source": "StepFun official pricing"
   },
   "kimi-k2-thinking": {
     "inputPer1M": 0.55,
@@ -595,12 +598,12 @@
     "source": "CC Switch v9 seed pricing"
   },
   "glm-4.7": {
-    "inputPer1M": 0.39,
-    "outputPer1M": 1.75,
-    "cachedInputPer1M": 0.04,
+    "inputPer1M": 0.6,
+    "outputPer1M": 2.2,
+    "cachedInputPer1M": 0.11,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "Z.AI official pricing"
   },
   "doubao-seed-code": {
     "inputPer1M": 0.17,
@@ -615,8 +618,8 @@
     "outputPer1M": 0.29,
     "cachedInputPer1M": 0.009,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "Xiaomi MiMo V2 Flash compatibility pricing; V2 Flash was auto-forwarded on 2026-06-18 and V2 family retires 2026-06-30"
   },
   "claude-opus-4-6-20260206": {
     "inputPer1M": 5,
@@ -1073,20 +1076,20 @@
     "source": "CC Switch v9 seed pricing"
   },
   "deepseek-chat": {
-    "inputPer1M": 0.27,
-    "outputPer1M": 1.1,
-    "cachedInputPer1M": 0.07,
+    "inputPer1M": 0.14,
+    "outputPer1M": 0.28,
+    "cachedInputPer1M": 0.0028,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "DeepSeek official pricing; compatibility alias maps to deepseek-v4-flash until 2026-07-24 retirement"
   },
   "deepseek-reasoner": {
-    "inputPer1M": 0.55,
-    "outputPer1M": 2.19,
-    "cachedInputPer1M": 0.14,
+    "inputPer1M": 0.14,
+    "outputPer1M": 0.28,
+    "cachedInputPer1M": 0.0028,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "DeepSeek official pricing; compatibility alias maps to deepseek-v4-flash until 2026-07-24 retirement"
   },
   "kimi-k2-0905": {
     "inputPer1M": 0.55,
@@ -1163,18 +1166,20 @@
     "source": "CC Switch v9 seed pricing"
   },
   "glm-5": {
-    "inputPer1M": 0.72,
-    "outputPer1M": 2.3,
+    "inputPer1M": 1,
+    "outputPer1M": 3.2,
+    "cachedInputPer1M": 0.2,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "Z.AI official pricing"
   },
   "glm-5.1": {
-    "inputPer1M": 0.95,
-    "outputPer1M": 3.15,
+    "inputPer1M": 1.4,
+    "outputPer1M": 4.4,
+    "cachedInputPer1M": 0.26,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-06-22",
+    "source": "Z.AI official pricing"
   },
   "mimo-v2-pro": {
     "inputPer1M": 1,
@@ -1476,5 +1481,75 @@
     "currency": "CNY",
     "lastUpdated": "2026-05-31",
     "source": "Baidu Qianfan official pricing, <=32k input tier"
+  },
+  "qwen3.7-max-2026-06-08": {
+    "inputPer1M": 12,
+    "outputPer1M": 36,
+    "cachedInputPer1M": 1.2,
+    "currency": "CNY",
+    "lastUpdated": "2026-06-22",
+    "source": "Alibaba Cloud Model Studio pricing; 2026-06-08 snapshot adds vision modality"
+  },
+  "qwen3.7-plus": {
+    "inputPer1M": 2,
+    "outputPer1M": 8,
+    "currency": "CNY",
+    "lastUpdated": "2026-06-22",
+    "source": "Alibaba Cloud Model Studio tiered pricing; stores 0-256K tier, 256K-1M tier is CNY 6 input / 24 output per 1M"
+  },
+  "qwen3.7-plus-2026-05-26": {
+    "inputPer1M": 2,
+    "outputPer1M": 8,
+    "currency": "CNY",
+    "lastUpdated": "2026-06-22",
+    "source": "Alibaba Cloud Model Studio tiered pricing; stores 0-256K tier, 256K-1M tier is CNY 6 input / 24 output per 1M"
+  },
+  "glm-5.2": {
+    "inputPer1M": 1.4,
+    "outputPer1M": 4.4,
+    "cachedInputPer1M": 0.26,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Z.AI official pricing"
+  },
+  "kimi-k2.7-code": {
+    "inputPer1M": 0.95,
+    "outputPer1M": 4,
+    "cachedInputPer1M": 0.19,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Moonshot Kimi K2.7 Code official pricing; thinking always on"
+  },
+  "kimi-k2.7-code-highspeed": {
+    "inputPer1M": 0.95,
+    "outputPer1M": 4,
+    "cachedInputPer1M": 0.19,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Moonshot Kimi K2.7 Code Highspeed official pricing; same token rates as K2.7 Code when no separate rate is listed"
+  },
+  "minimax-m3": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 1.2,
+    "cachedInputPer1M": 0.06,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "MiniMax official pay-as-you-go pricing; stores discounted standard <=512K tier, >512K tier is USD 0.60 input / 2.40 output / 0.12 cache read per 1M"
+  },
+  "step-3.7-flash": {
+    "inputPer1M": 1.35,
+    "outputPer1M": 8.1,
+    "cachedInputPer1M": 0.27,
+    "currency": "CNY",
+    "lastUpdated": "2026-06-22",
+    "source": "StepFun official pricing"
+  },
+  "mimo-v2.5-pro-ultraspeed": {
+    "inputPer1M": 1.305,
+    "outputPer1M": 2.61,
+    "cachedInputPer1M": 0.0108,
+    "currency": "USD",
+    "lastUpdated": "2026-06-22",
+    "source": "Xiaomi MiMo V2.5 Pro UltraSpeed early-access official pricing update"
   }
 }

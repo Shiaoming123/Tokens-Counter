@@ -1,0 +1,3 @@
+profile_name,model_id,currency,input_per_1m,output_per_1m,cached_input_per_1m,cache_write_per_1m,multiplier,source,last_updated,notes
+official,gpt-4o,USD,,,,,1,Provider pricing page,,Fill before commercial use
+custom,gpt-4o,USD,,,,,1.2,Internal pricing profile,,Example custom markup

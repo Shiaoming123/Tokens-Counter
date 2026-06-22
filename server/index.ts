@@ -599,6 +599,18 @@ app.use('/api/v1/*', async (context, next) => {
 
 app.get('/api/models', (context) => context.json({ models: rawModels, licenses }))
 app.get('/api/pricing', (context) => context.json(pricing))
+app.get('/api/config/providers', (context) =>
+  context.json({
+    providers: {
+      openai: { configured: Boolean(env.OPENAI_API_KEY), env: 'OPENAI_API_KEY' },
+      anthropic: { configured: Boolean(env.ANTHROPIC_API_KEY), env: 'ANTHROPIC_API_KEY' },
+      gemini: { configured: Boolean(env.GEMINI_API_KEY), env: 'GEMINI_API_KEY' },
+      zai: { configured: Boolean(env.ZAI_API_KEY ?? env.ZHIPU_API_KEY), env: 'ZAI_API_KEY' },
+      tavily: { configured: Boolean(env.TAVILY_API_KEY), env: 'TAVILY_API_KEY' },
+    },
+    note: 'Provider keys are server-side only. This endpoint only exposes configured/unconfigured status.',
+  }),
+)
 
 app.get('/api/v1/models', (context) => {
   const provider = context.req.query('provider')
