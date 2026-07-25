@@ -53,13 +53,6 @@
     "lastUpdated": "2026-05-15",
     "source": "Alibaba Cloud Model Studio mainland pricing, first tier"
   },
-  "qwen3.6-plus": {
-    "inputPer1M": 0.325,
-    "outputPer1M": 1.95,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
   "qwen3.7-max": {
     "inputPer1M": 12,
     "outputPer1M": 36,
@@ -143,14 +136,6 @@
     "currency": "USD",
     "lastUpdated": "2026-05-15",
     "source": "manual"
-  },
-  "gemini-3-pro-preview": {
-    "inputPer1M": 2,
-    "outputPer1M": 12,
-    "cachedInputPer1M": 0.2,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
   },
   "gemini-2.5-flash": {
     "inputPer1M": 0.3,
@@ -241,14 +226,6 @@
     "currency": "USD",
     "lastUpdated": "2026-05-16",
     "source": "Google official pricing"
-  },
-  "gemini-2.0-flash": {
-    "inputPer1M": 0.1,
-    "outputPer1M": 0.4,
-    "cachedInputPer1M": 0.025,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
   },
   "mistral-small-latest": {
     "inputPer1M": 0.1,
@@ -429,14 +406,6 @@
     "currency": "USD",
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
-  },
-  "gemini-3.5-flash": {
-    "inputPer1M": 1.5,
-    "outputPer1M": 9,
-    "cachedInputPer1M": 0.15,
-    "currency": "USD",
-    "lastUpdated": "2026-05-19",
-    "source": "Google Gemini Developer API pricing"
   },
   "grok-4.3": {
     "inputPer1M": 1.25,
@@ -1015,14 +984,6 @@
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
   },
-  "gemini-3.1-flash-lite-preview": {
-    "inputPer1M": 0.25,
-    "outputPer1M": 1.5,
-    "cachedInputPer1M": 0.025,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
   "doubao-seed-2-0-pro": {
     "inputPer1M": 0.47,
     "outputPer1M": 2.37,
@@ -1252,20 +1213,20 @@
     "source": "CC Switch v9 seed pricing"
   },
   "grok-4.20-0309-reasoning": {
-    "inputPer1M": 2,
-    "outputPer1M": 6,
+    "inputPer1M": 1.25,
+    "outputPer1M": 2.5,
     "cachedInputPer1M": 0.2,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-07-25",
+    "source": "xAI official pricing"
   },
   "grok-4.20-0309-non-reasoning": {
-    "inputPer1M": 2,
-    "outputPer1M": 6,
+    "inputPer1M": 1.25,
+    "outputPer1M": 2.5,
     "cachedInputPer1M": 0.2,
     "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
+    "lastUpdated": "2026-07-25",
+    "source": "xAI official pricing"
   },
   "grok-4-1-fast-reasoning": {
     "inputPer1M": 0.2,
@@ -1315,42 +1276,10 @@
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
   },
-  "devstral-2-2512": {
-    "inputPer1M": 0.4,
-    "outputPer1M": 0.9,
-    "cachedInputPer1M": 0.04,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
   "devstral-medium": {
     "inputPer1M": 0.4,
     "outputPer1M": 2,
     "cachedInputPer1M": 0.04,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
-  "mistral-large-3-2512": {
-    "inputPer1M": 0.5,
-    "outputPer1M": 1.5,
-    "cachedInputPer1M": 0.05,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
-  "mistral-medium-3.1": {
-    "inputPer1M": 0.4,
-    "outputPer1M": 2,
-    "cachedInputPer1M": 0.04,
-    "currency": "USD",
-    "lastUpdated": "2026-05-17",
-    "source": "CC Switch v9 seed pricing"
-  },
-  "mistral-small-3.2-24b": {
-    "inputPer1M": 0.075,
-    "outputPer1M": 0.2,
-    "cachedInputPer1M": 0.01,
     "currency": "USD",
     "lastUpdated": "2026-05-17",
     "source": "CC Switch v9 seed pricing"
@@ -1437,7 +1366,7 @@
     "inputPer1M": 1.5,
     "outputPer1M": 7.5,
     "currency": "USD",
-    "lastUpdated": "2026-05-31",
+    "lastUpdated": "2026-07-25",
     "source": "Mistral official model card"
   },
   "grok-build-0.1": {
@@ -1504,14 +1433,6 @@
     "lastUpdated": "2026-06-22",
     "source": "Alibaba Cloud Model Studio tiered pricing; stores 0-256K tier, 256K-1M tier is CNY 6 input / 24 output per 1M"
   },
-  "glm-5.2": {
-    "inputPer1M": 1.4,
-    "outputPer1M": 4.4,
-    "cachedInputPer1M": 0.26,
-    "currency": "USD",
-    "lastUpdated": "2026-06-22",
-    "source": "Z.AI official pricing"
-  },
   "kimi-k2.7-code": {
     "inputPer1M": 0.95,
     "outputPer1M": 4,
@@ -1551,5 +1472,122 @@
     "currency": "USD",
     "lastUpdated": "2026-06-22",
     "source": "Xiaomi MiMo V2.5 Pro UltraSpeed early-access official pricing update"
+  },
+  "gpt-5.6": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "OpenAI API official pricing; alias routes to gpt-5.6-sol"
+  },
+  "gpt-5.6-sol": {
+    "inputPer1M": 5,
+    "outputPer1M": 30,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "OpenAI API official pricing"
+  },
+  "gpt-5.6-terra": {
+    "inputPer1M": 2.5,
+    "outputPer1M": 15,
+    "cachedInputPer1M": 0.25,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "OpenAI API official pricing"
+  },
+  "gpt-5.6-luna": {
+    "inputPer1M": 1,
+    "outputPer1M": 6,
+    "cachedInputPer1M": 0.1,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "OpenAI API official pricing"
+  },
+  "claude-opus-5": {
+    "inputPer1M": 5,
+    "outputPer1M": 25,
+    "cachedInputPer1M": 0.5,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Anthropic official model pricing"
+  },
+  "claude-sonnet-5": {
+    "inputPer1M": 2,
+    "outputPer1M": 10,
+    "cachedInputPer1M": 0.2,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Anthropic official introductory pricing through 2026-08-31"
+  },
+  "gemini-3.6-flash": {
+    "inputPer1M": 1.5,
+    "outputPer1M": 7.5,
+    "cachedInputPer1M": 0.15,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Google Gemini official pricing"
+  },
+  "gemini-3.5-flash": {
+    "inputPer1M": 1.5,
+    "outputPer1M": 9,
+    "cachedInputPer1M": 0.15,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Google Gemini official pricing"
+  },
+  "gemini-3.5-flash-lite": {
+    "inputPer1M": 0.3,
+    "outputPer1M": 2.5,
+    "cachedInputPer1M": 0.03,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Google Gemini official pricing"
+  },
+  "qwen3.6-plus": {
+    "inputPer1M": 0.5,
+    "outputPer1M": 3,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Alibaba Cloud Model Studio international standard tier, 0-256K input"
+  },
+  "qwen3.6-flash": {
+    "inputPer1M": 0.25,
+    "outputPer1M": 1.5,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Alibaba Cloud Model Studio international standard tier, 0-256K input"
+  },
+  "glm-5.2": {
+    "inputPer1M": 1.4,
+    "outputPer1M": 4.4,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Z.AI / Alibaba Cloud Model Studio official pricing"
+  },
+  "grok-4.5": {
+    "inputPer1M": 2,
+    "outputPer1M": 6,
+    "cachedInputPer1M": 0.3,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "xAI official pricing"
+  },
+  "mistral-large-2512": {
+    "inputPer1M": 0.5,
+    "outputPer1M": 1.5,
+    "cachedInputPer1M": 0.05,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Mistral official model selection guide"
+  },
+  "mistral-small-2603": {
+    "inputPer1M": 0.15,
+    "outputPer1M": 0.6,
+    "cachedInputPer1M": 0.015,
+    "currency": "USD",
+    "lastUpdated": "2026-07-25",
+    "source": "Mistral official model selection guide"
   }
 }

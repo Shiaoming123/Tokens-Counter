@@ -2565,23 +2565,30 @@
     "provider": "alibaba",
     "family": "Qwen",
     "supportsText": true,
-    "supportsImage": false,
+    "supportsImage": true,
     "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
-    "imageCountMethod": "unsupported",
+    "imageCountMethod": "vision_formula",
     "tokenizer": {
       "type": "qwen"
     },
     "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 12,
-      "currency": "CNY"
+      "inputPer1M": 0.5,
+      "outputPer1M": 3,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Alibaba Cloud Model Studio international standard tier, 0-256K input"
     },
     "accuracy": {
       "text": "local_estimate",
-      "image": "unsupported"
+      "image": "local_estimate"
     },
-    "licenseRef": "qwen-tokenizer"
+    "licenseRef": "qwen-tokenizer",
+    "vision": {
+      "type": "qwen_vl_tile",
+      "baseTokens": 4096,
+      "patchBudget": 16777216
+    }
   },
   {
     "id": "qwq-32b",
@@ -3764,32 +3771,6 @@
     "licenseRef": "anthropic-api"
   },
   {
-    "id": "gemini-2.0-flash",
-    "displayName": "Gemini 2.0 Flash",
-    "provider": "google",
-    "family": "Gemini",
-    "supportsText": true,
-    "supportsImage": true,
-    "contextWindow": 1000000,
-    "textCountMethod": "official_count_api",
-    "imageCountMethod": "hybrid",
-    "vision": {
-      "type": "gemini_tile",
-      "baseTokens": 258,
-      "tileTokens": 258
-    },
-    "pricing": {
-      "inputPer1M": 0.1,
-      "outputPer1M": 0.4,
-      "currency": "USD"
-    },
-    "accuracy": {
-      "text": "official_estimate",
-      "image": "official_estimate"
-    },
-    "licenseRef": "google-genai-api"
-  },
-  {
     "id": "gemini-2.5-flash",
     "displayName": "Gemini 2.5 Flash",
     "provider": "google",
@@ -3926,62 +3907,6 @@
     "licenseRef": "google-genai-api"
   },
   {
-    "id": "gemini-3-pro-preview",
-    "displayName": "Gemini 3 Pro Preview",
-    "provider": "google",
-    "family": "Gemini",
-    "supportsText": true,
-    "supportsImage": true,
-    "contextWindow": 1000000,
-    "textCountMethod": "official_count_api",
-    "imageCountMethod": "hybrid",
-    "vision": {
-      "type": "gemini_tile",
-      "baseTokens": 258,
-      "tileTokens": 258
-    },
-    "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 12,
-      "currency": "USD"
-    },
-    "accuracy": {
-      "text": "official_estimate",
-      "image": "official_estimate"
-    },
-    "licenseRef": "google-genai-api"
-  },
-  {
-    "id": "gemini-3.1-flash-lite-preview",
-    "displayName": "Gemini 3.1 Flash Lite Preview",
-    "provider": "google",
-    "family": "Gemini",
-    "supportsText": true,
-    "supportsImage": true,
-    "supportsTools": true,
-    "contextWindow": 1000000,
-    "textCountMethod": "official_count_api",
-    "imageCountMethod": "official_count_api",
-    "vision": {
-      "type": "gemini_tile",
-      "baseTokens": 258,
-      "tileTokens": 258
-    },
-    "pricing": {
-      "inputPer1M": 0.25,
-      "outputPer1M": 1.5,
-      "cachedInputPer1M": 0.025,
-      "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
-    },
-    "accuracy": {
-      "text": "official_estimate",
-      "image": "official_estimate"
-    },
-    "licenseRef": "google-genai-api"
-  },
-  {
     "id": "gemini-3.1-flash-lite",
     "displayName": "Gemini 3.1 Flash-Lite",
     "provider": "google",
@@ -4103,35 +4028,6 @@
     "licenseRef": "mistral-tokenizer"
   },
   {
-    "id": "devstral-2-2512",
-    "displayName": "Devstral 2",
-    "provider": "mistral",
-    "family": "Devstral 2",
-    "supportsText": true,
-    "supportsImage": false,
-    "supportsTools": true,
-    "supportsCoding": true,
-    "contextWindow": 256000,
-    "textCountMethod": "local_tokenizer",
-    "imageCountMethod": "unsupported",
-    "tokenizer": {
-      "type": "mistral"
-    },
-    "pricing": {
-      "inputPer1M": 0.4,
-      "outputPer1M": 0.9,
-      "cachedInputPer1M": 0.04,
-      "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
-    },
-    "accuracy": {
-      "text": "local_estimate",
-      "image": "unsupported"
-    },
-    "licenseRef": "mistral-tokenizer"
-  },
-  {
     "id": "devstral-medium",
     "displayName": "Devstral Medium",
     "provider": "mistral",
@@ -4217,8 +4113,8 @@
     "licenseRef": "mistral-tokenizer"
   },
   {
-    "id": "mistral-large-3-2512",
-    "displayName": "Mistral Large 3",
+    "id": "mistral-large-2512",
+    "displayName": "Mistral Large 3 2512",
     "provider": "mistral",
     "family": "Mistral Large",
     "supportsText": true,
@@ -4269,34 +4165,6 @@
     "licenseRef": "mistral-tokenizer"
   },
   {
-    "id": "mistral-medium-3.1",
-    "displayName": "Mistral Medium 3.1",
-    "provider": "mistral",
-    "family": "Mistral Medium",
-    "supportsText": true,
-    "supportsImage": false,
-    "supportsTools": true,
-    "contextWindow": 256000,
-    "textCountMethod": "local_tokenizer",
-    "imageCountMethod": "unsupported",
-    "tokenizer": {
-      "type": "mistral"
-    },
-    "pricing": {
-      "inputPer1M": 0.4,
-      "outputPer1M": 2,
-      "cachedInputPer1M": 0.04,
-      "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
-    },
-    "accuracy": {
-      "text": "local_estimate",
-      "image": "unsupported"
-    },
-    "licenseRef": "mistral-tokenizer"
-  },
-  {
     "id": "mistral-medium-3-5",
     "displayName": "Mistral Medium 3.5",
     "provider": "mistral",
@@ -4315,36 +4183,8 @@
       "inputPer1M": 1.5,
       "outputPer1M": 7.5,
       "currency": "USD",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-07-25",
       "source": "Mistral official model card"
-    },
-    "accuracy": {
-      "text": "local_estimate",
-      "image": "unsupported"
-    },
-    "licenseRef": "mistral-tokenizer"
-  },
-  {
-    "id": "mistral-small-3.2-24b",
-    "displayName": "Mistral Small 3.2",
-    "provider": "mistral",
-    "family": "Mistral Small",
-    "supportsText": true,
-    "supportsImage": false,
-    "supportsTools": true,
-    "contextWindow": 256000,
-    "textCountMethod": "local_tokenizer",
-    "imageCountMethod": "unsupported",
-    "tokenizer": {
-      "type": "mistral"
-    },
-    "pricing": {
-      "inputPer1M": 0.075,
-      "outputPer1M": 0.2,
-      "cachedInputPer1M": 0.01,
-      "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -4612,19 +4452,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "approx"
     },
     "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 6,
+      "inputPer1M": 1.25,
+      "outputPer1M": 2.5,
       "cachedInputPer1M": 0.2,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-07-25",
+      "source": "xAI official pricing"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -4640,19 +4480,19 @@
     "supportsText": true,
     "supportsImage": false,
     "supportsTools": true,
-    "contextWindow": 128000,
+    "contextWindow": 1000000,
     "textCountMethod": "local_tokenizer",
     "imageCountMethod": "unsupported",
     "tokenizer": {
       "type": "approx"
     },
     "pricing": {
-      "inputPer1M": 2,
-      "outputPer1M": 6,
+      "inputPer1M": 1.25,
+      "outputPer1M": 2.5,
       "cachedInputPer1M": 0.2,
       "currency": "USD",
-      "lastUpdated": "2026-05-17",
-      "source": "CC Switch v9 seed pricing"
+      "lastUpdated": "2026-07-25",
+      "source": "xAI official pricing"
     },
     "accuracy": {
       "text": "local_estimate",
@@ -5666,5 +5506,370 @@
       "image": "official_estimate"
     },
     "licenseRef": "minimax-api"
+  },
+  {
+    "id": "gpt-5.6",
+    "displayName": "GPT-5.6 (alias)",
+    "provider": "openai",
+    "family": "GPT-5.6",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1050000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "OpenAI API pricing; gpt-5.6 aliases to gpt-5.6-sol"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.6-sol",
+    "displayName": "GPT-5.6 Sol",
+    "provider": "openai",
+    "family": "GPT-5.6",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1050000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 30,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "OpenAI API official pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.6-terra",
+    "displayName": "GPT-5.6 Terra",
+    "provider": "openai",
+    "family": "GPT-5.6",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1050000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 2.5,
+      "outputPer1M": 15,
+      "cachedInputPer1M": 0.25,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "OpenAI API official pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "gpt-5.6-luna",
+    "displayName": "GPT-5.6 Luna",
+    "provider": "openai",
+    "family": "GPT-5.6",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1050000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "tiktoken",
+      "encoding": "o200k_base"
+    },
+    "vision": {
+      "type": "openai_tile",
+      "detailLevels": [
+        "low",
+        "high",
+        "auto"
+      ],
+      "baseTokens": 70,
+      "tileTokens": 140
+    },
+    "pricing": {
+      "inputPer1M": 1,
+      "outputPer1M": 6,
+      "cachedInputPer1M": 0.1,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "OpenAI API official pricing"
+    },
+    "accuracy": {
+      "text": "local_exact",
+      "image": "local_estimate"
+    },
+    "licenseRef": "tiktoken"
+  },
+  {
+    "id": "claude-opus-5",
+    "displayName": "Claude Opus 5",
+    "provider": "anthropic",
+    "family": "Claude Opus",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "pricing": {
+      "inputPer1M": 5,
+      "outputPer1M": 25,
+      "cachedInputPer1M": 0.5,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Anthropic official model pricing"
+    },
+    "accuracy": {
+      "text": "official_exact",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "claude-sonnet-5",
+    "displayName": "Claude Sonnet 5",
+    "provider": "anthropic",
+    "family": "Claude Sonnet",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 10,
+      "cachedInputPer1M": 0.2,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Anthropic official introductory pricing through 2026-08-31"
+    },
+    "accuracy": {
+      "text": "official_exact",
+      "image": "official_estimate"
+    },
+    "licenseRef": "anthropic-api"
+  },
+  {
+    "id": "gemini-3.6-flash",
+    "displayName": "Gemini 3.6 Flash",
+    "provider": "google",
+    "family": "Gemini Flash",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1048576,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 1.5,
+      "outputPer1M": 7.5,
+      "cachedInputPer1M": 0.15,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Google Gemini official pricing"
+    },
+    "accuracy": {
+      "text": "official_exact",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "gemini-3.5-flash-lite",
+    "displayName": "Gemini 3.5 Flash-Lite",
+    "provider": "google",
+    "family": "Gemini Flash-Lite",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1048576,
+    "textCountMethod": "official_count_api",
+    "imageCountMethod": "official_count_api",
+    "vision": {
+      "type": "gemini_tile",
+      "baseTokens": 258,
+      "tileTokens": 258
+    },
+    "pricing": {
+      "inputPer1M": 0.3,
+      "outputPer1M": 2.5,
+      "cachedInputPer1M": 0.03,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Google Gemini official pricing"
+    },
+    "accuracy": {
+      "text": "official_exact",
+      "image": "official_estimate"
+    },
+    "licenseRef": "google-genai-api"
+  },
+  {
+    "id": "qwen3.6-flash",
+    "displayName": "Qwen3.6 Flash",
+    "provider": "alibaba",
+    "family": "Qwen Flash",
+    "supportsText": true,
+    "supportsImage": true,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 1000000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "vision_formula",
+    "tokenizer": {
+      "type": "qwen"
+    },
+    "vision": {
+      "type": "qwen_vl_tile",
+      "baseTokens": 4096,
+      "patchBudget": 16777216
+    },
+    "pricing": {
+      "inputPer1M": 0.25,
+      "outputPer1M": 1.5,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Alibaba Cloud Model Studio international standard tier, 0-256K input"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "local_estimate"
+    },
+    "licenseRef": "qwen-tokenizer"
+  },
+  {
+    "id": "grok-4.5",
+    "displayName": "Grok 4.5",
+    "provider": "xai",
+    "family": "Grok",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 500000,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "approx"
+    },
+    "pricing": {
+      "inputPer1M": 2,
+      "outputPer1M": 6,
+      "cachedInputPer1M": 0.3,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "xAI official pricing"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "xai-api"
+  },
+  {
+    "id": "mistral-small-2603",
+    "displayName": "Mistral Small 4",
+    "provider": "mistral",
+    "family": "Mistral Small",
+    "supportsText": true,
+    "supportsImage": false,
+    "supportsTools": true,
+    "supportsCoding": true,
+    "contextWindow": 262144,
+    "textCountMethod": "local_tokenizer",
+    "imageCountMethod": "unsupported",
+    "tokenizer": {
+      "type": "mistral"
+    },
+    "pricing": {
+      "inputPer1M": 0.15,
+      "outputPer1M": 0.6,
+      "cachedInputPer1M": 0.015,
+      "currency": "USD",
+      "lastUpdated": "2026-07-25",
+      "source": "Mistral official model selection guide"
+    },
+    "accuracy": {
+      "text": "local_estimate",
+      "image": "unsupported"
+    },
+    "licenseRef": "mistral-tokenizer"
   }
 ]

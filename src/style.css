@@ -3579,3 +3579,41 @@ main {
     text-align: left;
   }
 }
+
+/* ---- Programmer-facing typography ---- */
+
+/* Keep prose in the UI font; use a stable local mono stack for identifiers and data. */
+html .api-docs-layout .api-docs-panel code,
+html .api-docs-layout .api-docs-table code,
+html .api-docs-layout .api-code-grid pre,
+html .case-page .case-code pre,
+html .case-page .case-code code,
+html .email-request-body,
+html .api-method,
+html .api-option-value {
+  font-family: "JetBrains Mono", "SFMono-Regular", "SF Mono", "Cascadia Code", Consolas, "PingFang SC", "Microsoft YaHei", ui-monospace, monospace;
+}
+
+/* Model IDs are compact, comparison-friendly strings; Chinese glyphs use the readable fallback. */
+html .model-sidebar .model-name,
+html .model-sidebar .model-meta,
+html section.results-panel .model-cell-name,
+html section.results-panel .ranked-model,
+html section.results-panel .best-model {
+  font-family: "JetBrains Mono", "SFMono-Regular", "SF Mono", "Cascadia Code", Consolas, "PingFang SC", "Microsoft YaHei", ui-monospace, monospace;
+}
+
+/* Align token/cost figures without changing labels or surrounding copy. */
+html .summary-card:nth-child(1) strong,
+html .summary-card:nth-child(2) strong,
+html .summary-card:nth-child(4) strong,
+html section.results-panel .cost-cell,
+html section.results-panel .ranked-cost,
+html section.results-panel .best-cost,
+html section.results-panel .drawer-mobile-costs strong,
+html section.results-panel .drawer-mobile-metrics strong,
+html section.results-panel .drawer-stat strong,
+html .comparison-drawer .drawer-table-wrapper .el-table__body td:nth-child(n + 2) {
+  font-family: "JetBrains Mono", "SFMono-Regular", "SF Mono", "Cascadia Code", Consolas, "PingFang SC", "Microsoft YaHei", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
